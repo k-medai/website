@@ -74,7 +74,9 @@
    }
   ],
   "lang": "en",
-  "featured": false
+  "featured": true,
+  "authors": "Suyeon Min, Jaekang Lee, Dasom Noh, Minjy Suh, Sunyoung Kwon*",
+  "venue": "ICPR"
  },
  {
   "id": "p5",
@@ -503,7 +505,7 @@
    }
   ],
   "lang": "en",
-  "featured": true,
+  "featured": false,
   "authors": "Dong Seung Shin, Janghee Lee, Eunhye Kang, Dasom Noh, Jong-Ho Cheun, Jun-Hee Lee, Yeongyeong Son, Soong Jun Bae, Seok Won Kim, Jeong Eon Lee, Jonghan Yu, Byung-Joo Chae, Sunyoung Kwon, Han-Byoel Lee, Sung Gwe Ahn, Jai Min Ryu*",
   "venue": "JAMA Netw Open"
  },
@@ -820,7 +822,9 @@
    }
   ],
   "lang": "en",
-  "featured": false
+  "featured": true,
+  "authors": "Kisung Moon, Hyeon-Jin Im, Sunyoung Kwon*",
+  "venue": "Bioinformatics"
  },
  {
   "id": "p53",
@@ -1324,7 +1328,7 @@
    }
   ],
   "lang": "en",
-  "featured": true,
+  "featured": false,
   "authors": "Dasol Hwang, Jinyoung Park, Sunyoung Kwon, Kyung-Min Kim, Jung-Woo Ha, Hyunwoo J Kim",
   "venue": "NeurIPS"
  },
