@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+const r = site.recruiting;
+const c = site.contact;
+---
+<Base title="Join" description="부산대 Medical AI Lab 대학원생 모집 안내, 지원 방법, 자격, 지원 내용, 연락처">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>{r.heading}</h1>
+      <div class="pitch lede">{r.pitchKo.map((p) => <p>{p}</p>)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div class="reveal">
+        <h2 class="h">How to apply</h2>
+        <p class="how">{r.howTo}</p>
+        <p class="mail">{c.email}</p>
+        <ol class="docs">{r.documents.map((d) => <li>{d}</li>)}</ol>
+        <div class="progs">
+          <p class="muted">연계 과정: {r.affiliations.map((a, i) => <><a href={a.href} target="_blank" rel="noopener">{a.label}</a>{i < r.affiliations.length - 1 ? ', ' : ''}</>)}</p>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:100ms">
+        <div class="block">
+          <p class="eyebrow">지원 자격</p>
+          <ul class="plain">{r.eligibility.map((e) => <li>{e}</li>)}</ul>
+        </div>
+        <div class="block">
+          <p class="eyebrow">지원 내용</p>
+          <ul class="plain">{r.benefits.map((b) => <li>{b}</li>)}</ul>
+        </div>
+        <div class="block en">
+          <p class="eyebrow">In English</p>
+          {r.pitchEn.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band contact">
+    <div class="wrap contact-in">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>Professor {c.professor}</h2>
+        <p class="muted">{c.professorKo} · {site.department}, {site.university}</p>
+      </div>
+      <div class="c-grid">
+        <div><p class="eyebrow">E-mail</p><p>{c.email}</p></div>
+        <div><p class="eyebrow">Phone</p><p>{c.phoneProfessor} (Professor)<br />{c.phoneLab} (Lab)</p></div>
+        <div><p class="eyebrow">Address</p><p>{c.room}<br />{c.addressKo}</p></div>
+      </div>
+      <a class="btn btn-light" href="/contact/">찾아오는 길 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pitch { margin-top: 24px; display: grid; gap: 6px; color: var(--muted); }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 80px; align-items: start; }
+  .h { font-size: clamp(28px, 3vw, 38px); margin-bottom: 18px; }
+  .how { font-size: 19px; margin: 0 0 4px; }
+  .mail { font-size: 17px; margin-bottom: 18px; }
+  .docs { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+  .progs { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--rule); display: grid; gap: 6px; }
+  .progs p { margin: 0; }
+  .block { padding: 22px 0; border-top: 1px solid var(--rule); display: grid; gap: 10px; }
+  .block:first-child { padding-top: 0; border-top: 0; }
+  .plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .plain li { padding-left: 18px; position: relative; }
+  .plain li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 7px; height: 1px; background: var(--text); }
+  .en p { margin: 0; color: var(--muted); }
+  @media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+  .contact { padding-block: clamp(56px, 8vw, 96px); }
+  .contact-in { display: grid; gap: 32px; justify-items: start; }
+  .c-grid { width: 100%; }
+  .contact h2 { margin-top: 8px; color: #fff; }
+  .c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 40px; padding-top: 28px; border-top: 1px solid var(--on-ink-rule); }
+  .c-grid p { margin: 6px 0 0; }
+  @media (max-width: 760px) { .c-grid { grid-template-columns: 1fr; } }
+</style>

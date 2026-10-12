@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="페이지를 찾을 수 없음">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>페이지를 찾을 수 없습니다</h1>
+      <p class="lede">주소가 바뀌었거나 삭제된 페이지입니다. 아래 메뉴에서 찾아보세요.</p>
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="wrap links">
+      <a class="btn" href="/">Home</a>
+      <a class="btn" href="/people/">People</a>
+      <a class="btn" href="/research/">Research</a>
+      <a class="btn" href="/publications/">Publications</a>
+      <a class="btn" href="/activity/">Activity</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+</style>

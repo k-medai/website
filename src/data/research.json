@@ -1,0 +1,121 @@
+{
+  "whatWeDo": [
+    {
+      "title": "암 재발 전이 예측",
+      "text": "우리 연구실에서는 다양한 병원과 협업하여 다수의 암 환자 데이터를 다각적 시각에서 분석 및 연구하여, 환자의 암 재발과 전이를 예측하는 의료 인공지능 모델을 제시합니다.",
+      "keywords": ["Clinical ML", "NGS", "Breast cancer", "Prostate cancer"],
+      "href": "/research/#breast-cancer"
+    },
+    {
+      "title": "신약 개발",
+      "text": "그래프 신경망(GNN)을 활용해 약물의 화학적 성질을 분석하는 의료 인공지능 모델을 개발하고, 모델을 활용해 다제약물 내성 솔루션과 신약 개발을 포함한 생물정보학에 관련된 주제를 연구합니다.",
+      "keywords": ["GNN", "Molecular property prediction", "DDI / DTI", "Pretraining"],
+      "href": "/research/#drug-discovery"
+    },
+    {
+      "title": "시계열 데이터 분석",
+      "text": "뇌전도(EEG), 심전도(ECG)와 같은 의료 시계열 데이터 뿐만이 아니라 Industry 4.0에 발맞춰 산업 현장 센서에서 측정되는 다양한 형태의 시계열 데이터를 인공지능 모델로 분석하고 예측하는 실시간 솔루션 시스템을 개발합니다.",
+      "keywords": ["ECG / EEG / PPG", "Self-supervised learning", "Real-time"],
+      "href": "/research/#biosignal"
+    }
+  ],
+  "projects": [
+    {
+      "id": "drug-discovery",
+      "area": "신약 개발",
+      "title": "초거대 사전학습 약물 모델 기반 다제 약물 복용 부작용 예측 모델 개발",
+      "funding": "한국연구재단과제 2022-2027",
+      "sections": [
+        { "heading": "초거대 사전학습 약물모델 개발", "text": "약물 데이터베이스로 부터 수집한 초 거대 unlabeled데이터를 기반으로 사전 학습 (Pre-trained) 약물 모델을 개발, Pretrained 모델은 다양한 태스크들에 활용될 수 있어, 이 모델을 기반으로 부작용 예측, 약물 기능 분류, 약물-약물 상호작용 등 다양한 상호작용 네트워크를 구축하고자 함." },
+        { "text": "그래프는 약물의 원자를 노드로, 원자 간 결합을 엣지로 나타내는 가장 직관적인 표현형으로, 분자 그래프 기반의 GNN 모델(Graph neural network)로 분자의 성질 예측 연구를 수행" },
+        { "heading": "다제복용 부작용 예측 모델 개발", "text": "복합만성질환자 수가 증가함에 따라 다제약물 복용자 수가 증가하는 추세, 초거대 사전 학습 모델을 기반으로 약물 간의 상호작용, 부작용 예측을 통해 다제약물 복약 자체 진단 서비스를 제공할 예정" }
+      ],
+      "partners": [],
+      "related": [
+        { "kind": "paper", "title": "3D Contrastive Learning for Molecular Property Prediction", "href": "https://academic.oup.com/bioinformatics/article/39/6/btad371/7192173" },
+        { "kind": "paper", "title": "Graphs, Entities, and Step Mixture for Enriching Graph Representation", "href": "https://ieeexplore.ieee.org/document/9583282" },
+        { "kind": "paper", "title": "End-to-end Representation Learning for Chemical-Chemical Interaction Prediction", "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8428455" },
+        { "kind": "paper", "title": "Comprehensive Ensemble in QSAR Prediction for Drug Discovery", "href": "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-3135-4" },
+        { "kind": "paper", "title": "의료 과학 연구를 위한 설명가능 그래프 인공 신경망", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11158128" },
+        { "kind": "paper", "title": "그래프 뉴럴 네트워크를 활용한 약물 개발 최신 연구 동향 분석", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10529679" }
+      ]
+    },
+    {
+      "id": "breast-cancer",
+      "area": "유방암 환자 재발/원격전이 예측",
+      "title": "유방암 환자의 임상 데이터, 유전체데이터를 활용하여 재발 및 원격전이 예측",
+      "funding": "국립암센터 2023-2025",
+      "sections": [
+        { "heading": "젊은(폐경 전) 유방암 환자 후기 원격 전이 예측", "text": "국내 유방암 환자는 젊은 환자 분포가 많은 동시에 생존율이 높은 추세를 보여 지연 재발 예측을 통한 조기 진단이 필요. 유방암 환자의 임상 데이터를 활용하여 국내의 유방암 특성을 고려한 기계학습 기반 모델 구축하고 실제 치료 계획 수립에 활용하는 것을 목표로 함", "partners": "삼성서울병원, 서울대학교병원, 강남세브란스, 디시젠" },
+        { "heading": "유방암 환자의 NGS 기반 예후 예측 도구 개발", "text": "수술 후 유방암 조직의 유전자 발현분석으로 환자의 예후를 정확히 예측하고 항암치료의 필요성을 판정해 줄 수 있는 차세대 염기서열분석(NGS) 기반, 다유전자 구성의 한국형 예후예측 도구를 개발", "partners": "서울대학교, 서울대학교병원, 고대구로병원, 현대아산병원, 디시젠" }
+      ],
+      "related": [
+        { "kind": "patent", "title": "차세대 염기서열분석을 이용한 기계학습 기반 유방암 예후 예측 방법 및 예측 시스템", "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170149834" },
+        { "kind": "patent", "title": "유방암 예후 예측용 조성물 및 방법", "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170136293&dbt=KPTN" },
+        { "kind": "paper", "title": "Development and validation of a next-generation sequencing-based multigene assay to predict the prognosis of estrogen receptor-positive, HER2-negative breast cancer", "href": "https://pubmed.ncbi.nlm.nih.gov/33028590/" }
+      ]
+    },
+    {
+      "id": "ehr",
+      "area": "EHR 데이터 분석",
+      "title": "폐기능검사(PFT) 결과를 이용한 사망 예측 모델을 개발",
+      "sections": [
+        { "heading": "패혈증 환자에서 퇴원시의 CFScore 예측 모델을 개발", "text": "CFScore(clinical frailty score)는 환자의 쇠약감을 나타내는 지표로, 입원시 환자의 기본 정보와 임상 지표들을 이용하여 퇴원시의 CFScore 예측을 통해 더 집중적인 치료를 필요로 하는 환자를 선별하는데 활용", "partners": "양산부산대학교 병원 호흡기내과" }
+      ],
+      "related": [
+        { "kind": "paper", "title": "The feasibility of granzyme B levels using an amperometric immunosensor for lung cancer detection", "href": "https://atm.amegroups.com/article/view/96115/pdf" }
+      ]
+    },
+    {
+      "id": "prostate-cancer",
+      "area": "전립선암",
+      "title": "전립선암 환자의 HSPC/CRPC 분류 표적 유전자 탐색",
+      "sections": [
+        { "text": "전립선 암은 급격하게 발생 빈도가 증가하고 있는 암이나 이에 관련된 유전체 분석 프로젝트 진행이 미미하며 조직 확보가 타 암종에 비해 어려움. 전립선 암 환자의 유전자 발현량 데이터를 이용하여 전립선 암 치료 요법 선택에 중요한 호르몬 민감성 여부 예측 표적 유전자를 탐색", "partners": "부산대학교병원" }
+      ],
+      "related": []
+    },
+    {
+      "id": "biosignal",
+      "area": "생체 신호 처리",
+      "title": "생체 신호 처리 데이터 분석",
+      "sections": [
+        { "text": "우리 연구실에서는 생체에서 발생하는 신호를 측정하여 얻은 대용량의 각종 생체 정보 데이터를 분석하고 판단하여 질환의 진단 및 치료에 활용하기 위해 최신의 신호 처리 및 딥러닝 기술에 관한 연구를 진행", "partners": "사운더블헬스" }
+      ],
+      "related": [
+        { "kind": "paper", "title": "Stress Detection with Single PPG Sensor by Orchestrating Multiple Denoising and Peak-detecting Methods", "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9358140" },
+        { "kind": "paper", "title": "대조 학습에 기반한 기침 소리 분류 모델 분석", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11149402" },
+        { "kind": "paper", "title": "스펙트로그램의 대조 학습을 이용한 기침 소리 분류 (우수발표논문상)", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11035837" },
+        { "kind": "paper", "title": "단음스펙트로그램에 적합한 증강기법 분석", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10583058" },
+        { "kind": "paper", "title": "전이 학습을 통한 GRU와 LSTM의 낙상 검출 성능 향상", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10498675" },
+        { "kind": "paper", "title": "PPG signal preprocessing and comparison study with learning-based model for stress detection", "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10498674" }
+      ]
+    },
+    {
+      "id": "microbiome",
+      "area": "Microbiome 분석",
+      "title": "Narrow band UVB 광선치료가 아토피피부염 환자의 피부 microbiome에 미치는 영향 분석",
+      "sections": [
+        { "text": "아토피피부염 환자를 대상으로 광선치료 효과를 파악하기 위하여 병변 부위 Microbiome 분석을 진행, 치료전/치료중/치료후 과정에서 마이크로바이옴 변화를 분석, 치료효과를 파악" },
+        { "heading": "방사선치료가 피부 마이크로바이옴 및 보형물 유방 재건에 미치는 영향 분석 (한국연구재단 2023-2024)", "text": "유방암 수술 이후 보형물을 이용한 동시재건을 시행한 환자들에서 방사선 치료 시행에 따른 피부 균총 분포의 변화를 확인하고 감염 합병증 발생과의 연관성을 분석, 이를 통해 보형물 기반 유방재건 이후 발생하는 감염 합병증의 해결책을 모색하며 이를 통해 유방재건 치료 과정을 최적화", "partners": "서울대학교병원 성형외과" }
+      ],
+      "related": [
+        { "kind": "paper", "title": "Changes in Lesional and Non-lesional Skin Microbiome During Treatment of Atopic Dermatitis", "href": "https://pubmed.ncbi.nlm.nih.gov/30460369/" }
+      ]
+    },
+    {
+      "id": "ai-sensor",
+      "area": "AI 기반 센서",
+      "title": "Disease Detection using AI-based sensor",
+      "funding": "씨젠의료재단 2023-2024",
+      "sections": [
+        { "heading": "ssDNA to CNT affinity prediction", "text": "Carbon Nano Tube (CNT)에 single strand DNA (ssDNA) 를 붙여서 다양한 물질을 검출할 수 있는 센서 개발. 수많은 DNA 후보 시퀀스들 중에서 CNT에 강한 친화력을 보일 수 있는 DNA sequence 예측모델 개발" },
+        { "heading": "Disease Detection from Optical Sensor Data", "text": "ssDNA-CNT 광학센서를 이용하여, 액체생검으로부터 데이터 생성. 이를 이용하여 기존에 검출이 어려웠던 (Biomarker가 분명하게 밝혀지지 않아) 다양한 질병을 검출하는 연구", "partners": "씨젠의료재단, 부산대학교 의생명융합공학부 정상화" }
+      ],
+      "related": [
+        { "kind": "service", "title": "ssDNA4CNT 웹 서비스", "href": "http://service.k-medai.com/ssdna4cnt" },
+        { "kind": "paper", "title": "Systematic Selection of High Affinity ssDNA Sequences to Carbon Nanotubes", "href": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202308915" }
+      ]
+    }
+  ]
+}

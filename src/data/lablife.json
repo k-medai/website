@@ -1,0 +1,80 @@
+[
+ {
+  "date": "2026.07.24",
+  "title": "제 7회 피지컬 랩 복싱",
+  "note": "",
+  "photos": [
+   "/img/lablife/07-boxing/01.jpg",
+   "/img/lablife/07-boxing/02.jpg",
+   "/img/lablife/07-boxing/03.jpg"
+  ]
+ },
+ {
+  "date": "2026.06.25",
+  "title": "제 6회 피지컬 랩 천제연 폭포",
+  "note": "",
+  "photos": [
+   "/img/lablife/06-cheonjeyeon/01.jpg"
+  ]
+ },
+ {
+  "date": "2026.01.16",
+  "title": "제 5회 피지컬 랩 풋살",
+  "note": "",
+  "photos": [
+   "/img/lablife/05-futsal/01.jpg",
+   "/img/lablife/05-futsal/02.jpg",
+   "/img/lablife/05-futsal/03.jpg",
+   "/img/lablife/05-futsal/04.jpg",
+   "/img/lablife/05-futsal/05.jpg",
+   "/img/lablife/05-futsal/06.jpg"
+  ]
+ },
+ {
+  "date": "2025.12.18",
+  "title": "제 4회 피지컬 랩 카트 & 짚라인",
+  "note": "",
+  "photos": [
+   "/img/lablife/04-kart-zipline/01.jpg",
+   "/img/lablife/04-kart-zipline/02.jpg",
+   "/img/lablife/04-kart-zipline/03.jpg",
+   "/img/lablife/04-kart-zipline/04.jpg",
+   "/img/lablife/04-kart-zipline/05.jpg",
+   "/img/lablife/04-kart-zipline/06.jpg"
+  ]
+ },
+ {
+  "date": "2025.07.03",
+  "title": "제 3회 피지컬 랩 한라산 (윗새오름) 등반",
+  "note": "",
+  "photos": [
+   "/img/lablife/03-hallasan/01.jpg",
+   "/img/lablife/03-hallasan/02.jpg",
+   "/img/lablife/03-hallasan/03.jpg",
+   "/img/lablife/03-hallasan/04.jpg",
+   "/img/lablife/03-hallasan/05.jpg",
+   "/img/lablife/03-hallasan/06.jpg",
+   "/img/lablife/03-hallasan/07.jpg"
+  ]
+ },
+ {
+  "date": "2025.06.05",
+  "title": "제 2회 피지컬 랩 클라이밍",
+  "note": "",
+  "photos": [
+   "/img/lablife/02-climbing/01.jpg",
+   "/img/lablife/02-climbing/02.jpg",
+   "/img/lablife/02-climbing/03.jpg",
+   "/img/lablife/02-climbing/04.jpg"
+  ]
+ },
+ {
+  "date": "2024.09.06",
+  "title": "제 1회 피지컬 랩 탁구 대회",
+  "note": "Winner : Gyoungyoung Heo / 번외-우우우상: Chan Lee",
+  "photos": [
+   "/img/lablife/01-table-tennis/01.jpg",
+   "/img/lablife/01-table-tennis/02.jpg"
+  ]
+ }
+]

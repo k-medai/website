@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "2026-miccai-strasbourg",
+    "name": "MICCAI 2026",
+    "fullName": "29th International Conference on Medical Image Computing and Computer Assisted Intervention",
+    "location": "Strasbourg, France",
+    "dates": "2026.09.27 – 10.01",
+    "papers": ["p3"],
+    "note": ""
+  },
+  {
+    "slug": "2026-icpr-lyon",
+    "name": "ICPR 2026",
+    "fullName": "28th International Conference on Pattern Recognition",
+    "location": "Lyon, France",
+    "dates": "2026.08.17 – 08.21",
+    "papers": ["p4"],
+    "note": ""
+  },
+  {
+    "slug": "2025-aaai-philadelphia",
+    "name": "AAAI 2025",
+    "fullName": "39th Annual AAAI Conference on Artificial Intelligence",
+    "location": "Philadelphia, USA",
+    "dates": "2025.02.25 – 03.04",
+    "papers": ["p20"],
+    "note": ""
+  }
+]

@@ -1,0 +1,334 @@
+---
+/**
+ * 홈 "What We Do" 카드용 3D 장면 (첫 화면 DockingHero와 같은 조명·재질·팔레트).
+ *  - metastasis: 원발 종양에서 떨어진 암세포가 혈관을 타고 흐르고, 모델이 각 세포를 탐지(링)해 앞으로의 경로를 예측(점)하며, 세포가 먼 곳에 자리 잡는다(재발·전이)
+ *  - molecule: 실제 약물 분자(PubChem 3D)를 그래프로 본 GNN — 노드 링, 간선을 따라 이동하는 메시지 입자, 홉 단위로 번지는 갱신 파동, 전체 그래프 readout 링
+ *  - ecg:      3D 심전도 모니터. 파형이 시간에 따라 왼쪽으로 흘러가고, 고정된 스윕 라인에서 신호를 읽어 R파마다 플래시
+ * 세 장면 모두 마우스가 없어도 스스로 움직이고(회전·카메라 이동·파형 흐름), 포인터가 있으면 시차가 더해진다.
+ * 장면 안에는 글자를 넣지 않는다. 화면에 보일 때만 렌더링하고, WebGL이 없으면 정지 포스터를 보여 준다.
+ */
+interface Props { kind: 'metastasis' | 'molecule' | 'ecg'; label: string }
+const { kind, label } = Astro.props;
+---
+<div class="scene" data-scene={kind}>
+  <img class="scene-poster" src={`/img/scene-${kind}.jpg`} alt="" aria-hidden="true" loading="lazy" decoding="async" width="800" height="600" data-scene-poster />
+  <canvas class="scene-canvas" role="img" aria-label={label}></canvas>
+</div>
+
+<style>
+  .scene { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: radial-gradient(120% 90% at 60% 40%, #14264a 0%, #0b1730 48%, #070f1f 100%); color: var(--on-ink); }
+  .scene-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.9s var(--ease); }
+  .scene.live .scene-poster { opacity: 0; }
+  .scene-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .scene::after { content: ''; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 -70px 70px -40px rgba(7, 15, 31, 0.75); }
+</style>
+
+<script>
+  import * as THREE from 'three';
+  import molData from '../data/molecules/palbociclib.json';
+
+  type MolJson = { name: string; atoms: [string, number, number, number][]; bonds: [number, number, number][] };
+  const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-scene]'));
+  const still = new URLSearchParams(location.search).has('still'); // 포스터 캡처용 정지 포즈. OS 동작 줄이기 설정과 무관하게 항상 움직인다.
+  const SPEED = 0.5; // 세 장면 공통 시간 배속. 연구실 요청으로 심전도 기준 절반 속도(회전·리더·펄스·파형 흐름·카메라 모두 같이 느려진다)
+  const webglOk = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } })();
+
+  if (roots.length && webglOk) {
+    const FOG = 0x0b1730;
+    const ATOM_COLOR: Record<string, number> = { C: 0xdfe5ee, N: 0x3d9ff5, O: 0xff6b6b, S: 0xf2c94c, F: 0x7ee0c8, Cl: 0x68d391, Br: 0xc08a5a, P: 0xff9f43 };
+    const ATOM_R: Record<string, number> = { C: 0.42, N: 0.44, O: 0.44, S: 0.52, F: 0.4, Cl: 0.52, Br: 0.56, P: 0.52 };
+    const up = new THREE.Vector3(0, 1, 0);
+    const dummy = new THREE.Object3D();
+    const sphereGeo = new THREE.SphereGeometry(1, 22, 16);
+    const cylGeo = new THREE.CylinderGeometry(1, 1, 1, 12, 1, true);
+    const canvasTex = (draw: (g: CanvasRenderingContext2D, s: number) => void) => { const s = 128; const c = document.createElement('canvas'); c.width = c.height = s; draw(c.getContext('2d')!, s); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; };
+    const haloTex = canvasTex((g, s) => { const grd = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2); grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.35, 'rgba(255,255,255,0.35)'); grd.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = grd; g.fillRect(0, 0, s, s); });
+    const ringTex = canvasTex((g, s) => { g.strokeStyle = 'rgba(255,255,255,1)'; g.lineWidth = 6; g.beginPath(); g.arc(s / 2, s / 2, s / 2 - 8, 0, Math.PI * 2); g.stroke(); g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 14; g.stroke(); });
+    const cylinderAt = (mesh: THREE.InstancedMesh, k: number, a: THREE.Vector3, b: THREE.Vector3, r: number) => {
+      const d = new THREE.Vector3().subVectors(b, a); const len = d.length();
+      dummy.position.addVectors(a, b).multiplyScalar(0.5); dummy.quaternion.setFromUnitVectors(up, d.normalize()); dummy.scale.set(r, len, r); dummy.updateMatrix(); mesh.setMatrixAt(k, dummy.matrix);
+    };
+    const sphereAt = (mesh: THREE.InstancedMesh, k: number, p: THREE.Vector3, r: number) => { dummy.position.copy(p); dummy.quaternion.identity(); dummy.scale.setScalar(r); dummy.updateMatrix(); mesh.setMatrixAt(k, dummy.matrix); };
+
+    function lights(scene: THREE.Scene) {
+      scene.add(new THREE.HemisphereLight(0xdbe8ff, 0x0b1730, 0.9));
+      const key = new THREE.DirectionalLight(0xffffff, 1.7); key.position.set(28, 40, 48); scene.add(key);
+      const rim = new THREE.DirectionalLight(0x12b5c4, 1.4); rim.position.set(-40, -12, -36); scene.add(rim);
+      const fill = new THREE.DirectionalLight(0x2495f2, 0.5); fill.position.set(-20, 30, 20); scene.add(fill);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+    }
+    /** 피사체 뒤 부드러운 빛 덩어리와 바닥 반사광 (깊이감) */
+    function atmosphere(scene: THREE.Scene, color: number, size: number, y: number) {
+      const back = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, color, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false }));
+      back.scale.setScalar(size); back.position.set(0, 0, -size * 0.35); scene.add(back);
+      const floor = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, color: 0x1d4b8a, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }));
+      floor.scale.set(size * 1.6, size * 0.35, 1); floor.position.set(0, y, 0); scene.add(floor);
+      return back;
+    }
+    /** 확장하며 사라지는 링 펄스 풀 */
+    function ringPool(scene: THREE.Scene, n: number, color: number) {
+      const items = Array.from({ length: n }, () => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: ringTex, color, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })); s.visible = false; scene.add(s); return { s, t0: -1, size: 1, parent: null as THREE.Object3D | null }; });
+      let k = 0;
+      return {
+        spawn: (p: THREE.Vector3, size: number, t: number, parent?: THREE.Object3D) => { const it = items[k++ % n]; if (it.parent !== (parent ?? scene)) { (parent ?? scene).add(it.s); it.parent = parent ?? scene; } it.s.position.copy(p); it.t0 = t; it.size = size; it.s.visible = true; },
+        update: (t: number) => { for (const it of items) { if (!it.s.visible) continue; const a = (t - it.t0) / 0.7; if (a >= 1) { it.s.visible = false; continue; } it.s.scale.setScalar(it.size * (0.4 + a * 1.6)); (it.s.material as THREE.SpriteMaterial).opacity = 0.75 * (1 - a) * (1 - a); } },
+      };
+    }
+    type Scene = { update: (t: number, dt: number, hx: number, hy: number) => void; camera: THREE.PerspectiveCamera; scene: THREE.Scene };
+
+    // ---------- cancer recurrence & metastasis: a primary tumour sheds cells into a vessel; the model flags each circulating cell (ring) and predicts its path ahead (dots); cells seed a distant site
+    function buildMetastasis(): Scene {
+      const scene = new THREE.Scene(); scene.fog = new THREE.Fog(FOG, 55, 135); lights(scene);
+      const camera = new THREE.PerspectiveCamera(30, 4 / 3, 0.5, 300);
+      atmosphere(scene, 0x1f6fd0, 80, -24);
+      const g = new THREE.Group(); scene.add(g);
+      let seed = 11; const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; // 결정적 난수: 포스터와 실행이 같은 장면
+      // 혈관: 화면을 가로지르는 완만한 S자 경로. 양 끝은 화면 밖으로 이어진다
+      const path = new THREE.CatmullRomCurve3([new THREE.Vector3(-54, -6, -16), new THREE.Vector3(-27, 3, 1), new THREE.Vector3(0, -3, 7), new THREE.Vector3(27, 4, 1), new THREE.Vector3(54, -3, -16)], false, 'centripetal', 0.5);
+      const SEG = 240, R = 6.2;
+      const frames = path.computeFrenetFrames(SEG, false);
+      const fi = (u: number) => Math.max(0, Math.min(SEG - 1, Math.floor(u * SEG)));
+      /** 경로 위치 u, 혈관 축에서의 반지름 r, 둘레 각도 ang → 월드 좌표 */
+      const at = (u: number, r: number, ang: number, out: THREE.Vector3) => { const i = fi(u); path.getPointAt(u, out); return out.addScaledVector(frames.normals[i], Math.cos(ang) * r).addScaledVector(frames.binormals[i], Math.sin(ang) * r); };
+      const wall = new THREE.Mesh(new THREE.TubeGeometry(path, SEG, R, 30, false), new THREE.MeshPhysicalMaterial({ color: 0x3a6fd8, roughness: 0.18, metalness: 0, transparent: true, opacity: 0.15, side: THREE.DoubleSide, depthWrite: false, clearcoat: 0.9, clearcoatRoughness: 0.2 }));
+      g.add(wall);
+      // 혈관을 따라 흐르는 홀로그램 고리
+      const NH = 28, zAxis = new THREE.Vector3(0, 0, 1);
+      const hoops = new THREE.InstancedMesh(new THREE.TorusGeometry(R + 0.12, 0.055, 6, 72), new THREE.MeshBasicMaterial({ color: 0x5fa8ff, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false }), NH);
+      g.add(hoops);
+      // 적혈구: 가운데가 오목한 원반(선반 곡면)
+      const prof: THREE.Vector2[] = []; const NPf = 14; const hh = (r: number) => 0.07 + 0.27 * Math.pow(Math.sin(Math.PI * Math.min(1, r)), 1.3);
+      for (let k = 0; k <= NPf; k++) prof.push(new THREE.Vector2(k / NPf, -hh(k / NPf)));
+      for (let k = NPf; k >= 0; k--) prof.push(new THREE.Vector2(k / NPf, hh(k / NPf)));
+      const NR = 64;
+      const rbc = new THREE.InstancedMesh(new THREE.LatheGeometry(prof, 24), new THREE.MeshPhysicalMaterial({ color: 0x4f86e8, roughness: 0.45, clearcoat: 0.5, clearcoatRoughness: 0.3, emissive: 0x0d2a66, emissiveIntensity: 0.7 }), NR);
+      g.add(rbc);
+      const blood = Array.from({ length: NR }, () => ({ u0: rnd(), r: Math.sqrt(rnd()) * R * 0.74, ang: rnd() * Math.PI * 2, v: 0.044 + rnd() * 0.022, spin: (rnd() - 0.5) * 1.4, tilt: rnd() * Math.PI }));
+      // 종양 세포: 울퉁불퉁한 구
+      const lumpGeo = new THREE.SphereGeometry(1, 28, 20);
+      { const pa = lumpGeo.attributes.position; const v = new THREE.Vector3(); for (let k = 0; k < pa.count; k++) { v.fromBufferAttribute(pa, k); const n = 1 + 0.13 * Math.sin(4.1 * v.x + 1.3) * Math.sin(3.7 * v.y - 0.6) + 0.1 * Math.cos(5.3 * v.z + 2.1) * Math.sin(2.9 * v.x); v.multiplyScalar(n); pa.setXYZ(k, v.x, v.y, v.z); } lumpGeo.computeVertexNormals(); }
+      const tumorMat = new THREE.MeshPhysicalMaterial({ color: 0xff7b6b, roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3, emissive: 0x5a1a16, emissiveIntensity: 0.9 });
+      const NP1 = 13, NC = 5, NS = 5; // 원발 종양 덩어리 수, 순환 세포 슬롯 수, 전이 부위 덩어리 수
+      const U0 = 0.3, A0 = Math.PI * 0.55, U1 = 0.65, A1 = -Math.PI * 0.4; // 원발 종양과 전이 부위: 경로 위치(u)와 혈관 둘레 각도
+      const prim = new THREE.InstancedMesh(lumpGeo, tumorMat, NP1), ctc = new THREE.InstancedMesh(lumpGeo, tumorMat, NC), site = new THREE.InstancedMesh(lumpGeo, tumorMat, NS);
+      g.add(prim, ctc, site);
+      const p = new THREE.Vector3();
+      const cluster = (mesh: THREE.InstancedMesh, n: number, u: number, ang: number, base: number) => Array.from({ length: n }, (_, k) => { at(u + (rnd() - 0.5) * 0.05, R + 0.3 + rnd() * 1.7, ang + (rnd() - 0.5) * 0.95, p); const s = base * (0.72 + rnd() * 0.6); dummy.position.copy(p); dummy.rotation.set(rnd() * 6, rnd() * 6, 0); dummy.scale.setScalar(s); dummy.updateMatrix(); mesh.setMatrixAt(k, dummy.matrix); return { pos: p.clone(), rot: dummy.rotation.clone(), s }; });
+      cluster(prim, NP1, U0, A0, 1.55); prim.instanceMatrix.needsUpdate = true;
+      const siteLumps = cluster(site, NS, U1, A1, 1.2);
+      // 순환 종양 세포: 슬롯마다 주기적으로 떨어져 나와(0) 흐르다가(1) 혈관 벽을 빠져나가(2) 전이 부위에 합쳐진다(3). 모두 t의 함수라 포스터(still)도 같은 장면이 나온다
+      const INTERVAL = 3.0, PERIOD = INTERVAL * NC, T1 = 1.3, T2 = T1 + 9.0, T3 = T2 + 1.3, T4 = T3 + 0.8;
+      const RL = R * 0.36, UA = U0 + 0.02, VF = (U1 - UA) / (T2 - T1), ANG0 = A0 + 0.5, W = (A1 + Math.PI * 2 - ANG0) / (T2 - T1);
+      const ease = (x: number) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+      const ctcState = (k: number, t: number) => {
+        const age = (((t - k * INTERVAL) % PERIOD) + PERIOD) % PERIOD;
+        let u = UA, r = RL, ang = ANG0, s = 1.35, phase = 4;
+        if (age < T1) { const e = ease(age / T1); r = (R + 0.9) * (1 - e) + RL * e; ang = A0 + 0.5 * e; u = U0 + 0.02 * e; phase = 0; }
+        else if (age < T2) { u = UA + VF * (age - T1); ang = ANG0 + W * (age - T1); phase = 1; }
+        else if (age < T3) { const e = ease((age - T2) / (T3 - T2)); u = U1 + 0.01 * e; r = RL * (1 - e) + (R + 0.8) * e; ang = A1 + Math.PI * 2; phase = 2; }
+        else if (age < T4) { u = U1 + 0.01; r = R + 0.8; ang = A1 + Math.PI * 2; s = 1.35 * (1 - ease((age - T3) / (T4 - T3))); phase = 3; }
+        else s = 0;
+        return { u, r, ang, s, phase };
+      };
+      // 탐지 링(세포를 따라다님)과 예측 경로 점(앞쪽으로 늘어선 점)
+      const marks = Array.from({ length: NC }, () => { const m = new THREE.SpriteMaterial({ map: ringTex, color: 0x7ee0c8, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }); const s = new THREE.Sprite(m); s.scale.setScalar(5.2); g.add(s); return { s, m }; });
+      const ND = 6;
+      const dots = new THREE.InstancedMesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0x9ff3ff, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }), NC * ND);
+      g.add(dots);
+      const rings = ringPool(scene, 6, 0x7ee0c8);
+      const lastPhase = new Array(NC).fill(-1);
+      g.rotation.z = 0.1;
+      camera.position.set(4, 15, 74); camera.lookAt(0, -1, 0);
+      return { scene, camera, update: (t, dt, hx, hy) => {
+        // 고리와 적혈구는 혈류를 따라 흐른다
+        for (let k = 0; k < NH; k++) { const u = (k / NH + t * 0.018) % 1; path.getPointAt(u, dummy.position); dummy.quaternion.setFromUnitVectors(zAxis, frames.tangents[fi(u)]); dummy.scale.setScalar(1); dummy.updateMatrix(); hoops.setMatrixAt(k, dummy.matrix); }
+        hoops.instanceMatrix.needsUpdate = true;
+        for (let k = 0; k < NR; k++) { const c = blood[k]; const u = (c.u0 + t * c.v) % 1; at(u, c.r, c.ang + t * 0.12, p); dummy.position.copy(p); dummy.quaternion.setFromUnitVectors(up, frames.tangents[fi(u)]); dummy.rotateX(c.tilt + t * c.spin); dummy.scale.setScalar(1.25); dummy.updateMatrix(); rbc.setMatrixAt(k, dummy.matrix); }
+        rbc.instanceMatrix.needsUpdate = true;
+        // 순환 종양 세포 + 탐지 링 + 예측 경로 점
+        for (let k = 0; k < NC; k++) {
+          const st = ctcState(k, t); at(st.u, st.r, st.ang, p);
+          dummy.position.copy(p); dummy.rotation.set(t * 0.7 + k, t * 0.5, 0); dummy.scale.setScalar(st.s); dummy.updateMatrix(); ctc.setMatrixAt(k, dummy.matrix);
+          const flowing = st.phase === 1 || st.phase === 2;
+          marks[k].s.position.copy(p); marks[k].m.opacity = flowing ? 0.5 * (0.75 + 0.25 * Math.sin(t * 5 + k)) : 0;
+          if (!still && st.phase === 1 && lastPhase[k] !== 1) rings.spawn(p, 9, t, g); // 혈류에 들어오는 순간 탐지
+          lastPhase[k] = st.phase;
+          for (let j = 0; j < ND; j++) {
+            if (st.phase === 1) { const du = (j + 1) * 0.026; at(Math.min(0.999, st.u + du), st.r, st.ang + (du / VF) * W, p); dummy.position.copy(p); dummy.quaternion.identity(); dummy.scale.setScalar(0.3 * (1 - j / (ND + 1))); }
+            else dummy.scale.setScalar(0);
+            dummy.updateMatrix(); dots.setMatrixAt(k * ND + j, dummy.matrix);
+          }
+        }
+        ctc.instanceMatrix.needsUpdate = true; dots.instanceMatrix.needsUpdate = true;
+        // 전이 부위는 천천히 숨쉰다
+        siteLumps.forEach((l, k) => { dummy.position.copy(l.pos); dummy.rotation.copy(l.rot); dummy.scale.setScalar(l.s * (1 + 0.05 * Math.sin(t * 1.3 + k))); dummy.updateMatrix(); site.setMatrixAt(k, dummy.matrix); }); site.instanceMatrix.needsUpdate = true;
+        rings.update(t);
+        g.rotation.y = hx * 0.25 + Math.sin(t * 0.07) * 0.08; g.rotation.x = hy * 0.12 + Math.sin(t * 0.09) * 0.05;
+        camera.position.set(4 + Math.sin(t * 0.13) * 4, 15 + Math.sin(t * 0.09) * 2, 74 + Math.cos(t * 0.11) * 4); camera.lookAt(0, -1, 0);
+      } };
+    }
+
+    // ---------- drug molecule as a graph: GNN message passing — particles travel along edges hop by hop, nodes (rings) light up as they aggregate, then a graph-level readout ring
+    function buildMolecule(): Scene {
+      const scene = new THREE.Scene(); scene.fog = new THREE.Fog(FOG, 30, 90); lights(scene);
+      const camera = new THREE.PerspectiveCamera(30, 4 / 3, 0.5, 300);
+      atmosphere(scene, 0x1f6fd0, 40, -12);
+      const g = new THREE.Group(); scene.add(g);
+      const M = molData as MolJson;
+      const pos = M.atoms.map((a) => new THREE.Vector3(a[1], a[2], a[3]));
+      const extent = Math.max(...pos.map((p) => p.length()));
+      const mat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.3, clearcoat: 0.7, clearcoatRoughness: 0.25 });
+      const spheres = new THREE.InstancedMesh(sphereGeo, mat, pos.length);
+      M.atoms.forEach((a, i) => { sphereAt(spheres, i, pos[i], ATOM_R[a[0]] ?? 0.42); spheres.setColorAt(i, new THREE.Color(ATOM_COLOR[a[0]] ?? 0xdfe5ee)); });
+      const bonds = new THREE.InstancedMesh(cylGeo, mat, M.bonds.length * 2);
+      M.bonds.forEach(([i, j], k) => {
+        const mid = pos[i].clone().add(pos[j]).multiplyScalar(0.5);
+        cylinderAt(bonds, 2 * k, pos[i], mid, 0.17); bonds.setColorAt(2 * k, new THREE.Color(ATOM_COLOR[M.atoms[i][0]] ?? 0xdfe5ee));
+        cylinderAt(bonds, 2 * k + 1, mid, pos[j], 0.17); bonds.setColorAt(2 * k + 1, new THREE.Color(ATOM_COLOR[M.atoms[j][0]] ?? 0xdfe5ee));
+      });
+      g.add(spheres, bonds);
+      // glowing "message" sleeves over bonds, coloured per frame by the travelling wave
+      const glowMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false });
+      const glow = new THREE.InstancedMesh(cylGeo, glowMat, M.bonds.length);
+      M.bonds.forEach(([i, j], k) => { cylinderAt(glow, k, pos[i], pos[j], 0.26); glow.setColorAt(k, new THREE.Color(0x000000)); });
+      g.add(glow);
+      const halos: THREE.SpriteMaterial[] = [];
+      pos.forEach((p) => { const m = new THREE.SpriteMaterial({ map: haloTex, color: 0x9fd8ff, transparent: true, opacity: 0.1, blending: THREE.AdditiveBlending, depthWrite: false }); const s = new THREE.Sprite(m); s.position.copy(p); s.scale.setScalar(2.6); g.add(s); halos.push(m); });
+      // 노드 링(그래프의 노드로 보이게) + 간선을 따라 이동하는 메시지 입자
+      const nodeRings: THREE.SpriteMaterial[] = [];
+      pos.forEach((p) => { const m = new THREE.SpriteMaterial({ map: ringTex, color: 0x7ee0c8, transparent: true, opacity: 0.08, blending: THREE.AdditiveBlending, depthWrite: false }); const s = new THREE.Sprite(m); s.position.copy(p); s.scale.setScalar(1.5); g.add(s); nodeRings.push(m); });
+      const msgs = new THREE.InstancedMesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0xbffbff }), M.bonds.length); g.add(msgs);
+      const msgGlow = new THREE.InstancedMesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0x7ee0c8, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }), M.bonds.length); g.add(msgGlow);
+      let seed = 5; const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const rings = ringPool(scene, 10, 0x7ee0c8);
+      const adj: number[][] = pos.map(() => []); for (const [i, j] of M.bonds) { adj[i].push(j); adj[j].push(i); }
+      let hops: number[] = pos.map(() => 0), pulseT = -10, maxHop = 1; const fired = new Set<number>();
+      const newPulse = (t: number) => { const src = Math.floor(rnd() * pos.length); const d = new Array(pos.length).fill(Infinity); d[src] = 0; const q = [src]; while (q.length) { const u = q.shift()!; for (const v of adj[u]) if (d[v] === Infinity) { d[v] = d[u] + 1; q.push(v); } } hops = d; maxHop = Math.max(...d.filter(Number.isFinite)); pulseT = t; fired.clear(); };
+      const dist = extent * 2.35 + 6; const HOP = 0.34; const center0 = new THREE.Vector3(); let lastAge = 0;
+      camera.position.set(0, 0, dist); camera.lookAt(0, 0, 0);
+      const tmp = new THREE.Color(), teal = new THREE.Color(0x7ee0c8), blue = new THREE.Color(0x9fd8ff);
+      return { scene, camera, update: (t, dt, hx, hy) => {
+        if (t - pulseT > maxHop * HOP + 2.8) newPulse(t);
+        const age = still ? 1.2 : t - pulseT;
+        for (let i = 0; i < halos.length; i++) { const h = hops[i]; const x = age - h * HOP; const k = Number.isFinite(h) ? Math.exp(-(x * x) / 0.05) : 0; halos[i].opacity = 0.09 + 0.6 * k; halos[i].color.copy(blue).lerp(teal, k); if (!still && Number.isFinite(h) && x >= 0 && !fired.has(i)) { fired.add(i); rings.spawn(pos[i], 2.4, t, g); } }
+        M.bonds.forEach(([i, j], k) => { const h = Math.min(hops[i], hops[j]); const x = age - (h + 0.5) * HOP; const b = Number.isFinite(h) ? Math.exp(-(x * x) / 0.04) : 0; tmp.copy(teal).multiplyScalar(0.1 + b * 0.9); glow.setColorAt(k, tmp); });
+        glow.instanceColor!.needsUpdate = true;
+        // 메시지 입자: 홉 h의 노드에서 h+1의 이웃으로 간선을 따라 이동 (파동이 다음 홉으로 넘어가는 동안)
+        M.bonds.forEach(([i, j], k) => {
+          const hi = hops[i], hj = hops[j]; let a = -1, b2 = -1; if (hj === hi + 1) { a = i; b2 = j; } else if (hi === hj + 1) { a = j; b2 = i; }
+          let sc = 0; if (a >= 0) { const pr = (age - hops[a] * HOP) / HOP; if (pr > 0 && pr < 1) { dummy.position.lerpVectors(pos[a], pos[b2], pr); sc = 0.24 + 0.1 * Math.sin(pr * Math.PI); } }
+          dummy.quaternion.identity(); dummy.scale.setScalar(sc); dummy.updateMatrix(); msgs.setMatrixAt(k, dummy.matrix); dummy.scale.setScalar(sc * 2.6); dummy.updateMatrix(); msgGlow.setMatrixAt(k, dummy.matrix);
+        });
+        msgs.instanceMatrix.needsUpdate = true; msgGlow.instanceMatrix.needsUpdate = true;
+        // 모든 노드가 갱신되면 그래프 전체를 읽어내는(readout) 큰 링과 노드 링 플래시
+        const doneAt = maxHop * HOP + 0.45; if (!still && age >= doneAt && lastAge < doneAt) rings.spawn(center0, 14, t, g); lastAge = age;
+        const ro = age >= doneAt ? Math.exp(-(age - doneAt) * 3) : 0;
+        for (let i = 0; i < nodeRings.length; i++) { const h = hops[i]; const x = age - h * HOP; const k = Number.isFinite(h) ? Math.exp(-(x * x) / 0.12) : 0; nodeRings[i].opacity = 0.07 + 0.55 * k + 0.4 * ro; }
+        rings.update(t);
+        // 분자는 스스로 천천히 구르며 돈다(나선과 같은 각속도)
+        g.rotation.y = (still ? 0.8 : t * 0.45) + hx * 0.4; g.rotation.x = Math.sin(t * 0.23) * 0.35 + hy * 0.2;
+        camera.position.set(Math.sin(t * 0.19) * 3.5, Math.cos(t * 0.16) * 2.5, dist + Math.sin(t * 0.11) * 2.5); camera.lookAt(0, 0, 0);
+      } };
+    }
+
+    // ---------- ECG monitor in 3D: the waveform flows left with time, the signal is read at a fixed x (head marker), R-peak flash
+    function buildEcg(): Scene {
+      const scene = new THREE.Scene(); scene.fog = new THREE.Fog(FOG, 30, 120); lights(scene);
+      const camera = new THREE.PerspectiveCamera(30, 4 / 3, 0.5, 300);
+      const gauss = (t: number, a: number, m: number, s: number) => a * Math.exp(-((t - m) ** 2) / (2 * s * s));
+      const ecg = (t: number) => gauss(t, 0.13, 0.2, 0.03) + gauss(t, -0.09, 0.365, 0.011) + gauss(t, 1.0, 0.4, 0.011) + gauss(t, -0.24, 0.435, 0.012) + gauss(t, 0.28, 0.63, 0.05);
+      const L = 78, BEATS = 3, RADIAL = 8, AMP = 11, SEGS_PER_BEAT = 320;
+      const BEAT_LEN = L / BEATS;      // 한 박동이 차지하는 길이
+      const PERIOD = 1.25;             // 박동 주기(장면 시간, 초). SPEED 0.5이므로 실제로는 2.5초마다 한 박동
+      const SPEED = BEAT_LEN / PERIOD; // 파형이 흐르는 속도 (단위/초)
+      const NB = BEATS + 1;            // 한 박동 여유분을 더 만들어 끊김 없이 순환시킨다
+      const TUBE_LEN = BEAT_LEN * NB;
+      const SWEEP_X = 2;               // 신호가 읽히는 고정 x 위치(헤드 마커가 여기 놓인다)
+      const leads = [
+        { z: 0, amp: 1, phase: 0, radius: 0.34, color: new THREE.Color(0x7ff0ff), dim: new THREE.Color(0x1f5f80) },
+        { z: -11, amp: 0.72, phase: 0.33, radius: 0.28, color: new THREE.Color(0x5db8ff), dim: new THREE.Color(0x1b4474) },
+        { z: -22, amp: 0.5, phase: 0.66, radius: 0.24, color: new THREE.Color(0xb9e4ff), dim: new THREE.Color(0x173655) },
+      ];
+      type Lead = typeof leads[number];
+      /** 해석적 ECG 곡선: x는 길이 방향, y는 신호값 (아크길이 분할을 촘촘히 해 튜브 세그먼트가 균일하게 놓인다) */
+      class EcgCurve extends THREE.Curve<THREE.Vector3> {
+        constructor(private lead: Lead) { super(); this.arcLengthDivisions = 4000; }
+        getPoint(u: number, target = new THREE.Vector3()) { return target.set(-L / 2 + u * TUBE_LEN, ecg((u * NB + this.lead.phase) % 1) * AMP * this.lead.amp - 4, this.lead.z); }
+      }
+      const tubes: { mesh: THREE.Mesh; colors: THREE.BufferAttribute; lead: Lead; xs: Float32Array; segs: number }[] = [];
+      for (const lead of leads) {
+        const segs = SEGS_PER_BEAT * NB;
+        const geo = new THREE.TubeGeometry(new EcgCurve(lead), segs, lead.radius, RADIAL, false);
+        const colors = new THREE.BufferAttribute(new Float32Array(geo.attributes.position.count * 3), 3); geo.setAttribute('color', colors);
+        const posArr = geo.attributes.position.array as Float32Array; const xs = new Float32Array(segs + 1);
+        for (let s = 0; s <= segs; s++) xs[s] = posArr[s * (RADIAL + 1) * 3];
+        const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.35, metalness: 0.05, emissive: 0x0b3a4a, emissiveIntensity: 0.9 }));
+        scene.add(mesh); tubes.push({ mesh, colors, lead, xs, segs });
+      }
+      const grid = new THREE.GridHelper(170, 34, 0x24406a, 0x182c4e); grid.position.y = -9; const gridMat = grid.material as THREE.Material; gridMat.transparent = true; gridMat.opacity = 0.55; scene.add(grid);
+      const headMat = new THREE.SpriteMaterial({ map: haloTex, color: 0x9ff3ff, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false });
+      const head = new THREE.Sprite(headMat); head.scale.setScalar(5.5); scene.add(head);
+      const headBall = new THREE.Mesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0xffffff })); headBall.scale.setScalar(0.6); scene.add(headBall);
+      const flash = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, color: 0x9ff3ff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })); flash.scale.setScalar(26); scene.add(flash);
+      const rings = ringPool(scene, 4, 0x9ff3ff);
+      camera.position.set(-10, 9, 46); camera.lookAt(0, -2, -6);
+      const tmp = new THREE.Color(); let flashT = -10, armed = true;
+      return { scene, camera, update: (t, dt, hx, hy) => {
+        // 파형은 왼칽으로 흐른다: 한 박동 길이만큼 이동하면 같은 모양이 이어지므로 끊김 없이 순환
+        const travel = still ? BEAT_LEN * 0.62 : (t * SPEED) % BEAT_LEN;
+        tubes.forEach(({ mesh, colors, lead, xs, segs }) => {
+          mesh.position.x = -travel;
+          const arr = colors.array as Float32Array;
+          for (let s = 0; s <= segs; s++) {
+            const d = SWEEP_X - (xs[s] - travel); // 스윕 라인 왼쪽(이미 그려진 부분)이면 양수
+            const k = d >= 0 ? Math.exp(-d / 13) : Math.exp(d * 1.4) * 0.45; // 왼쪽으로 서서히 잔광이 식고, 오른쪽(아직 안 온 신호)은 어둡다
+            tmp.copy(lead.dim).lerp(lead.color, Math.min(1, k * 1.5));
+            for (let r = 0; r <= RADIAL; r++) { const v = (s * (RADIAL + 1) + r) * 3; arr[v] = tmp.r; arr[v + 1] = tmp.g; arr[v + 2] = tmp.b; }
+          }
+          colors.needsUpdate = true;
+        });
+        // 스윕 라인 위치에서 읽히는 신호값(앞쪽 리드) → 헤드 위치, R파(위상 0.4)마다 플래시
+        const u = (SWEEP_X + travel + L / 2) / TUBE_LEN; const phase = (u * NB + leads[0].phase) % 1;
+        head.position.set(SWEEP_X, ecg(phase) * AMP - 4, 0); headBall.position.copy(head.position); flash.position.copy(head.position);
+        if (phase < 0.4) armed = true;
+        if (!still && armed && phase >= 0.4) { armed = false; flashT = t; rings.spawn(head.position, 9, t); }
+        const f = Math.exp(-(t - flashT) * 5); (flash.material as THREE.SpriteMaterial).opacity = 0.5 * f; gridMat.opacity = 0.55 + 0.35 * f;
+        grid.position.x = -(travel % 5); // 바닥 격자도 함께 흘러간다
+        rings.update(t);
+        camera.position.set(-10 + hx * 6 + Math.sin(t * 0.17) * 3.5, 9 + hy * -3 + Math.sin(t * 0.11) * 1.5, 46 + Math.cos(t * 0.13) * 3); camera.lookAt(0, -2, -6);
+      } };
+    }
+
+    const builders = { metastasis: buildMetastasis, molecule: buildMolecule, ecg: buildEcg } as const;
+
+    for (const root of roots) {
+      const kind = root.dataset.scene as keyof typeof builders;
+      const canvas = root.querySelector('canvas')!;
+      if (!builders[kind]) continue;
+      let built: Scene | null = null, renderer: THREE.WebGLRenderer | null = null;
+      let visible = false, hx = 0, hy = 0, tx = 0, ty = 0, last = performance.now() / 1000, t = 0, w = 1, h = 1;
+      const resize = () => { if (!renderer || !built) return; const r = root.getBoundingClientRect(); w = Math.max(1, Math.round(r.width)); h = Math.max(1, Math.round(r.height)); renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75)); renderer.setSize(w, h, false); built.camera.aspect = w / h; built.camera.updateProjectionMatrix(); };
+      const start = () => {
+        if (built) return;
+        renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+        renderer.setClearColor(0x000000, 0); renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+        built = builders[kind]();
+        resize(); new ResizeObserver(resize).observe(root);
+        const frame = (now: number) => {
+          requestAnimationFrame(frame);
+          const sec = now / 1000; const dt = Math.min(0.1, sec - last); last = sec;
+          if (!visible || document.hidden || document.documentElement.dataset.scrolling) return; // 화면 전환 중에는 렌더를 쉰다
+          if (!still) t += dt * SPEED; else t = 7.5;
+          hx += (tx - hx) * Math.min(1, dt * 4); hy += (ty - hy) * Math.min(1, dt * 4);
+          built!.update(t, dt, hx, hy);
+          renderer!.render(built!.scene, built!.camera);
+          root.classList.add('live');
+        };
+        requestAnimationFrame(frame);
+      };
+      new IntersectionObserver((es) => { visible = es[0]?.isIntersecting ?? false; if (visible) start(); }, { rootMargin: '120px 0px', threshold: 0.01 }).observe(root);
+      root.addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return; const r = root.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width - 0.5) * 2; ty = ((e.clientY - r.top) / r.height - 0.5) * 2; });
+      root.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+    }
+  }
+</script>

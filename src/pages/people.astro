@@ -1,0 +1,116 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import Base from '../layouts/Base.astro';
+import people from '../data/people.json';
+
+const hasPhoto = (p?: string) => !!p && existsSync(join(process.cwd(), 'public', p));
+const initials = (name: string) => name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+const prof = people.professor;
+---
+<Base title="People" description="부산대 Medical AI Lab 구성원: 권선영 교수, 박사·석사과정 대학원생, 학부연구생, 졸업생">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Members</h1>
+      <nav class="toc" aria-label="구성원 목차">
+        <a href="#professor">Professor</a>
+        {people.groups.map((g) => <a href={`#${g.key}`}>{g.label} <span class="tnum muted">{g.members.length}</span></a>)}
+        <a href="#alumni">Alumni <span class="tnum muted">{people.alumni.length}</span></a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section prof-sec" id="professor">
+    <div class="wrap prof">
+      <div class="photo-wrap reveal">
+        {hasPhoto(prof.photo) ? <img class="photo" src={prof.photo} alt={`${prof.name} 교수`} width="720" height="900" loading="eager" decoding="async" /> : <div class="photo ph" aria-hidden="true">{initials(prof.name)}</div>}
+      </div>
+      <div class="prof-body reveal" style="transition-delay:100ms">
+        <p class="eyebrow">Professor · {prof.titleKo}</p>
+        <h2>{prof.name} <span class="ko">{prof.nameKo}</span></h2>
+        <p class="title">{prof.title}</p>
+        <p class="aff">{prof.affiliation}</p>
+        <p class="mail">{prof.email}</p>
+        <div class="cv">
+          <div>
+            <h3 class="eyebrow">Education</h3>
+            <ul>{prof.education.map((e) => <li>{e}</li>)}</ul>
+          </div>
+          <div>
+            <h3 class="eyebrow">Work Experience</h3>
+            <ul>{prof.experience.map((e) => <li>{e}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {people.groups.map((g) => (
+    <section class="section group" id={g.key}>
+      <div class="wrap">
+        <div class="section-head reveal"><div><h2>{g.label}</h2></div></div>
+        <ul class="members rule-top">
+          {g.members.map((m, i) => (
+            <li class="member reveal" style={`transition-delay:${(i % 4) * 70}ms`}>
+              <div class="m-photo">
+                {hasPhoto(m.photo) ? <img src={m.photo} alt={m.name} width="720" height="900" loading="lazy" decoding="async" /> : <div class="ph" aria-hidden="true">{initials(m.name)}</div>}
+              </div>
+              <div class="m-body">
+                <h3>{m.name}{'nameKo' in m && m.nameKo && <span class="ko">{m.nameKo}</span>}</h3>
+                {'role' in m && m.role && <p class="role">{m.role}</p>}
+                <p class="interests">{m.interests.join(' · ')}</p>
+                {'github' in m && m.github && <a class="gh" href={m.github} target="_blank" rel="noopener">GitHub ↗</a>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" id="alumni">
+    <div class="wrap">
+      <div class="section-head reveal"><div><h2>Alumni</h2></div></div>
+      <ul class="alumni rule-top">
+        {people.alumni.map((a) => (
+          <li><span class="a-name">{a.name}<span class="ko">{a.nameKo}</span></span><span class="a-now muted">{a.now || '—'}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prof { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); gap: 32px 72px; align-items: start; }
+  .photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--paper-2); }
+  .ph { display: grid; place-items: center; font-size: 56px; color: var(--muted); background: var(--paper-2); aspect-ratio: 4 / 5; }
+  .prof-body { display: grid; gap: 10px; }
+  .prof-body h2 { margin-top: 4px; }
+  .ko { font-size: 0.55em; color: var(--muted); margin-left: 14px; font-weight: 400; }
+  .title { font-size: 19px; margin: 0; }
+  .aff { color: var(--muted); margin: 0; max-width: 60ch; }
+  .mail { margin: 0; }
+  .cv { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 40px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  .cv h3 { margin-bottom: 12px; }
+  .cv ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 15px; line-height: 1.6; }
+  @media (max-width: 860px) { .prof { grid-template-columns: 1fr; } .photo-wrap { max-width: 320px; } .cv { grid-template-columns: 1fr; } }
+
+  .members { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 32px; }
+  .member { display: grid; gap: 16px; align-content: start; padding: 28px 0 32px; }
+  .m-photo img, .m-photo .ph { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--paper-2); filter: saturate(0.95); }
+  .m-photo .ph { display: grid; place-items: center; font-size: 36px; color: var(--muted); }
+  .m-body { display: grid; gap: 6px; }
+  .m-body h3 { font-size: 23px; display: flex; align-items: baseline; flex-wrap: wrap; }
+  .m-body .ko { font-size: 14px; margin-left: 10px; }
+  .role { margin: 0; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--link); }
+  .interests { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .gh { font-size: 13.5px; }
+  @media (max-width: 1100px) { .members { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 720px) { .members { grid-template-columns: repeat(2, 1fr); gap: 0 20px; } .m-body h3 { font-size: 20px; } }
+
+  .alumni { list-style: none; margin: 0; padding: 0; display: grid; }
+  .alumni li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 8px 32px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 16.5px; }
+  .a-name { font-size: 19px; }
+  .a-name .ko { font-size: 14px; margin-left: 10px; }
+  @media (max-width: 600px) { .alumni li { grid-template-columns: 1fr; gap: 2px; } }
+</style>

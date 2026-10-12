@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import courses from '../data/courses.json';
+const terms = [...new Set(courses.map((c) => c.term))];
+---
+<Base title="Course" description="권선영 교수 담당 강의: AI프로그래밍, 기계학습개론, 그래프기계학습, 알고리즘 등">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Courses</h1>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="terms">
+      {terms.map((t) => (
+        <section class="term reveal">
+          <h2>{t}</h2>
+          <ul>
+            {courses.filter((c) => c.term === t).map((c) => (
+              <li><span class="name">{c.name}</span>{c.code && <span class="code muted">{c.code}</span>}</li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .terms { display: grid; padding-block: 20px 100px; }
+  .term { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 10px 48px; padding-block: 34px; border-bottom: 1px solid var(--rule); }
+  .term h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.05; }
+  .term ul { list-style: none; padding: 0; margin: 0; display: grid; }
+  .term li { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 0; border-top: 1px solid var(--rule); font-size: 18px; }
+  .term li:first-child { border-top: 0; padding-top: 4px; }
+  .code { font-size: 14px; letter-spacing: 0.04em; }
+  @media (max-width: 700px) { .term { grid-template-columns: 1fr; } }
+</style>

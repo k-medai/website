@@ -1,0 +1,637 @@
+[
+ {
+  "date": "2026.09.10",
+  "title": "Controllable Molecular Editing: MEGA and RASE",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1THPqdBHve9RApGdCZShOJi9J1Pqz2syk",
+   "name": "[20260910] Controllable Molecular Editing.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1THPqdBHve9RApGdCZShOJi9J1Pqz2syk.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2026.07.29",
+  "title": "Machine learning-aided generative molecular design",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "1QVJLboOLBf6GGwTueBlS2mk_8k0mWPfj",
+   "name": "[20260728-허경영] Mol Generation, Optimization.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1QVJLboOLBf6GGwTueBlS2mk_8k0mWPfj.jpg",
+  "pages": 33
+ },
+ {
+  "date": "2026.07.24",
+  "title": "LLM as a World Model",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1xlZ9q-DFpIqKt8G73FMLnXdpe1s-hMNH",
+   "name": "[260724-이재강] LLM as a World Model.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1xlZ9q-DFpIqKt8G73FMLnXdpe1s-hMNH.jpg",
+  "pages": 50
+ },
+ {
+  "date": "2026.07.24",
+  "title": "RAG",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1-xKOaFYsYU__GndaE-9l7LJKBm1gzl3T",
+   "name": "[20260724-박경진] RAG.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1-xKOaFYsYU__GndaE-9l7LJKBm1gzl3T.jpg",
+  "pages": 20
+ },
+ {
+  "date": "2026.07.20",
+  "title": "Do Large Language Models Understand Molecules?",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1FIUxquZ8z5MrTZrQZ-b8dBKF5epeJSJH",
+   "name": "[20260720-노다솜]LLM_Molecule이해_.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1FIUxquZ8z5MrTZrQZ-b8dBKF5epeJSJH.jpg",
+  "pages": 29
+ },
+ {
+  "date": "2026.06.16",
+  "title": "LISA: Learning Input-specific Sparse Activation Steering for Chest X-Ray Report Generation",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1geuz-AFyzBV1Hrx0n_pF7Ry6Oluhl1DE",
+   "name": "[20260615-이재강]LISA Learning Input-specific Sparse Activation Steering for Chest X-Ray Report Generation.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1geuz-AFyzBV1Hrx0n_pF7Ry6Oluhl1DE.jpg",
+  "pages": 40
+ },
+ {
+  "date": "2026.06.05",
+  "title": "MolRAG",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "1waX04sdGL3msDIiTCs0YMC6pOr6mg2Rk",
+   "name": "[20260605-허경영]MolRAG.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1waX04sdGL3msDIiTCs0YMC6pOr6mg2Rk.jpg",
+  "pages": 28
+ },
+ {
+  "date": "2026.05.29",
+  "title": "Wearable-ECG",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "1Zwc9KO8B6BeFYgXEzrnxqu1xqzvIrzv9",
+   "name": "[20260529-서민지]Wearable-ECG.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1Zwc9KO8B6BeFYgXEzrnxqu1xqzvIrzv9.jpg",
+  "pages": 23
+ },
+ {
+  "date": "2026.05.15",
+  "title": "Overcoming Sparsity Artifacts in Crosscoders to Interpret Chat-Tuning",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1y5D02dbZwimbRqKrU3Zh4hScMAAY4hR3",
+   "name": "[20260515-노다솜] crosscoder.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1y5D02dbZwimbRqKrU3Zh4hScMAAY4hR3.jpg",
+  "pages": 25
+ },
+ {
+  "date": "2026.05.08",
+  "title": "멀티 에이전트 연구 동향",
+  "presenter": "Jiseok Oh",
+  "slides": {
+   "drive": "1pok6q2chk3fd-z7JiR_JrWrWSR9rdSQ-",
+   "name": "[20260508-오지석]멀티에이전트 연구 동향.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1pok6q2chk3fd-z7JiR_JrWrWSR9rdSQ-.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2026.04.10",
+  "title": "Claude Code로 연구하기",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1FzLC42tRFtxIb7dA3HFwF2f-_OxduqUA",
+   "name": "[20260410-박경진]Claude Code로 연구하기.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1FzLC42tRFtxIb7dA3HFwF2f-_OxduqUA.jpg",
+  "pages": 16
+ },
+ {
+  "date": "2026.04.03",
+  "title": "Reasoning",
+  "presenter": "Suyeon Min",
+  "slides": {
+   "drive": "1FoNEHTCzj1l-MMMBCcCGBqVgh7aGs1zp",
+   "name": "[20260403-민수연]Reasoning.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1FoNEHTCzj1l-MMMBCcCGBqVgh7aGs1zp.jpg",
+  "pages": 27
+ },
+ {
+  "date": "2026.03.27",
+  "title": "Unveiling Latent Knowledge in Chemistry Language Models through Sparse Autoencoders",
+  "presenter": "Jinyoung Yoo",
+  "slides": {
+   "drive": "1y26szWpxpdx6x_vUEM7rkVni_QQted9e",
+   "name": "[20260327-유진영]Unveiling Latent Knowledge in Chemistry Language Models through Sparse Autoencoders.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1y26szWpxpdx6x_vUEM7rkVni_QQted9e.jpg",
+  "pages": 26
+ },
+ {
+  "date": "2026.03.20",
+  "title": "Nemotron 3 Super: From Chatbot to Agentic AI",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1sX_lLTMS3zgXHWYKxefX_YOGRpwo3XV7",
+   "name": "[20260320-이재강] Nemotron 3 Super From Chatbot to Agentic AI.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1sX_lLTMS3zgXHWYKxefX_YOGRpwo3XV7.jpg",
+  "pages": 62
+ },
+ {
+  "date": "2026.03.13",
+  "title": "Curriculum-aware Training for Discriminating Molecular Property Prediction Models",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "18fet8DgyH9GSN9ATBX5TZJ98n79q-5E9",
+   "name": "[20260313-허경영]Curriculum_aware_Training LCA.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/18fet8DgyH9GSN9ATBX5TZJ98n79q-5E9.jpg",
+  "pages": 22
+ },
+ {
+  "date": "2026.03.06",
+  "title": "Deep Semi-Supervised Learning",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "14QUha_Ry8SHZ8mkp-a0VmkI4CwoX2_2p",
+   "name": "[20260306-노다솜] semi_supervised_learning.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/14QUha_Ry8SHZ8mkp-a0VmkI4CwoX2_2p.jpg",
+  "pages": 28
+ },
+ {
+  "date": "2026.02.27",
+  "title": "Label Disagreement & Multi-Agent",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "1JP9Q3DqkH6z4RlNWt-OwcivufqwtSsrc",
+   "name": "[20260227-서민지] Label_Uncertainty.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1JP9Q3DqkH6z4RlNWt-OwcivufqwtSsrc.jpg",
+  "pages": 21
+ },
+ {
+  "date": "2026.02.11",
+  "title": "Beyond Molecular Structure: Integrating External Knowledge in Biomolecular Interactions",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1QDH9moJ1xdyfngI5xPkkb1lPgh2NJPtS",
+   "name": "[20260211-박경진] 외부지식 리뷰논문.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1QDH9moJ1xdyfngI5xPkkb1lPgh2NJPtS.jpg",
+  "pages": 47
+ },
+ {
+  "date": "2026.01.22",
+  "title": "Do I know this entity?",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1Zhx4eohapzueUNMW-ckGQyUC1jb0Abec",
+   "name": "[260122-이재강] DO I KNOW THIS ENTITY KNOWLEDGE AWARENESS AND HALLUCINATIONS IN LANGUAGE MODELS.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1Zhx4eohapzueUNMW-ckGQyUC1jb0Abec.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2026.01.16",
+  "title": "Flow Matching",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "1iz_jlq0E5ZWbNpF-uN6H1Knc8O8A8IZQ",
+   "name": "[251205-허경영] Flow Matching.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1iz_jlq0E5ZWbNpF-uN6H1Knc8O8A8IZQ.jpg",
+  "pages": 33
+ },
+ {
+  "date": "2026.01.09",
+  "title": "HIGFormer",
+  "presenter": "Chan Lee",
+  "slides": {
+   "drive": "1UbXSEi7owVGxJpG6mPE1JlSGXlj7fbVZ",
+   "name": "[260109-이 찬] HIGFormer.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1UbXSEi7owVGxJpG6mPE1JlSGXlj7fbVZ.jpg",
+  "pages": 20
+ },
+ {
+  "date": "2025.11.28",
+  "title": "SAE 기반 LLM 모델 해석 및 유도",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1kaZl2j_RH2wLCS1RDU6SCIWPDkbvtiwr",
+   "name": "[251128-이재강] SAE 기반 해석 기법 및 활용.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1kaZl2j_RH2wLCS1RDU6SCIWPDkbvtiwr.jpg",
+  "pages": 46
+ },
+ {
+  "date": "2025.11.14",
+  "title": "LLaMo",
+  "presenter": "Suyeon Min",
+  "slides": {
+   "drive": "1JUQE5P89ZeYFR6uzyBx4-Alu1Itw9XFK",
+   "name": "[251114-민수연] LLaMo.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1JUQE5P89ZeYFR6uzyBx4-Alu1Itw9XFK.jpg",
+  "pages": 18
+ },
+ {
+  "date": "2025.10.24",
+  "title": "A Survey of External Knowledge Integration methods",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "16MhjR0FmCJXKPFEeOD4wOeB9oCenHev2",
+   "name": "[251024-박경진] A Survey of External Knowledge Integration methods.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/16MhjR0FmCJXKPFEeOD4wOeB9oCenHev2.jpg",
+  "pages": 49
+ },
+ {
+  "date": "2025.10.17",
+  "title": "CREMA: A Contrastive Regularized Masked Autoencoder for Robust ECG Diagnostics across Clinical Domains",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "1S_E_wku05a9Be5rwMe60iueO0l1xXv1Y",
+   "name": "[251017-서민지] CREMA.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1S_E_wku05a9Be5rwMe60iueO0l1xXv1Y.jpg",
+  "pages": 20
+ },
+ {
+  "date": "2025.09.19",
+  "title": "DDI Prediction: Recent Approaches Combining Knowledge Graph and Graph Structures",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1UZVpYcKT1VZCYl2Gd-oHfpw0J75Mz5Kv",
+   "name": "[250919-노다솜] DDI-KG-structure.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1UZVpYcKT1VZCYl2Gd-oHfpw0J75Mz5Kv.jpg",
+  "pages": 22
+ },
+ {
+  "date": "2025.09.12",
+  "title": "MIPT: Multilevel Informed Prompt Tuning for Robust Molecular Property Prediction",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "12GC9nftD_3Qwsl2uTDv_tpxah1baOGPl",
+   "name": "[250912-허경영] Multilevel Informed Prompt Tuning for Robust Molecular Property Prediction.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/12GC9nftD_3Qwsl2uTDv_tpxah1baOGPl.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2025.09.04",
+  "title": "The Evolving Edge of Transformer Architecture",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1wDDS-RJDECgEyqfL9F4YVTeRuLdmt5fP",
+   "name": "[250904-이재강] The Evolving Edge of Transformer Architecture Advancements Driven by Modern LLMs.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1wDDS-RJDECgEyqfL9F4YVTeRuLdmt5fP.jpg",
+  "pages": 27
+ },
+ {
+  "date": "2025.08.29",
+  "title": "How Do Language Models Understand Chemical Knowledge",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1us_2j0qlh9mAEew5HAkp0yadha1UhnKL",
+   "name": "[250829-박경진] How Do Language Models Understand Chemical Knowledge.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1us_2j0qlh9mAEew5HAkp0yadha1UhnKL.jpg",
+  "pages": 35
+ },
+ {
+  "date": "2025.08.22",
+  "title": "What shapes the loss landscape of self supervised learning",
+  "presenter": "Suyeon Min",
+  "slides": {
+   "drive": "18jFe1YtkhASq-cUby6Mrk-3i8y2feXzq",
+   "name": "[250821-민수연] what shapes the loss landscape of self supervised learning.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/18jFe1YtkhASq-cUby6Mrk-3i8y2feXzq.jpg",
+  "pages": 20
+ },
+ {
+  "date": "2025.08.14",
+  "title": "HeartLang",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "10dMZVRef5v5D-tw3lGBH3z0Raa-N1-H6",
+   "name": "[250814-서민지] HeartLang.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/10dMZVRef5v5D-tw3lGBH3z0Raa-N1-H6.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2025.08.08",
+  "title": "TSLANet",
+  "presenter": "Youngbin Jo",
+  "slides": {
+   "drive": "14hF8ZKcFIFkkoZ31fbaI0BWxt1zSUIYx",
+   "name": "[250808-조영빈] TSLANet.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/14hF8ZKcFIFkkoZ31fbaI0BWxt1zSUIYx.jpg",
+  "pages": 21
+ },
+ {
+  "date": "2025.08.01",
+  "title": "Factorized Contrastive Learning",
+  "presenter": "Chan Lee",
+  "slides": {
+   "drive": "1kBA3tS1cV5W01-ZsppiiS0t6B_brCbaf",
+   "name": "[250801-이 찬] Factorized Contrastive Learning.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1kBA3tS1cV5W01-ZsppiiS0t6B_brCbaf.jpg",
+  "pages": 25
+ },
+ {
+  "date": "2025.07.25",
+  "title": "DDI-OOD",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1JQhnqMbLz0iEPiDfE8Al1oQbnsf3m2rU",
+   "name": "[250725-노다솜] DDI-OOD.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1JQhnqMbLz0iEPiDfE8Al1oQbnsf3m2rU.jpg",
+  "pages": 19
+ },
+ {
+  "date": "2025.07.18",
+  "title": "Tokenizer for Molecular",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "1ujm6s8a8kUZrnohRDVTZwqqZE4uz8m1V",
+   "name": "[250723-허경영] Tokenizer for Molecular.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1ujm6s8a8kUZrnohRDVTZwqqZE4uz8m1V.jpg",
+  "pages": 34
+ },
+ {
+  "date": "2025.06.27",
+  "title": "Titans: Learning to Memorize at Test Time",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1bKQsiIv3Ift9ARDd5gzhWUos9z_oCSf3",
+   "name": "[250627-이재강] Titans_Learning to Memorize at Test Time.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1bKQsiIv3Ift9ARDd5gzhWUos9z_oCSf3.jpg",
+  "pages": 46
+ },
+ {
+  "date": "2025.06.13",
+  "title": "PocketDTA",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1PIf85CqnC9bnjOxEof8zlY4FPJcwDDvZ",
+   "name": "[250613-박경진] PocketDTA.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1PIf85CqnC9bnjOxEof8zlY4FPJcwDDvZ.jpg",
+  "pages": 41
+ },
+ {
+  "date": "2025.06.05",
+  "title": "GMPNN",
+  "presenter": "Suyeon Min",
+  "slides": {
+   "drive": "17VYywiNtuXnkfSoVHSCcPvPZGieU9Zfc",
+   "name": "[250605-민수연] GMPNN.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/17VYywiNtuXnkfSoVHSCcPvPZGieU9Zfc.jpg",
+  "pages": 32
+ },
+ {
+  "date": "2025.05.30",
+  "title": "SSL Model Collapse",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "1WtOFMzvVUstD9O14uhy0FU2k1WUKBYZw",
+   "name": "[250530-서민지] SSL Model Collapse.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1WtOFMzvVUstD9O14uhy0FU2k1WUKBYZw.jpg",
+  "pages": 30
+ },
+ {
+  "date": "2025.05.23",
+  "title": "TimesNet",
+  "presenter": "Youngbin Jo",
+  "slides": {
+   "drive": "1vqVbuGpMP6aY8TEqdn_p_adflf7CAuYh",
+   "name": "[250523-조영빈] TimesNet.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1vqVbuGpMP6aY8TEqdn_p_adflf7CAuYh.jpg",
+  "pages": 18
+ },
+ {
+  "date": "2025.05.16",
+  "title": "Multimodal Learning",
+  "presenter": "Chan Lee",
+  "slides": {
+   "drive": "1n4R_j4vIrUNPGY_Yas-igHXHfyCFEauW",
+   "name": "[250516-이 찬] Multimodal Learning.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1n4R_j4vIrUNPGY_Yas-igHXHfyCFEauW.jpg",
+  "pages": 34
+ },
+ {
+  "date": "2025.05.02",
+  "title": "Is Homophily a Necessity for Graph Neural Networks?",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1KOS-hZtlEEF3CUBRsTJUJkFGtSAzr9t0",
+   "name": "[250502-노다솜] IS HOMOPHILY A NECESSITY FOR GRAPH NEURAL NETWORKS.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1KOS-hZtlEEF3CUBRsTJUJkFGtSAzr9t0.jpg",
+  "pages": 24
+ },
+ {
+  "date": "2025.04.18",
+  "title": "Relative Molecule Attention Transformer",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "19mSFnO7iu09RMQ9rTeMSp370k5Phj-_i",
+   "name": "[250418-허경영] Positional Encoding for Graph Transformer.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/19mSFnO7iu09RMQ9rTeMSp370k5Phj-_i.jpg",
+  "pages": 33
+ },
+ {
+  "date": "2025.04.11",
+  "title": "Diffusion & LM model",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1PpIBlGRNi15PJ6wMEilzdTCA1PuUP0Ls",
+   "name": "[250411-이재강] Diffusion & LM model.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1PpIBlGRNi15PJ6wMEilzdTCA1PuUP0Ls.jpg",
+  "pages": 47
+ },
+ {
+  "date": "2025.04.04",
+  "title": "DiffDock",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1LwG0kZvtIGQyYWO4UHZHUccuSisCTXVI",
+   "name": "[250404-박경진] DiffDock - Appendix.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1LwG0kZvtIGQyYWO4UHZHUccuSisCTXVI.jpg",
+  "pages": 27
+ },
+ {
+  "date": "2025.03.28",
+  "title": "Positional Encoding",
+  "presenter": "Suyeon Min",
+  "slides": {
+   "drive": "1RXoa-FVP7pHWU5cdzH8C0NX-Yu4GAGVW",
+   "name": "[250328-민수연] Positional Encoding.pptx",
+   "ext": "pptx"
+  },
+  "thumb": "/img/seminars/1RXoa-FVP7pHWU5cdzH8C0NX-Yu4GAGVW.jpg"
+ },
+ {
+  "date": "2025.03.21",
+  "title": "Graph Pooling & Multi-Head Attention",
+  "presenter": "Minjy Suh",
+  "slides": {
+   "drive": "1tEzyytAAYl2rkzAxWWhtpB1x3918Rxvr",
+   "name": "[250321-서민지] Graph Pooling, Multi-Head Attention.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1tEzyytAAYl2rkzAxWWhtpB1x3918Rxvr.jpg",
+  "pages": 50
+ },
+ {
+  "date": "2025.02.21",
+  "title": "Spurious Correlation-Feature disentanglement",
+  "presenter": "Youngbin Jo",
+  "slides": {
+   "drive": "1XZss3OHir07LP5k02IKijc93NlSC8DKk",
+   "name": "[250221-조영빈] Spurious correlation-feature disentanglement.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1XZss3OHir07LP5k02IKijc93NlSC8DKk.jpg",
+  "pages": 19
+ },
+ {
+  "date": "2025.02.14",
+  "title": "Finite Markov Decision Process",
+  "presenter": "Gyoungyoung Heo",
+  "slides": {
+   "drive": "1tjf_jc5PHEd1zBME3y2pDvaR4xsjFq37",
+   "name": "[250214-허경영] Finite Markov Decision Process.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1tjf_jc5PHEd1zBME3y2pDvaR4xsjFq37.jpg",
+  "pages": 44
+ },
+ {
+  "date": "2025.02.07",
+  "title": "Out-Of-Distribution on Graphs",
+  "presenter": "Dasom Noh",
+  "slides": {
+   "drive": "1175jaH29aW_UhvYgloVseMwzmh3JtftJ",
+   "name": "[250207-노다솜] Out-Of-Distribution on Graphs.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1175jaH29aW_UhvYgloVseMwzmh3JtftJ.jpg",
+  "pages": 20
+ },
+ {
+  "date": "2025.01.24",
+  "title": "LTSF-Linear",
+  "presenter": "Chan Lee",
+  "slides": {
+   "drive": "1wZ5i74qy8-Wiy0XP1G0gpbSeAQN9aDMg",
+   "name": "[250124-이 찬] LTSF-Linear.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1wZ5i74qy8-Wiy0XP1G0gpbSeAQN9aDMg.jpg",
+  "pages": 26
+ },
+ {
+  "date": "2025.01.17",
+  "title": "Retrieval-Augmented Generation for LLM (RAG 개념 정리)",
+  "presenter": "Jaekang Lee",
+  "slides": {
+   "drive": "1xBrXvDor7Ul2aDIrioL_wT5xoX6X3Rbl",
+   "name": "[250117-이재강] Retrieval-Augmented Generation for LLM (RAG 개념 정리).pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1xBrXvDor7Ul2aDIrioL_wT5xoX6X3Rbl.jpg",
+  "pages": 39
+ },
+ {
+  "date": "2025.01.10",
+  "title": "Geometric Deep Learning for Structure-Based Drug Design: Chapter 2. The Generative Tasks",
+  "presenter": "GyoungJin Park",
+  "slides": {
+   "drive": "1V3RhPceWvh59LpmukhIUMIJmde_GZR3g",
+   "name": "[250110-박경진] Geometric Deep Learning for Structure-Based Drug Design: Chapter 2. The Generative Tasks.pdf",
+   "ext": "pdf"
+  },
+  "thumb": "/img/seminars/1V3RhPceWvh59LpmukhIUMIJmde_GZR3g.jpg",
+  "pages": 38
+ }
+]

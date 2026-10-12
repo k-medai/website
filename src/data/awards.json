@@ -1,0 +1,20 @@
+[
+  { "year": 2025, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2025", "award": "우수논문상", "people": ["박경진", "허경영", "노다솜"] },
+  { "year": 2025, "event": "학생주도프로젝트", "eventShort": "학생주도프로젝트 2025", "award": "장려상", "people": ["이찬"] },
+  { "year": 2025, "event": "MEDICAL HACK 2025", "eventShort": "MEDICAL HACK 2025", "award": "우수상, 특별상", "people": ["이찬", "이재강", "김수현", "이해인"] },
+  { "year": 2024, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2024", "award": "우수발표논문상", "people": ["이찬", "노윤우", "유은진", "전한나"] },
+  { "year": 2024, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2024", "award": "우수발표논문상", "people": ["손연경", "조영빈", "이찬"] },
+  { "year": 2024, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2024", "award": "학부생부문 장려상", "people": ["하석현", "김수현", "이해인", "김예준", "강경래", "손연경"] },
+  { "year": 2024, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2024", "award": "최우수논문상", "people": ["노다솜"] },
+  { "year": 2024, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2024", "award": "우수논문상", "people": ["조영빈", "박경진", "노다솜", "서민지"] },
+  { "year": 2024, "event": "학생주도프로젝트", "eventShort": "학생주도프로젝트 2024", "award": "우수상", "people": ["손연경"] },
+  { "year": 2024, "event": "한국컴퓨터종합학술대회", "eventShort": "KCC 2024", "award": "학부생부문 논문상", "people": ["송민정", "손연경", "박경진"] },
+  { "year": 2023, "event": "한국컴퓨터종합학술대회", "eventShort": "KCC 2023", "award": "우수발표논문상", "people": ["노다솜", "구본유"] },
+  { "year": 2023, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2023", "award": "우수발표논문상", "people": ["허경영", "손연경"] },
+  { "year": 2023, "event": "한국컴퓨터종합학술대회", "eventShort": "KCC 2023", "award": "우수논문상", "people": ["손연경", "신예원"] },
+  { "year": 2022, "event": "CBL 좋은수업취재공모전", "eventShort": "CBL 좋은수업취재공모전 2022", "award": "우수상", "people": [] },
+  { "year": 2022, "event": "학생주도프로젝트", "eventShort": "학생주도프로젝트 2022", "award": "장려상", "people": ["강재민", "임현진"] },
+  { "year": 2022, "event": "한국컴퓨터종합학술대회", "eventShort": "KCC 2022", "award": "우수발표논문상", "people": ["임현진", "강재민", "구본유"] },
+  { "year": 2021, "event": "한국소프트웨어종합학술대회", "eventShort": "KSC 2021", "award": "우수발표논문상", "people": ["임현진", "문기성"] },
+  { "year": 2021, "event": "PNU AI 오픈소스 SW 해커톤", "eventShort": "PNU AI 오픈소스 SW 해커톤 2021", "award": "우수상", "people": ["정영석", "서영민"] }
+]

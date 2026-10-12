@@ -1,0 +1,1724 @@
+[
+ {
+  "id": "p1",
+  "year": "2026",
+  "type": "International (Journal)",
+  "title": "Mechanically Decoupled Organic Photodetector-Integrated Wearable PPG Sensor Toward Ambulatory Blood Pressure Monitoring",
+  "meta": "Dae-Geun Song, Jeong Ha Hwang, Ki-Hoon Kim, Sunyoung Kwon, Donggu Lee*, Min-Ho Seo*, IEEE Sensors Journal, October 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "pdf",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11721474"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/document/11721474"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p2",
+  "year": "2026",
+  "type": "International (Journal)",
+  "title": "Late distant recurrence prediction model in premenopausal women with ER-positive/HER 2-negative breast cancer: A multicenter retrospective study",
+  "meta": "Dong Seung Shin1, Janghee Lee1, Eunhye Kang1, Dasom Noh1, Jong-Ho Cheun, Jun-Hee Lee, Yeongyeong Son, Soong June Bae, Sunyoung Kwon, Han-Byoel Lee, Jai Min Ryu, Sung Gwe Ahn, The Breast, Volume 86, April 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://www.sciencedirect.com/science/article/pii/S0960977626000482/pdfft?md5=c9d404876282c67d80cb03ac2311b457&pid=1-s2.0-S0960977626000482-main.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://www.sciencedirect.com/science/article/pii/S0960977626000482?lid=jua9g5tkojjo&utm_source=braze&utm_medium=email&utm_campaign=STMJ_220042_AUTH_SERV_PPUB&utm_content=07bab9e4-c31e-408b-afa5-1c9ca0f269ca&utm_term=07bab9e4-c31e-408b-afa5-1c9ca0f269ca&DGCID=STMJ_220042_AUTH_SERV_PPUB"
+   },
+   {
+    "label": "news",
+    "href": "https://www.dailymedi.com/news/news_view.php?wr_id=935349"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p3",
+  "year": "2026",
+  "type": "International (Conference)",
+  "title": "Cross-Modal Concept Transfer: from ECG Signals to Images for Explainable Disease Prediction",
+  "meta": "Chan Lee, Dasom Noh, Minjy Suh, Hyewon Lee, Sunyoung Kwon*, Medical Image Computing and Computer Assisted Intervention (MICCAI), Strasbourg, France, September 27 - October 1, 2026",
+  "award": "early accept, within top 9%",
+  "links": [],
+  "lang": "en",
+  "featured": true
+ },
+ {
+  "id": "p4",
+  "year": "2026",
+  "type": "International (Conference)",
+  "title": "When GNNs Meet MoE: From Structural Design to Representation-Level Analysis",
+  "meta": "Suyeon Min, Jaekang Lee, Dasom Noh, Minjy Suh, Sunyoung Kwon*, Pattern Recognition: 28th International Conference (ICPR), Lyon, France, August 17–21, 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://link.springer.com/chapter/10.1007/978-3-032-31930-2_36"
+   },
+   {
+    "label": "GitHub",
+    "href": "https://github.com/MSY-99/MoE-Graphs"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p5",
+  "year": "2026",
+  "type": "Domestic (Journal)",
+  "title": "심전도 신호-이미지 기반 멀티뷰 자기지도 학습 방법 비교",
+  "meta": "이찬, 김수현, 이해인, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.379-386, September 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003381127"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p6",
+  "year": "2026",
+  "type": "Domestic (Journal)",
+  "title": "심전도 신호의 이미지 변환 기법 제안 및 시계열 기반 표현 방식과의 성능 비교",
+  "meta": "이찬, 김수현, 노윤우, 전한나, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.434-439, September 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003381133"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p7",
+  "year": "2026",
+  "type": "Domestic (Journal)",
+  "title": "MOSAIC: 분자구조와 화학지식 임베딩을 통합한 약물-표적 상호작용 예측 프레임워크",
+  "meta": "박경진, 허경영, 노다솜, 권선영*, 정보과학회논문지, pp.796-801, August 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003368338"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p8",
+  "year": "2026",
+  "type": "Domestic (Journal)",
+  "title": "소규모 불균형 테이블 데이터셋의 분류 성능 향상을 위한 그래프 구조 학습 적용",
+  "meta": "노다솜, 권선영*, 정보과학회논문지, pp.241-243, May 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12766248"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p9",
+  "year": "2026",
+  "type": "Domestic (Journal)",
+  "title": "약물 간 상호작용 예측에서 상호작용 유형 인지 문제 발견과 해결을 위한 새로운 평가 방법 및 학습 방법",
+  "meta": "조영빈, 노다솜, 박경진, 서민지, 권선영*, 정보과학회논문지, pp.82-89, January 2026",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003297264"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p10",
+  "year": "2026",
+  "type": "Domestic (Conference)",
+  "title": "희소 오토인코더 기반 흉부 X-ray 비전 인코더의 질병 특이적 개념 노드 선별 및 시각화",
+  "meta": "강준희, 이재강, 민수연, 권선영*, 한국컴퓨터종합학술대회 논문집, July 2026",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p11",
+  "year": "2026",
+  "type": "Domestic (Conference)",
+  "title": "연구 자동화를 위한 반복 개선 멀티에이전트 파이프라인",
+  "meta": "오지석, 허경영, 박경진, 권선영*, 한국컴퓨터종합학술대회 논문집, July 2026",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p12",
+  "year": "2026",
+  "type": "Domestic (Conference)",
+  "title": "Sparse Autoencoder 기반 GNN 그래프 임베딩의 화학적 해석 가능 표현 분해",
+  "meta": "유진영, 노다솜, 김성훈, 권선영*, 한국컴퓨터종합학술대회 논문집, July 2026",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p13",
+  "year": "2026",
+  "type": "Domestic (Conference)",
+  "title": "MoleculeACE와 MoleculeNet 벤치마크에서 분자 특성 예측 모델의 순위 역전 현상 분석",
+  "meta": "허경영, 권선영*, 한국컴퓨터종합학술대회 논문집, July 2026",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p14",
+  "year": "2026",
+  "type": "Patent",
+  "title": "패혈증 쇼크 환자에서 조기 승압제 투여의 개별화 치료효과를 인과 머신러닝 기반으로 예측하는 방법 및 시스템",
+  "meta": "권선영, 여혜주, 조우현, 서민지, 민수연 출원일: 2026년 04월 13일, 출원번호: 10-2026-0066043",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p15",
+  "year": "2026",
+  "type": "Patent",
+  "title": "심전도 신호-이미지 교차 모달 개념 학습을 통한 설명 가능한 질환 예측 장치 및 방법",
+  "meta": "이찬, 허경영, 박경진, 권선영 출원일: 2026년 03월 23일, 출원번호: 10-2026-0051760",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p16",
+  "year": "2025",
+  "type": "International (Journal)",
+  "title": "Machine Learning for 1-Year Graft Failure Prediction in Lung Transplant Recipients: The Korean Organ Transplantation Registry",
+  "meta": "Dasom Noh1, Sunyoung Kwon1, Woo Hyun Cho, Jin Gu Lee, Song Yee Kim, Samina Park, Kyeongman Jeon, Hye Ju Yeo*, KOTRY Study Group, Clinical TRANSPLANTATION, August 09, 2025.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://onlinelibrary.wiley.com/doi/epdf/10.1111/ctr.70268"
+   },
+   {
+    "label": "link",
+    "href": "http://dx.doi.org/10.1111/ctr.70268"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p17",
+  "year": "2025",
+  "type": "International (Journal)",
+  "title": "Machine Learning for 1-Year Mortality Prediction in Lung Transplant Recipients: ISHLT Registry",
+  "meta": "Hye Ju Yeo1, Dasom Noh1, Eunjeong Son, Sunyoung Kwon* and Woo Hyun Cho*, Transplant International, June 24, 2025.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://url7417.frontierspartnerships.org/ls/click?upn=u001.mb3J-2FUKVvmoknMOQJkqnRbOOSxHDymRCtTw1gT6aoUiWsZo1-2FBa08halyJO0vaAgRuIEQlQR5jHIKw5D4hhjCpy-2F1BJywSthjLNhYqHuECY-3DXAMG_UjS4DPhFERzlC1JN5cifWiD0828ETitcF0JwSomCTxQUG1HXIOnziaFFKB8IPsDx6kJJncW2xX-2BlCwBzF7r2KMbBS5sm7H7cF-2BFfiuRWzcpXtVabCRGntK7vqP3pPMJpG4jQ2OHyZUkj43rGPNItkayy11R6XGqmAkBJWxcsU6dfchubMXkbA-2BouZZ8RmhEgpBk-2BR1vSAhW6UtjIpKFxyQ-3D-3D"
+   },
+   {
+    "label": "link",
+    "href": "https://www.frontierspartnerships.org/journals/transplant-international/articles/10.3389/ti.2025.14121/pdf"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p18",
+  "year": "2025",
+  "type": "International (Journal)",
+  "title": "CoCL: EEG Connectivity-guided Contrastive Learning for Seizure Detection",
+  "meta": "Hyeon-Jin Im, Jiye Kim, Sunyoung Kwon*, ICT Express, June 21, 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://doi.org/10.1016/j.icte.2025.06.004"
+   },
+   {
+    "label": "link",
+    "href": "https://www.sciencedirect.com/science/article/pii/S2405959525000797/pdf"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p19",
+  "year": "2025",
+  "type": "International (Journal)",
+  "title": "Comprehensive Analysis of Masking Techniques in Molecular Graph Representation Learning",
+  "meta": "Bonyou Koo, Sunyoung Kwon*, IEEE Access, January 17, 2025.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/ielx8/6287639/10820123/10844080.pdf?tp=&arnumber=10844080&isnumber=10820123&ref="
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/document/10844080"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p20",
+  "year": "2025",
+  "type": "International (Conference)",
+  "title": "MORE: Molecule Pretraining with Multi-Level Pretext Task",
+  "meta": "Yeongyeong Son, Dasom Noh, Gyoungyoung Heo, Gyoung Jin Park, Sunyoung Kwon*, in Proceedings of the 39th Annual AAAI Conference on Artificial Intelligence (AAAI), Philadelphia, USA, Februrary 2025.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ojs.aaai.org/index.php/AAAI/article/view/34262/36417"
+   },
+   {
+    "label": "link",
+    "href": "https://ojs.aaai.org/index.php/AAAI/article/view/34262"
+   },
+   {
+    "label": "GitHub",
+    "href": "https://github.com/IT-fatica/MORE"
+   }
+  ],
+  "lang": "en",
+  "featured": true
+ },
+ {
+  "id": "p21",
+  "year": "2025",
+  "type": "Domestic (Journal)",
+  "title": "심전도 신호의 시간적 구조 학습을 위한 자기 지도 학습 제안",
+  "meta": "손연경, 조영빈, 이찬, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.381-386, August 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003231884"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p22",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "MOSAIC: 분자구조와 화학지식 임베딩을 통합한 약물-표적 상호작용 예측 프레임워크",
+  "meta": "박경진, 허경영, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.107-109, December 2025",
+  "award": "우수논문상",
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p23",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "구조 일관성을 보장하는 그래프 기반 분자 토큰화",
+  "meta": "허경영, 박경진, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.149-151, December 2025",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p24",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "ECG 재구성 기반 자기지도학습을 위한 다중 마스킹 전략",
+  "meta": "서민지, 허경영, 이찬, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.173-175, December 2025",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p25",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "DDI 예측 연구의 현황과 한계: 실험 세팅의 불일치와 Inductive 평가의 부재",
+  "meta": "노다솜, 조영빈, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.217-219, December 2025",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p26",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "최신 대형 언어 모델 기법의 시계열 과제 적용 가능성 연구",
+  "meta": "이재강, 허경영, 박경진, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.220-222, December 2025",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p27",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프 신경망에서 Mixture of Experts 적용 효과 분석",
+  "meta": "민수연, 이재강, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.223-225, December 2025",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p28",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "그래프 기반 EEG 감정 인식: 뇌엽을 활용한 채널 그룹화",
+  "meta": "박경진, 허경영, 노다솜, 이찬, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,345-1,347, July 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318507"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p29",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "X-ray 이미지 진단 모델의 환각 개선을 위한 LLM 기반 진단서 정제",
+  "meta": "이재강, 민수연, 허경영, 서민지, 조영빈, 이찬, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,407-1,409, July 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318528"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p30",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "Transformer기반 SMILES 분자 특성 예측에서 Positional Encoding의 필요성 분석",
+  "meta": "민수연, 노다솜, 박경진, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,413-1,415, July 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318530"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p31",
+  "year": "2025",
+  "type": "Domestic (Conference)",
+  "title": "약물 간 상호작용 예측 모델의 일반화 성능 향상을 위한 사전학습 레이어 적용 기법",
+  "meta": "서민지, 조영빈, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,395-1,397, July 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318524"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p32",
+  "year": "2025",
+  "type": "Patent",
+  "title": "분자 그래프 분석을 위한 인코더 사전 학습 장치 및 방법",
+  "meta": "손연경, 노다솜, 허경영, 박경진, 권선영 출원일: 2025년 01월 23일, 출원번호: 10-2025-0010161",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p33",
+  "year": "2024",
+  "type": "International (Journal)",
+  "title": "Age and Late Recurrence in Young Patients With ER-Positive, ERBB2-Negative Breast Cancer",
+  "meta": "Dong Seung Shin1, Janghee Lee, Eunhye Kang, Dasom Noh, Jong-Ho Cheun, Jun-Hee Lee, Yeongyeong Son, Soong Jun Bae, Seok Won Kim, Jeong Eon Lee, Jonghan Yu, Byung-Joo Chae, Sunyoung Kwon, Han-Byoel Lee, Sung Gwe Ahn, Jai Min Ryu*, JAMA Network Open, November 7, 2024. (within 5%)",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://jamanetwork.com/journals/jamanetworkopen/articlepdf/2825992/shin_2024_oi_241224_1730394554.22138.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825992?guestAccessKey=79c2d4f6-e998-4f9e-b4e4-ca969276fe8b&utm_source=jps&utm_medium=email&utm_campaign=author_alert-jamanetwork&utm_content=author-author_engagement&utm_term=1m"
+   }
+  ],
+  "lang": "en",
+  "featured": true
+ },
+ {
+  "id": "p34",
+  "year": "2024",
+  "type": "International (Journal)",
+  "title": "Development and validation of a machine learning-based model for post-sepsis frailty",
+  "meta": "Hye Ju Yeo1, Dasom Noh1, Tae Hwa Kim, Jin Ho Jang, Young Seok Lee, Sunghoon Park, Jae Young Moon, Kyeongman Jeon, Dong Kyu Oh, Su Yeon Lee, Mi Hyeon Park, Chae-Man Lim, Woo Hyun Cho*, Sunyoung Kwon*, ERJ Open Research, July 11, 2024.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://publications.ersnet.org/content/erjor/10/5/00166-2024.full.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://openres.ersjournals.com/content/early/2024/07/04/23120541.00166-2024"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p35",
+  "year": "2024",
+  "type": "International (Journal)",
+  "title": "Systematic Selection of High Affinity ssDNA Sequences to Carbon Nanotubes",
+  "meta": "Dakyeon Lee1, Jaekang Lee1, Woojin Kim, Yeongjoo Suh, Jiwoo Park, Sungjee Kim*, YongJoo Kim*, Sunyoung Kwon*, Sanghwa Jeong*, Advanced Science, June 25, 2024. (within 10%)(Best Researcher Award.)",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/advs.202308915"
+   },
+   {
+    "label": "link",
+    "href": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202308915"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p36",
+  "year": "2024",
+  "type": "Domestic (Journal)",
+  "title": "분자 그래프 자기지도학습 심층분석: 공정 비교 및 한계",
+  "meta": "허경영, 손연경, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.594-599, November 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003136980"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p37",
+  "year": "2024",
+  "type": "Domestic (Journal)",
+  "title": "분자 그래프 분류에서의 설명 가능한 인공지능",
+  "meta": "손연경, 신예원, 권선영*, 정보과학회논문지, pp.157-164, February 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003050656"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p38",
+  "year": "2024",
+  "type": "Domestic (Journal)",
+  "title": "분자 그래프 특징 분석 및 수소와 원자 간 결합 정보 사용에 따른 성능 비교",
+  "meta": "노다솜, 손연경, 구본유, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.49-54, January 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003044436"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p39",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "그래프 구조 학습을 이용한 소규모 불균형 테이블 데이터셋의 분류 성능 향상",
+  "meta": "노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.241-243, December 2024",
+  "award": "최우수논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12041850"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p40",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "약물 간 상호작용 예측에서 상호작용 유형 인지 향상을 위한 새로운 평가 및 학습 기법",
+  "meta": "조영빈, 박경진, 노다솜, 서민지, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.298-300, December 2024",
+  "award": "우수논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12041869"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p41",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "심전도 신호 재구성 방식의 자기지도 학습 제안 및 비교",
+  "meta": "손연경, 조영빈, 이 찬, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.232-234, December 2024",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12041847"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p42",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "이미지 기반 사전 학습 모델을 활용한 심전도 신호의 이미지화 효과",
+  "meta": "이 찬, 노윤우, 유은진, 전한나, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.223-225, December 2024",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12041844"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p43",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "강화학습 기반 흉부 X-Ray 자동 진단 생성 모델의 불확실성 제어",
+  "meta": "허경영, 이재강, 민수연, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.896-898, December 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12042107"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p44",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "약물-표적 결합 친화도 예측 향상을 위한 약물 및 단백질의 통합 표현",
+  "meta": "박경진, 허경영, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.244-246, December 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12041851"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p45",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "심전도 신호 이진 분류에 대한 언어 모델 활용",
+  "meta": "하석현, 김수현, 이해인, 김예준, 강경래, 손연경, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.1,319-1,321, December 2024",
+  "award": "학부생부문 장려상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12042254"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p46",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "약물 및 단백질 데이터 처리 방법에 따른 약물-표적 결합 친화도 예측 모델 성능 비교",
+  "meta": "박경진, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,043-1,045, June 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11862073"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p47",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프 신경망의 Soft Label 효과 확인 및 Regression Smoothing 기법 제안",
+  "meta": "이 찬, 손연경, 이재강, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,157-1,160, June 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11862112"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p48",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "그래프 구조 학습 적용을 통한 그래프 신경망의 분자 특성 예측 성능 향상",
+  "meta": "조영빈, 노다솜, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,197-1,199, June 2024",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11862125"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p49",
+  "year": "2024",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프에서 효과적인 표현학습 전략",
+  "meta": "송민정, 손연경, 박경진, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.2,144-2,146, June 2024",
+  "award": "학부생부문 우수상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11862464"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p50",
+  "year": "2024",
+  "type": "Patent",
+  "title": "분자 문자열에서 특성화 토큰을 생성하는 방법 및 장치",
+  "meta": "박경진, 노다솜, 권선영 출원일: 2024년 08월 29일, 출원번호: 10-2024-0117146",
+  "award": null,
+  "links": [],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p51",
+  "year": "2024",
+  "type": "Patent",
+  "title": "진동데이터에 기초한 CNC 공작기계의 공구 마모도 측정 장치 및 방법",
+  "meta": "임현진, 강재민, 구본유, 권선영 출원일: 2022년 07월 12일, 출원번호: 10-2022-0085915 등록일: 2024년 04월 02일, 등록번호: 10-2655363-0000",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020220085915"
+   },
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020220085915"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p52",
+  "year": "2023",
+  "type": "International (Journal)",
+  "title": "3D Contrastive Learning for Molecular Property Prediction",
+  "meta": "Kisung Moon, Hyeon-Jin Im, Sunyoung Kwon*, Bioinformatics, vol. 39, no. 6, June 8, 2023. (within 10%)",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://academic.oup.com/bioinformatics/article-pdf/39/6/btad371/50664588/btad371.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://academic.oup.com/bioinformatics/article/39/6/btad371/7192173?utm_source=advanceaccess&utm_campaign=bioinformatics&utm_medium=email"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p53",
+  "year": "2023",
+  "type": "International (Journal)",
+  "title": "METTL3 regulates alternative splicing of cell cycle-related genes via crosstalk between mRNA m6A modifications and splicing factors",
+  "meta": "Yeongjoo Kim1, Seungjae Shin1, Sunyoung Kwon1, Kisung Moon, Su-Vin Baek, Ahyoung Jo, Hyung-Sik Kim, Gue-Ho Hwang, Sangsu Bae, Yun Hak Kim*, Sung-Yup Cho,* Jung-Min Oh*, American Journal of Cancer Research, April 30, 2023.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cbin.11459"
+   },
+   {
+    "label": "link",
+    "href": "https://e-century.us/files/ajcr/13/4/ajcr0148557.pdf"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p54",
+  "year": "2023",
+  "type": "Domestic (Journal)",
+  "title": "진동 신호의 스펙트로그램을 통한 CNC 공구 마모도 예측",
+  "meta": "강재민, 임현진, 구본유, 권선영*, 정보과학회 컴퓨팅의 실제 논문지, pp.357-363, August 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002985783"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p55",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프 자기지도학습: 공정 비교 및 한계",
+  "meta": "허경영, 손연경, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.825-827, December 2023",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11705254"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p56",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "분자 문자열 표현의 특성화 토큰 개발",
+  "meta": "박경진, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.757-759, December 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11705231"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p57",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "구조적 관점에서 그래프 풀링 분석",
+  "meta": "구본유, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.874-876, December 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11705231"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p58",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "웨어러블 청진 디바이스와 머신러닝 기반 장 신호 추적과 분석",
+  "meta": "이재강, 진성희, 최지예, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.1,821-1,823, December 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11705608"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p59",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프 신경망 기반 설명 가능한 인공지능 비교 연구",
+  "meta": "손연경, 신예원, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.988-990, June 2023",
+  "award": "우수논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11488247"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p60",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "분자 그래프 데이터셋의 특징 분석 및 노드 특성 구성에 따른 성능 비교",
+  "meta": "노다솜, 구본유, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.982-984, June 2023",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11488245"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p61",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "인공지능을 활용한 CNC 기계 절삭공구 마모 예측 최신 연구 동향 분석",
+  "meta": "서영민, 강재민, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.727-729, June 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11488160"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p62",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "분자 성질 예측에서 리드아웃 함수 분석",
+  "meta": "구본유, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,103-1,105, June 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11488245"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p63",
+  "year": "2023",
+  "type": "Domestic (Conference)",
+  "title": "Feature Fusion를 활용한 ECG 부정맥 분류",
+  "meta": "구본유, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.730-732, June 2023",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11488161"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p64",
+  "year": "2022",
+  "type": "International (Journal)",
+  "title": "Signal Preprocessing Technique With Noise-Tolerant for RF-Based UAV Signal Classification",
+  "meta": "Noh, Dae-Il, Seon-Geun Jeong, Huu-Trung Hoang, Quoc-Viet Pham, Thien Huynh-The, Mikio Hasegawa, Hiroo Sekiya, Sun-Young Kwon*, Sang-Hwa Chung, Won-Joo Hwang*, IEEE Access, December 2022.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9998502"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/abstract/document/9998502"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p65",
+  "year": "2022",
+  "type": "International (Journal)",
+  "title": "The feasibility of granzyme B levels using an amperometric immunosensor for lung cancer detection",
+  "meta": "Jae Heun Chung, Seong Hoon Yoon, Doosoo Jeon, Ho Jung Choi, Kisung Moon, Sunyoung Kwon, Heru Agung Saputra, Yun Seong Kim, Yoon-Bo Shim, Annals of Translational Medicine, April 2022.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://atm.amegroups.com/article/view/96115/html"
+   },
+   {
+    "label": "link",
+    "href": "https://atm.amegroups.com/article/view/96115/pdf"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p66",
+  "year": "2022",
+  "type": "International (Conference)",
+  "title": "Fall Detection using Biometric Information Based on Multi-Horizon Forecasting",
+  "meta": "Inkyung Kim, Daehee Kim, Sunyoung Kwon, Sheayun Lee, Jaekoo Lee, in Proceedings of International Conference of Pattern Recognition(ICPR), August 2022",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://www.icpr2022.com/"
+   },
+   {
+    "label": "source code",
+    "href": "https://github.com/ai-kmu/Fall_Detection_using_multihorizon_forecasting"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p67",
+  "year": "2022",
+  "type": "Domestic (Journal)",
+  "title": "의료 과학 연구를 위한 설명가능 그래프 인공 신경망",
+  "meta": "신예원, 문기성, 정영석, 권선영*, 정보과학회논문지, pp.999-1,008, November 2022",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002895761"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p68",
+  "year": "2022",
+  "type": "Domestic (Journal)",
+  "title": "대조 학습에 기반한 기침 소리 분류 모델 분석",
+  "meta": "임현진, 문기성, 권선영*, 정보과학회논문지, pp.999-1,008, November 2022",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11149402"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p69",
+  "year": "2022",
+  "type": "Domestic (Conference)",
+  "title": "분자 성질 예측을 위한 멀티 모달 분자 표현형 학습",
+  "meta": "신예원, 노다솜, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.824-826, December 2022",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11224257&googleIPSandBox=false&mark=0&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p70",
+  "year": "2022",
+  "type": "Domestic (Conference)",
+  "title": "음성 특징 추출기법을 활용한 진동 신호의 CNC공구 마모도 예측",
+  "meta": "임현진, 강재민, 구본유, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.981-983, June 2022",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11113538"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p71",
+  "year": "2022",
+  "type": "Domestic (Conference)",
+  "title": "다제내성 결핵균 예측을 위한 다중레이블 분류 모델 연구",
+  "meta": "문기성, 신예원, 강전일, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.1,115-1,117, June 2022",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11113583"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p72",
+  "year": "2021",
+  "type": "International (Journal)",
+  "title": "NASCUP: Nucleic Acid Sequence Classification by Universal Probability",
+  "meta": "Sunyoung Kwon, Gyuwan Kim, Byunghan Lee, Jongsik Chun, Sungroh Yoon, Young-Han Kim, IEEE Access, November 2021.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/document/9614131"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9614131"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p73",
+  "year": "2021",
+  "type": "International (Journal)",
+  "title": "Graphs, Entities, and Step Mixture for Enriching Graph Representation",
+  "meta": "Kyuyong Shin, Wonyoung Shin, Jung-woo Ha, Sunyoung Kwon*, IEEE Access, vol.9, pp 144025 - 144034, October 2021.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/document/9583282"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9583282"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p74",
+  "year": "2021",
+  "type": "International (Journal)",
+  "title": "Stress Detection with Single PPG Sensor by Orchestrating Multiple Denoising and Peak-detecting Methods",
+  "meta": "Seongsil Heo, Sunyoung Kwon, Jaekoo Lee, IEEE Access, vol. 9, pp 47777-47785, February 2021.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9358140"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/document/9358140"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p75",
+  "year": "2021",
+  "type": "International (Journal)",
+  "title": "M2FN: Multi-step Modality Fusion for Advertisement Image Assessment",
+  "meta": "Kyung-Wha Park, Jung-Woo Ha, JungHoon Lee, Sunyoung Kwon, Kyung-Min Kim, Byoung-Tak Zhang, Applied Soft Computing, vol. 103, pp 107116, January 2021.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://pdf.sciencedirectassets.com/272229/1-s2.0-S1568494621X00038/1-s2.0-S1568494621000399/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEC4aCXVzLWVhc3QtMSJIMEYCIQDs8UXDoWQVAT8VQ65UVdec4bPVocw2%2BFhjUOsCrorYlwIhAIZwE%2FPW8aeV3aYacYvPTGA8LHVZMZoilHtYAoNh2n7rKrwFCLf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQBRoMMDU5MDAzNTQ2ODY1IgzSbMDgbVPeiuR%2FKvsqkAWQgMSbSr1sZJoiwBoh4T61Imd1QaWCOGBjHjWXL67aumL4Y97MJW1nDBqJlizqvkVf0oNCT%2Bi%2FKZY5xiqXDpNR89DidAu%2BPYu6kdO8nrPlhj3OE4NttNBCm0U84PsSHLHoJcEAWlLXOj2zZzZn8LayPKuJRSQsji94boRp2K58ClWY%2FL33JEPzgEpHg3jIOqeI53tDPo71W6FzvcYueCZmTGZ06GoxhTvcMibtQJvm8bMdpgw7XSde9n%2FIpN%2FMxvKIv5u5qq8%2BkmRhDi61hJ%2BGxA%2Fq%2BbDJfhlJ2eu8BqZeeqUBVfki%2Fk1SH5P5z8v%2B2PdMbyI2GGWpCuqsa%2Bs4birzN%2B8zA%2BwCwRCQpZZLUAsnKSOSMkc00FGd%2BGoBGLTgHr1qpRm5TdkkNUReW4CRVwnPXrAOyByWPzOe%2FWv442Scud6g8Uv1VwjSdrz8ZhzTSzKb%2Fi%2F8abRI26uvk67hy2J8%2BHqdDnjOVifM5jW05ttL88Kpb2tP8i8k%2BTUIiwMedNeJCto3vo7myoz7L4tMEFkq%2Fh9rJyIXjuRzFBRv1xKCXbAQBBPaxR3vmbRn2Gb%2BuJPu%2FSU5frKyP5WnmXU9oz3aWYL1EiwUZMN20FVcubaojrQ%2Ffuv8J6mcA90ARd4sMRpNgpFSEZTBYiDuMYvAlzXz61egt4kF4NIS4B5TGpIXEnl10fDUMkKjZ6cXtIENclXm6KgxQp2crW5ybgxPwcPEu0wF3m2QhjZ1LZz7t0mXG2g0c7Y69rFHi06q2GyqmZaCs0Uf6RQwuJ7rpwDBpSyOMXB8eBmb%2B3cbsQudwjPf9JMjrz5%2FtIao5pPK3WvhX6S3PBg8jO8ZZvGUNpN5Y%2BKtUOAGia67x21baKdWFncGzDDe2Mu5BjqwAY6tYHiMukadZTzY5%2FBe61bVQ8yt2U1ZDJT%2FeviuP0%2Bsu6YTeCdiE2uKPQGUFGphxX4nc5AR1PQUoNzpAU3rM9XoIiU%2BjWTtLVgvM%2BWr9ccuDDF%2BcdrGskLla2ZFHMLC40619%2B9%2FtvKon82kVHJ%2FPPjMiDDAwmh3LbJ%2BM9Nyx4%2Fqs4IIQ69lAAmqSE0EBYQFHID5%2Bp4MIpOkquHT9oOjX4491ZAK7C%2FYyu2e2hY5Zhj0&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241112T070752Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY37IO6FIC%2F20241112%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=82897950a6f246b17be2c3bd8ec66b8744ac88e197290637c344b4799f94fe6e&hash=02408cee0d820c73995ffb4cc21fe76550a6189979f81012982a682c7ba095fd&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1568494621000399&tid=spdf-201d7a26-7da5-4909-be19-2261a1803f21&sid=6becbe513fead146b96940d-1b82d69f5ea6gxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=11145b0b53570157575d07&rr=8e14b003ee0fd1d9&cc=kr"
+   },
+   {
+    "label": "link",
+    "href": "https://www.sciencedirect.com/science/article/pii/S1568494621000399"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p76",
+  "year": "2021",
+  "type": "Domestic (Conference)",
+  "title": "스펙트로그램의 대조 학습을 이용한 기침 소리 분류",
+  "meta": "임현진, 문기성, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.741-743, November 2021",
+  "award": "우수발표논문상",
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11035837"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p77",
+  "year": "2021",
+  "type": "Domestic (Conference)",
+  "title": "다변량 시계열의 비지도 학습기반 이상치 탐지를 위한 SaaS 아키텍처 및 모델 분석",
+  "meta": "정영석, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.753-755, November 2021",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11035841"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p78",
+  "year": "2021",
+  "type": "Domestic (Conference)",
+  "title": "단음 스펙트로그램의 증강기법 분석",
+  "meta": "임현진, 권선영*, 한국컴퓨터종합학술대회 논문집, pp.733-735, June 2021",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10583058&googleIPSandBox=false&mark=0&minRead=5&ipRange=false&b2cLoginYN=false&icstClss=010000&isPDFSizeAllowed=true&accessgl=Y&language=ko_KR&hasTopBanner=true"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p79",
+  "year": "2021",
+  "type": "Patent",
+  "title": "인공지능 기반의 CNC공작기계의 공구 마모 예측 방법, 장치, 시스템",
+  "meta": "서영민, 권선영 출원일: 2021년 11월 02일, 출원번호: 10-2021-0149145",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020210149145"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p80",
+  "year": "2020",
+  "type": "International (Journal)",
+  "title": "Development and validation of a next-generation sequencing-based multigene assay to predict the prognosis of estrogen receptor-positive, HER2-negative breast cancer",
+  "meta": "Han-Byoel Lee, Sae Byul Lee, Minsu Kim, Sunyoung Kwon, Jeonghee Jo, Jinkyoung Kim, Hee Jin Lee, Han Suk Ryu, Jong Won Lee, Chungyeul Kim, Jaehwan Jeong, Hyoki Kim, Dong-Young Noh, In-Ae Park, Sei Hyun Ahn, Sun Kim, Sungroh Yoon, Aeree Kim, and Wonshik Han, Clinical Cancer Research, vol. 26, no. 24, pp. 6513-6522, December 2020.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://clincancerres.aacrjournals.org/content/clincanres/early/2020/10/07/1078-0432.CCR-20-2107.full-text.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://clincancerres.aacrjournals.org/content/early/2020/10/07/1078-0432.CCR-20-2107"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p81",
+  "year": "2020",
+  "type": "International (Conference)",
+  "title": "Self-supervised Auxiliary Learning with Meta-paths for Heterogeneous Graphs",
+  "meta": "Dasol Hwang, Jinyoung Park, Sunyoung Kwon, Kyung-Min Kim, Jung-Woo Ha, Hyunwoo J Kim, in Proceedings of Neural Information Processing Systems (NeurIPS), December 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://proceedings.neurips.cc//paper/2020/file/74de5f915765ea59816e770a8e686f38-Paper.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://papers.nips.cc/paper/2020/hash/74de5f915765ea59816e770a8e686f38-Abstract.html"
+   }
+  ],
+  "lang": "en",
+  "featured": true
+ },
+ {
+  "id": "p82",
+  "year": "2020",
+  "type": "International (Conference)",
+  "title": "Which Strategies Matter for Label Noise? Insight into Loss and Uncertainty",
+  "meta": "Wonyoung Shin, Jung-Woo Ha, Shengzhe Li, Yongwoo Cho, Hoyean, Sunyoung Kwon*, Workshop on Dataset Curation and Security - NeurIPS 2020, December 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "http://securedata.lol/camera_ready/5.pdf"
+   },
+   {
+    "label": "YouTube",
+    "href": "https://youtu.be/0QwsAy_6-Qc"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p83",
+  "year": "2020",
+  "type": "International (Conference)",
+  "title": "Graphs, Entities, and Step Mixture",
+  "meta": "Kyuyong Shin, Wonyoung Shin, Jung-Woo Ha, Sunyoung Kwon*, Workshop on Graph Representation Learning and Beyond at International Conference on Machine Learning (ICML GRL+), July 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://grlplus.github.io/papers/89.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://grlplus.github.io/papers/"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p84",
+  "year": "2020",
+  "type": "International (Conference)",
+  "title": "Multi-Manifold Learning for Large-scale Targeted Advertising System",
+  "meta": "Kyuyong Shin, Young-Jin Park, Kyung-Min Kim, Sunyoung Kwon, Workshop on artificial intelligence for computational advertising at Knowledge Discovery and Data Mining (AdKDD), June 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://arxiv.org/pdf/2007.02334.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://arxiv.org/abs/2007.02334"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p85",
+  "year": "2020",
+  "type": "Domestic (Conference)",
+  "title": "그래프 뉴럴 네트워크를 활용한 약물 개발 최신 연구 동향 분석",
+  "meta": "문기성, 권선영*, 한국소프트웨어종합학술대회 논문집, pp.463-465, December 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10529679&googleIPSandBox=false&mark=0&minRead=5&ipRange=false&b2cLoginYN=false&icstClss=010000&isPDFSizeAllowed=true&accessgl=Y&language=ko_KR&hasTopBanner=true"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p86",
+  "year": "2020",
+  "type": "Domestic (Conference)",
+  "title": "전이 학습을 통한 GRU와 LSTM의 낙상 검출 성능 향상",
+  "meta": "김인경, 허성실, 권선영, 이재구, 한국통신학회 하계종합학술발표회, pp.597-598, August 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10498675"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p87",
+  "year": "2020",
+  "type": "Domestic (Conference)",
+  "title": "PPG signal preprocessing and comparison study with learning-based model for stress detection",
+  "meta": "Seongsil Heo, Inkyung Kim, Sunyoung Kwon, Hyejin Lee, Jaekoo Lee, 한국통신학회 하계종합학술발표회, pp.595-596, August 2020",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10498674"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p88",
+  "year": "2020",
+  "type": "Patent",
+  "title": "차세대 염기서열분석을 이용한 기계학습 기반 유방암 예후 예측 방법 및 예측 시스템",
+  "meta": "한원식, 이한별, 박인애, 유한석, 안세현, 이종원, 이새별, 이희진, 김애리, 김정렬, 윤성로, 김선, 권선영, 김민수,. 조정희 출원일: 2017년 11월 10일, 출원번호: 10-2017-0149834 등록일: 2020년 01월 22일, 등록번호: 10-2071491-0000",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170149834"
+   },
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170149834"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ },
+ {
+  "id": "p89",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "Comprehensive Ensemble in QSAR Prediction for Drug Discovery",
+  "meta": "Sunyoung Kwon, Ho Bae, Junghee Jo, Sungroh Yoon, BMC Bioinformatics, vol. 20, no. 1, pp. 521, October 2019.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://bmcbioinformatics.biomedcentral.com/track/pdf/10.1186/s12859-019-3135-4"
+   },
+   {
+    "label": "link",
+    "href": "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-3135-4"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p90",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "End-to-end Representation Learning for Chemical-Chemical Interaction Prediction",
+  "meta": "Sunyoung Kwon and Sungroh Yoon, IEEE/ACM Transactions on Computational Biology and Bioinformatics, vol. 16, no. 5, pp. 1436-1447, September/October 2019.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8428455"
+   },
+   {
+    "label": "link",
+    "href": "https://ieeexplore.ieee.org/document/8428455"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p91",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "Changes in Lesional and Non-lesional Skin Microbiome During Treatment of Atopic Dermatitis",
+  "meta": "Sunyoung Kwon, Ji Young Choi, Jung-Won Shin, Chang-Hun Huh, Kyoung-Chan Park, Mi-Hee Du, Sungroh Yoon, Jung-Im Na, Acta Dermato-Venereologica, vol. 99, no. 3, pp. 284-290, 2019.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://www.medicaljournals.se/acta/content_files/files/pdf/99/3/5358.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://snucm.elsevierpure.com/en/publications/changes-in-lesional-and-non-lesional-skin-microbiome-during-treat"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p92",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "LncRNAnet: Long Noncoding RNA Identification using Deep Learning",
+  "meta": "Junghwan Baek, Byunghan Lee, Sunyoung Kwon, Sungroh Yoon, Bioinformatics, vol. 34, no. 22, pp. 3889-3897, November 2018.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://watermark.silverchair.com/bty418.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAtkwggLVBgkqhkiG9w0BBwagggLGMIICwgIBADCCArsGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMXbNKV_Uuj-gNhyvnAgEQgIICjLRWyFNDNtgZNQ-bjqY4XodbhcSzEmdD14iljP2-xxD7y-eq1dgFCqbAMqQ3Pyw3etyEHAUUVOrkL_hfZiqYfLBzXc5EzIl6-69Jp01eOAY_JcR9JMmDTOfdevIMEN3XAZGiqV7ITOSgES1OcGse_UAaWGwjhkDwuUzfxNPop_w8rzev1gCTWeVGP5du62hLkGLAvj8IxcnmpJBfl1pfRoSZLAL9AreRmNAeWdXICTZLoSOPquDwi5YLossjJPPfN719IAZGfn277_RHJRdqmWcUrmiilGJW0byx6PhLQjjAOzi_YpzaU2Z5CDNAtJwBiUET8edYYKK7sSeaRUk62JQLsBarrEel90Q1P4zTA8Pw2s_XXXT2_i_uDTmtI0dMIhNPgEWqvudypL5Za9PSgzqzhkLGCDtBKA5shVXU5W1BzcJvpEUpDmcVwxMvJ8DWrVEWZmQQleGs_Esl02VlY8ZQkr79ho3TQ_-2xe3jFTSEw0afUnBmZKfc3C92-pjBBFwRHnoh80VE7LV2owtk5X6dgrKAi6fHCRxDgeQsbxHxYl8VvBR5hw5bR84waxouFEbGuaKwg8Uo6eooIlmG6p2yFbzKHjB7pXUxLrtD3t9zZBlKHylhJZA1xOu0b460h1hs0qBZL8yGqmurjJUymhuCDodshdVpm5TwAW5kCmzKkHqmIqD9SNKjpCwxCuj79Qmyt-PuSDWfXwGgwIimyslKgVZ4wSuT93q85TGaBIAXGuSIPRkwbtt183u_pW5bAm-jTZQ9-7BRBoRQVk9zM0CPObO5Bt6szOHW18CLzmUmNDagdOMzr53C1oLOoyrd4VvBHUv9cKflnae6ZUw9VmuwOGCCr1wbdU233EQ"
+   },
+   {
+    "label": "link",
+    "href": "https://academic.oup.com/bioinformatics/article/34/22/3889/5021689"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p93",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "Prediction of pathologic femoral fractures in patients with lung cancer using machine learning algorithms: Comparison of computed tomography-based radiological features with clinical features versus without clinical features",
+  "meta": "Eunsun Oh, Sung Wook Seo, Young Cheol Yoon, Dong Wook Kim, Sunyoung Kwon, and Sungroh Yoon, Journal of Orthopaedic Surgery, vol. 25, no. 2, pp. 1-7, June 2017.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://journals.sagepub.com/doi/pdf/10.1177/2309499017716243"
+   },
+   {
+    "label": "link",
+    "href": "https://pubmed.ncbi.nlm.nih.gov/28659051/"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p94",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "CASPER: context-aware scheme for paired-end reads from high-throughput amplicon sequencing",
+  "meta": "Sunyoung Kwon, Byunghan Lee, and Sungroh Yoon, BMC bioinformatics, vol. 15, no. 9, p. S10, September 2014.",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://bmcbioinformatics.biomedcentral.com/track/pdf/10.1186/1471-2105-15-S9-S10.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-15-S9-S10"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p95",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "The Analysis of Genome Database Compaction based on Sequence Similarity",
+  "meta": "Sunyoung Kwon, Byunghan Lee, Seunghyun Park, Jeonghee Jo, and Sungroh Yoon, KIISE Transactions on Computing Practices, Vol. 23, No. 4, pp. 250-255, April 2017",
+  "award": null,
+  "links": [],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p96",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "P102 Changes of lesional and non-lesional skin microbiome with the treatment course of atopic dermatitis",
+  "meta": "Jiyoung Choi, Sunyoung Kwon, Jungwon Shin, Changhun Huh, Kyoungchan Park, Mihee Du, Sungroh Yoon, and Jungim Na, Korea Dermatological Association, Vol. 68, No. 2, pp. 385-386, October 2016",
+  "award": null,
+  "links": [],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p97",
+  "year": "~2019",
+  "type": "International (Journal)",
+  "title": "Comparative Performance Evaluation of OTU Binning Methods for Metagenomic Sequence Analysis",
+  "meta": "Seunghyun Park, Hyunsoo Choi, Sunyoung Kwon, and Sungroh Yoon, Communications of the Korean Institute of Information Scientists and Engineers, Vol. 32, No. 3, pp. 46-53, March 2014",
+  "award": null,
+  "links": [],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p98",
+  "year": "~2019",
+  "type": "International (Conference)",
+  "title": "DNA Steganalysis using Deep Recurrent Neural Networks",
+  "meta": "Ho Bae, Byunghan Lee, Sunyoung Kwon, Sungroh Yoon, in Proceedings of Pacific Symposium on Biocomputing (PSB), Hawaii, USA, January 2019",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://arxiv.org/pdf/1704.08443.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://arxiv.org/abs/1704.08443"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p99",
+  "year": "~2019",
+  "type": "International (Conference)",
+  "title": "DeepCCI: End-to-end Deep Learning for Chemical-Chemical Interaction Prediction",
+  "meta": "Sunyoung Kwon, and Sungroh Yoon, Proceedings of the 8th ACM Conference on Bioinformatics, Computational Biology, and Health Informatics (ACM-BCB), Boston, USA, August 2017",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://dl.acm.org/doi/pdf/10.1145/3107411.3107451"
+   },
+   {
+    "label": "link",
+    "href": "https://dl.acm.org/doi/10.1145/3107411.3107451"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p100",
+  "year": "~2019",
+  "type": "International (Conference)",
+  "title": "NASCUP: Nucleic Acid Sequence Classification by Universal Probability",
+  "meta": "Sunyoung Kwon, Gyuwan Kim, Byunghan Lee, Sungroh Yoon, and Young-Han Kim, 2016 RECOMB-Seq (Massively Parallel Sequencing), Los Angeles, USA, April 2016",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://arxiv.org/pdf/1511.04944.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://arxiv.org/abs/1511.04944"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p101",
+  "year": "~2019",
+  "type": "International (Conference)",
+  "title": "CASPER: context-aware scheme for paired-end reads from high-throughput amplicon sequencing",
+  "meta": "Sunyoung Kwon, Byunghan Lee, and Sungroh Yoon, Proceedings of 2014 RECOMBSeq (Massively Parallel Sequencing), Pittsburgh, USA, March 2014 (full paper published in BMC Bioinformatics)",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "https://bmcbioinformatics.biomedcentral.com/track/pdf/10.1186/1471-2105-15-S9-S10.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-15-S9-S10"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p102",
+  "year": "~2019",
+  "type": "International (Conference)",
+  "title": "In-depth analysis of interrelation between quality scores and real errors in illumina reads",
+  "meta": "Sunyoung Kwon, Seunghyun Park, Byunghan Lee, and Sungroh Yoon, Proceedings of IEEE 35th Annual International Conference on Engineering in Medicine and Biology (EMBC), Osaka, Japan, July 2013",
+  "award": null,
+  "links": [
+   {
+    "label": "preprint",
+    "href": "http://nzin.snu.ac.kr/wp-content/uploads/2016/01/2013-EMBS-In-depth.pdf"
+   },
+   {
+    "label": "link",
+    "href": "https://pubmed.ncbi.nlm.nih.gov/24109767/"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p103",
+  "year": "~2019",
+  "type": "Patent",
+  "title": "유방암 예후 예측용 조성물 및 방법",
+  "meta": "한원식, 이한별, 윤성로, 김선, 권선영, 김민수, 김효기, 한효준 출원일: 2017년 10월 20일, 출원번호: 10-2017-0136293 등록일: 2019년 07월 11일, 등록번호: 10-2001153-0000",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170136293&dbt=KPTN"
+   },
+   {
+    "label": "link",
+    "href": "https://scienceon.kisti.re.kr/srch/selectPORSrchPatent.do?cn=KOR1020170136293&dbt=KPTN"
+   }
+  ],
+  "lang": "ko",
+  "featured": false
+ }
+]

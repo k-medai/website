@@ -1,0 +1,542 @@
+---
+import Base from '../layouts/Base.astro';
+import DockingHero from '../components/DockingHero.astro';
+import AreaScene from '../components/AreaScene.astro';
+import { site } from '../data/site';
+import research from '../data/research.json';
+import pubs from '../data/publications.json';
+import awards from '../data/awards.json';
+import grants from '../data/grants.json';
+import seminars from '../data/seminars.json';
+import lablife from '../data/lablife.json';
+import conferences from '../data/conferences.json';
+import { photosIn } from '../lib/photos';
+
+const papers = pubs.filter((p) => p.type !== 'Patent');
+const patents = pubs.filter((p) => p.type === 'Patent');
+const featured = pubs.filter((p) => p.featured).sort((a, b) => Number(b.year) - Number(a.year)).slice(0, 4); // 홈에는 분야 최상위 학회·저널 4편만
+const latestAwards = awards.slice(0, 4);
+const latestSeminars = seminars.slice(0, 4);
+const confs = conferences.map((c) => ({ ...c, photos: photosIn(`conferences/${c.slug}`) }));
+const byDateDesc = (a: string, b: string) => b.slice(0, 10).localeCompare(a.slice(0, 10)); // 'YYYY.MM.DD'로 시작하는 날짜 문자열 기준 최신순
+const latestConfs = confs.filter((c) => c.photos.length).sort((a, b) => byDateDesc(a.dates, b.dates)).slice(0, 2); // 홈에는 사진이 있는 최신 학회 2건, 사진 1장씩
+type Lab = { date: string; title: string; photos?: string[] };
+const latestLabs = (lablife as Lab[]).filter((l) => l.photos?.length).sort((a, b) => byDateDesc(a.date, b.date)).slice(0, 2); // 홈에는 사진이 있는 최신 피지컬 랩 2건, 사진 1장씩
+const typeShort: Record<string, string> = {
+  'International (Journal)': 'International Journal',
+  'International (Conference)': 'International Conference',
+  'Domestic (Journal)': 'Domestic Journal',
+  'Domestic (Conference)': 'Domestic Conference',
+  Patent: 'Patent',
+};
+---
+<Base dark>
+  <!-- 1. Intro -->
+  <section class="hero screen" aria-label="Medical AI Lab 소개" data-screen="Intro" data-dark>
+    <DockingHero />
+    <div class="wrap hero-in">
+      <div class="hero-text">
+        <p class="eyebrow">{site.universityEn}<br />{site.departmentEn}</p>
+        <h1 class="display">Medical AI Lab</h1>
+        <p class="tagline">Powering <em>Artificial intelligence</em><br />Bio-medical analysis</p>
+        <p class="hero-lede">{site.intro[1]}</p>
+        <div class="ctas">
+          <a class="btn btn-light-fill" href="/research/">Research <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-light" href="/join/">Join us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. About: 연구실 소개 + 현황 숫자 + 협력기관 -->
+  <section class="section screen about" id="welcome" data-screen="About">
+    <div class="wrap">
+      <div class="welcome-in">
+        <div class="welcome-head reveal">
+          <p class="eyebrow">About</p>
+          <h2>{site.welcome}</h2>
+        </div>
+        <div class="welcome-body reveal" style="transition-delay:80ms">
+          <p class="lede">{site.intro[0]}</p>
+          {site.intro.slice(1).map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+      <div class="facts" aria-label="연구실 현황">
+        <div class="numbers-in rule-top">
+          <div class="reveal"><b class="tnum">{papers.length}</b><span>Publications</span></div>
+          <div class="reveal" style="transition-delay:80ms"><b class="tnum">{patents.length}</b><span>Patents</span></div>
+          <div class="reveal" style="transition-delay:160ms"><b class="tnum">{grants.length}</b><span>Research grants</span></div>
+          <div class="reveal" style="transition-delay:240ms"><b class="tnum">{awards.length}</b><span>Awards</span></div>
+          <div class="reveal" style="transition-delay:320ms"><b class="tnum">{site.stats.partners}</b><span>Partners</span></div>
+        </div>
+        <div class="partners reveal" style="transition-delay:200ms">
+          <span class="eyebrow">협력기관</span>
+          <p>{site.partners.map((p, i) => <><span>{p}</span>{i < site.partners.length - 1 && <span class="dot" aria-hidden="true">·</span>}</>)}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. What We Do -->
+  <section class="section screen areas-sec" data-screen="What We Do">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">Research</p><h2>What We Do</h2></div>
+        <a class="more" href="/research/" aria-label="연구 분야와 과제 전체">전체 →</a>
+      </div>
+      <div class="areas rule-top">
+        {research.whatWeDo.map((a, i) => (
+          <a class="area reveal" href={a.href} style={`transition-delay:${i * 90}ms`}>
+            <div class="illus">
+              {i === 0 && <AreaScene kind="metastasis" label="암세포 전이 3D 장면" />}
+              {i === 1 && <AreaScene kind="molecule" label="약물 분자 구조 3D 장면" />}
+              {i === 2 && <AreaScene kind="ecg" label="3D 심전도 파형 장면" />}
+            </div>
+            <h3>{a.title}</h3>
+            <p>{a.text}</p>
+            <div class="kw">{a.keywords.map((k) => <span class="tag">{k}</span>)}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Selected Publications -->
+  <section class="section screen pubs-sec" data-screen="Publications">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">Publications</p><h2>Selected Publications</h2></div>
+        <a class="more" href="/publications/" aria-label={`전체 논문 ${papers.length}편`}>전체 →</a>
+      </div>
+      <ol class="pubs rule-top">
+        {featured.map((p, i) => (
+          <li class="reveal" style={`transition-delay:${i * 60}ms`}>
+            <div class="pub-side">
+              <span class="pub-year tnum">{p.year}</span>
+              <span class="pub-type">{typeShort[p.type] ?? p.type}</span>
+            </div>
+            <div class="pub-body">
+              <h3 class="pub-title">{p.title}</h3>
+              <p class="pub-meta">{p.meta}</p>
+              <div class="pub-foot">
+                {p.award && <span class="pub-award">{p.award}</span>}
+                {p.links.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label}</a>)}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5. News & Lab Life -->
+  <section class="section screen act-sec" data-screen="Activity">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">Activity</p><h2>News &amp; Lab Life</h2></div>
+        <a class="more" href="/activity/" aria-label="수상 · 학회 · 세미나 · 피지컬 랩 전체">전체 →</a>
+      </div>
+      <div class="act rule-top">
+        <div class="act-col reveal">
+          <h3 class="act-h"><a href="/activity/#news">Awards</a></h3>
+          <ul class="act-list">
+            {latestAwards.map((a) => (
+              <li><span class="act-date tnum">{a.year}</span><span class="act-body"><b>{a.award}</b><span class="muted"> · {a.event}</span><span class="act-who">{a.people.join(', ')}</span></span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="act-col reveal" style="transition-delay:90ms">
+          <h3 class="act-h"><a href="/activity/#seminar">Seminar</a></h3>
+          <ul class="act-list">
+            {latestSeminars.map((s) => (
+              <li class="sem-li">
+                {'thumb' in s && s.thumb && <a class="sem-thumb" href="/activity/#seminar" aria-hidden="true" tabindex="-1"><img src={s.thumb} alt="" width="640" height="360" loading="lazy" decoding="async" /></a>}
+                <span class="act-body"><span class="act-date tnum">{s.date}</span><b>{s.title}</b>{s.presenter && <span class="act-who">{s.presenter}</span>}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="act-col reveal" style="transition-delay:180ms">
+          <h3 class="act-h"><a href="/activity/#conferences">Conferences</a></h3>
+          {latestConfs.length ? (
+            <div class="lab-cards">
+              {latestConfs.map((c) => (
+                <a class="lab-card" href="/activity/#conferences">
+                  <img src={c.photos[0]} alt={`${c.name}, ${c.location}`} width="800" height="600" loading="lazy" decoding="async" />
+                  <span class="lab-cap"><span class="tnum muted">{c.dates}</span><b>{c.name} · {c.location}</b></span>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <ul class="act-list">{confs.map((c) => <li><span class="act-date tnum">{c.dates}</span><span class="act-body"><b>{c.name}</b><span class="act-who">{c.location}</span></span></li>)}</ul>
+          )}
+        </div>
+        <div class="act-col reveal" style="transition-delay:270ms">
+          <h3 class="act-h"><a href="/activity/#physical-lab">Physical Lab</a></h3>
+          {latestLabs.length ? (
+            <div class="lab-cards">
+              {latestLabs.map((l) => (
+                <a class="lab-card" href="/activity/#physical-lab">
+                  <img src={l.photos![0]} alt={l.title} width="800" height="600" loading="lazy" decoding="async" />
+                  <span class="lab-cap"><span class="tnum muted">{l.date}</span><b>{l.title}</b></span>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <ul class="act-list">{lablife.slice(0, 4).map((l) => <li><span class="act-date tnum">{l.date}</span><span class="act-body"><b>{l.title}</b></span></li>)}</ul>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Join (푸터와 함께 마지막 화면을 이룬다) -->
+  <section class="band screen join" data-screen="Join" data-dark>
+    <div class="wrap join-in">
+      <div class="reveal">
+        <p class="eyebrow">Join</p>
+        <h2>{site.recruiting.heading}</h2>
+        <div class="join-pitch">{site.recruiting.pitchKo.map((p) => <p>{p}</p>)}</div>
+        <div class="ctas">
+          <a class="btn btn-light-fill" href="/join/">모집 안내 전체 보기 <span class="arrow" aria-hidden="true">→</span></a>
+          <span class="join-mail">{site.contact.email}</span>
+        </div>
+      </div>
+      <aside class="apply reveal" style="transition-delay:120ms">
+        <p class="eyebrow">How to apply</p>
+        <p class="how">{site.recruiting.howTo}</p>
+        <ol class="docs">{site.recruiting.documents.map((d) => <li>{d}</li>)}</ol>
+        <hr />
+        <p class="muted small">{site.recruiting.affiliations.map((a, i) => <><a href={a.href} target="_blank" rel="noopener">{a.label}</a>{i < site.recruiting.affiliations.length - 1 ? ', ' : ''}</>)} 연계가능</p>
+      </aside>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ---- 화면 단위 레이아웃 (데스크톱) ----
+     각 섹션이 뷰포트 한 화면을 차지하고, 내용은 세로 중앙에 놓인다.
+     마지막 Join 화면은 푸터 높이(--footer-h, 스크립트가 측정)를 빼서 Join + 푸터가 한 화면이 되게 한다. */
+  @media (min-width: 861px) {
+    .screen { min-height: 100svh; display: grid; align-content: center; padding-block: calc(var(--header-h) + 24px) 36px; }
+    .screen > .wrap { width: 100%; }
+    .screen.join { min-height: calc(100svh - var(--footer-h, 340px)); align-content: start; padding-top: var(--join-top, calc(var(--header-h) + 24px)); } /* 내용 시작 높이는 바로 앞 Activity 화면과 같게(스크립트가 --join-top 측정) */
+    .screen .section-head { margin-bottom: clamp(18px, 3svh, 34px); }
+  }
+
+  /* Hero */
+  .hero { position: relative; min-height: 100svh; display: grid; align-items: center; color: var(--on-ink); padding-top: 76px; isolation: isolate; overflow: hidden; }
+  .hero-in { position: relative; z-index: 2; width: 100%; padding-block: 40px 120px; }
+  .hero-text { max-width: 680px; display: grid; gap: 22px; }
+  .hero .eyebrow { color: var(--on-ink-muted); max-width: none; }
+  @media (min-width: 861px) { .hero .eyebrow { white-space: nowrap; } } /* 두 줄(대학 / 학과, 대학)이 데스크톱에서 세 줄로 접히지 않게 */
+  .hero h1 { color: #fff; }
+  .tagline { font-size: clamp(22px, 2.6vw, 32px); line-height: 1.25; letter-spacing: -0.01em; color: #e9eef6; margin: 0; }
+  .tagline em { color: #9fd8ff; }
+  .hero-lede { font-size: clamp(16px, 1.3vw, 18px); line-height: 1.7; color: var(--on-ink-muted); max-width: 520px; margin: 0; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px 14px; align-items: center; margin-top: 10px; }
+  @media (min-width: 861px) {
+    .hero.screen { height: 100svh; min-height: 0; display: grid; align-items: center; align-content: stretch; padding-block: 76px 0; }
+    .hero h1 { font-size: clamp(52px, min(8.4vw, 12.5svh), 118px); }
+    .hero-in { padding-block: 24px clamp(90px, 13svh, 120px); }
+  }
+  @media (max-width: 860px) {
+    .hero { min-height: 92svh; align-items: end; }
+    .hero-in { padding-block: 120px 110px; }
+  }
+
+  /* About (Welcome + 현황) */
+  .welcome-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 80px; align-items: start; width: 100%; }
+  .welcome-body { display: grid; gap: 16px; }
+  .welcome-body p { max-width: 64ch; margin: 0; }
+  .welcome-body .lede { color: var(--text); margin-bottom: 6px; }
+  .facts { margin-top: clamp(28px, 4.5svh, 52px); }
+  .numbers-in { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .numbers-in > div { padding: 22px 24px 22px 0; display: grid; gap: 6px; align-content: start; border-right: 1px solid var(--rule); }
+  .numbers-in > div + div { padding-left: 24px; }
+  .numbers-in > div:last-child { border-right: 0; }
+  .numbers-in b { font-size: clamp(34px, 3.6vw, 52px); font-weight: 400; line-height: 0.95; letter-spacing: -0.03em; }
+  .numbers-in span { font-size: 14.5px; line-height: 1.45; }
+  .partners { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .partners p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.8; }
+  .partners .dot { margin: 0 10px; color: var(--rule-2); }
+  @media (max-width: 960px) { .numbers-in { grid-template-columns: repeat(3, 1fr); } .numbers-in > div:nth-child(3) { border-right: 0; } .numbers-in > div:nth-child(4) { padding-left: 0; border-top: 1px solid var(--rule); } .numbers-in > div:nth-child(5) { border-top: 1px solid var(--rule); border-right: 0; } }
+  @media (min-width: 861px) and (max-height: 820px) { .partners { display: none; } .welcome-body { gap: 10px; } .welcome-body .lede { font-size: 17px; line-height: 1.6; } .welcome-body p { font-size: 15.5px; } .facts { margin-top: 20px; } .numbers-in > div { padding-block: 14px; } .numbers-in b { font-size: 36px; } }
+  @media (max-width: 860px) { .welcome-in { grid-template-columns: 1fr; gap: 24px; } .facts { margin-top: 40px; } }
+  @media (max-width: 600px) { .numbers-in { grid-template-columns: 1fr 1fr; } .numbers-in > div { border-right: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--rule); } .numbers-in > div:nth-child(-n+2) { border-top: 0; } .partners { grid-template-columns: 1fr; } }
+
+  /* What we do */
+  .areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 56px; }
+  .area { position: relative; display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; align-content: start; padding: 26px 0 8px; color: inherit; text-decoration: none; }
+  .area + .area::before { content: ''; position: absolute; left: -28px; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+  .area h3 { font-size: 23px; transition: color 0.25s; }
+  .area:hover h3 { color: var(--link); }
+  .area p { color: var(--muted); font-size: 15px; line-height: 1.68; margin: 0; }
+  .illus { margin-bottom: 8px; }
+  .illus :global(.scene) { transition: transform 0.5s var(--ease); }
+  .area:hover .illus :global(.scene) { transform: translateY(-3px); }
+  .kw { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  @media (min-width: 861px) { .illus :global(.scene) { aspect-ratio: auto; height: clamp(180px, 29svh, 320px); } }
+  @media (max-width: 860px) { .areas { grid-template-columns: 1fr; gap: 0; } .area { border-bottom: 1px solid var(--rule); padding: 28px 0; } .area + .area::before { display: none; } .area:last-child { border-bottom: 0; } }
+
+  /* Publications */
+  .pubs { list-style: none; margin: 0; padding: 0; display: grid; }
+  .pubs li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 40px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .pub-side { display: grid; gap: 4px; align-content: start; padding-top: 4px; }
+  .pub-year { font-size: 21px; line-height: 1; }
+  .pub-type { font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .pub-title { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.3; font-weight: 400; letter-spacing: -0.005em; text-wrap: pretty; }
+  .pub-meta { margin: 6px 0 0; font-size: 14px; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pub-foot { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 8px; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .pub-award { color: #0e8a94; text-transform: none; letter-spacing: 0; font-size: 13.5px; }
+  /* 화면 높이에 맞춰 보여줄 개수를 고른다 (기본 4편, 넉넉하면 5~6편, 낮으면 3편) */
+  @media (min-width: 861px) and (max-height: 820px) { .pubs li { padding: 12px 0; } .pub-meta { -webkit-line-clamp: 1; } }
+  @media (max-width: 720px) { .pubs li { grid-template-columns: 1fr; gap: 4px; } .pub-side { display: flex; gap: 14px; align-items: baseline; } .pub-year { font-size: 18px; } }
+
+  /* Activity */
+  .act { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 48px; } /* 네 칼럼의 내용 폭을 똑같이(사진 카드 두 칼럼이 나란히 맞도록), 세로 구분선은 간격 한가운데 */
+  .act-col { position: relative; padding: 24px 0 8px; display: grid; gap: 14px; align-content: start; }
+  .act-col:not(:last-child)::after { content: ""; position: absolute; top: 0; bottom: 0; right: -24px; width: 1px; background: var(--rule); }
+  .act-h { font-size: 25px; }
+  .act-h a { color: inherit; text-decoration: none; }
+  .act-h a:hover { color: var(--link); }
+  .act-list { list-style: none; margin: 0; padding: 0; display: grid; }
+  .act-list li { display: grid; gap: 2px; padding: 11px 0; border-top: 1px solid var(--rule); font-size: 14.5px; line-height: 1.5; }
+  .act-date { font-size: 12.5px; color: var(--muted); letter-spacing: 0.04em; }
+  .act-body b { font-weight: 500; }
+  .act-who { display: block; color: var(--muted); font-size: 13px; }
+  .sem-li { grid-template-columns: 84px minmax(0, 1fr); gap: 2px 12px !important; align-items: start; }
+  .sem-li .sem-thumb { display: block; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--rule); background: var(--paper-2); }
+  .sem-li .sem-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .sem-li .act-body { display: grid; gap: 2px; }
+  .lab-cards { display: grid; gap: 16px; align-content: start; } /* 최신 2건, 사진 1장씩 세로로 */
+  .lab-card { display: grid; gap: 10px; color: inherit; text-decoration: none; }
+  .lab-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: saturate(0.92); transition: filter 0.4s, transform 0.6s var(--ease); }
+  .lab-card:hover img { filter: saturate(1.05); }
+  .lab-cap { display: grid; gap: 2px; font-size: 14.5px; }
+  .lab-cap b { font-weight: 500; }
+  @media (min-width: 861px) and (max-height: 820px) { .act-list li:nth-child(n + 4) { display: none; } .lab-card img { aspect-ratio: 16 / 9; } }
+  @media (min-width: 861px) and (max-height: 760px) { .lab-card img { aspect-ratio: 2 / 1; } .lab-cards { gap: 12px; } }
+  @media (min-width: 861px) and (max-width: 1100px) { .act { grid-template-columns: 1fr 1fr; } .act-col:nth-child(2)::after { display: none; } .act-col:nth-child(n + 3) { border-top: 1px solid var(--rule); } }
+  @media (max-width: 860px) { .act { grid-template-columns: 1fr; column-gap: 0; } .act-col { border-bottom: 1px solid var(--rule); padding: 24px 0; } .act-col::after { display: none; } .act-col:last-child { border-bottom: 0; } }
+
+  /* Join band */
+  .join { padding-block: clamp(64px, 9vw, 120px); }
+  .join-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px 80px; align-items: start; }
+  .join h2 { margin-top: 10px; color: #fff; }
+  .join-pitch { margin-top: 22px; display: grid; gap: 8px; max-width: 58ch; color: var(--on-ink-muted); }
+  .join-pitch p { margin: 0; }
+  .join .ctas { margin-top: 26px; }
+  .join-mail { font-size: 15px; color: var(--on-ink-muted); }
+  .apply { border: 1px solid var(--on-ink-rule); padding: 26px 28px 22px; display: grid; gap: 12px; background: rgba(255, 255, 255, 0.03); }
+  .apply .how { font-size: 17px; margin: 0; }
+  .docs { margin: 0; padding-left: 1.3em; color: var(--on-ink-muted); display: grid; gap: 4px; }
+  .apply hr { margin: 6px 0; }
+  .apply .small { margin: 0; }
+  @media (min-width: 861px) { .join.screen { padding-bottom: 36px; } }
+  @media (min-width: 861px) and (max-height: 999px) { .join h2 { margin-top: 0; } .join-pitch { margin-top: 12px; gap: 5px; } .join .ctas { margin-top: 16px; } }
+  @media (min-width: 861px) and (max-height: 820px) { .join-pitch p:nth-child(n + 3) { display: none; } }
+  @media (max-width: 860px) { .join-in { grid-template-columns: 1fr; } }
+
+</style>
+
+<script>
+  // ------------------------------------------------------------------
+  // 홈 스크롤 엔진 (데스크톱 861px 이상)
+  // 마우스 휠 노치 하나는 다음 화면 경계까지 한 번에 미끄러지고(전환 중 같은 방향 노치는 무시),
+  // 트랙패드는 입력을 따라 내용이 실제로 따라 움직이다가(스크롤하는 느낌) 입력이 멈추면 진행 방향의
+  // 다음 화면 경계로 미끄러져 멈춘다(화면 단위). 한 제스처에 최대 한 화면. 뷰포트보다 긴 화면은
+  // 한 뷰포트씩 나눠 멈추고, 마지막 정지점은 문서 끝(푸터까지)이다.
+  // 키보드(↑↓·PageUp/Down·Space·Home/End)도 같은 정지점을 쓴다.
+  // 터치 기기에서는 첫 화면(히어로) ↔ About 경계만 스냅하고 나머지는 자유 스크롤이다.
+  // OS의 동작 줄이기 설정은 따르지 않는다(연구실 요청: 항상 움직이는 느낌).
+  // ------------------------------------------------------------------
+  const screens = Array.from(document.querySelectorAll<HTMLElement>('[data-screen]'));
+  const footer = document.querySelector<HTMLElement>('footer');
+  const html = document.documentElement;
+  const desktop = () => matchMedia('(min-width: 861px)').matches;
+  const TOL = 40; // 이 안의 차이는 같은 정지점으로 본다(상단은 헤더 76px에 가려지는 범위 안)
+  const COMMIT = 40; // 제스처 누적 이동이 이만큼 넘으면 다음 화면으로 확정, 아니면 제자리로 돌아간다
+  const NOTCH = 50; // 한 번에 이만큼 이상 들어오는 입력은 마우스 휠 노치(크롬 100px, 파이어폭스 3줄=48px)로 보고 한 화면을 바로 미끄러진다
+  const WAIT = 120; // 트랙패드 입력이 이만큼 멈추면 경계로 미끄러진다(ms)
+  const QUIET = 300; // 글라이드가 끝난 뒤 같은 방향의 트랙패드 꼬리 입력(관성)을 무시하는 시간(ms)
+  const QUIET_NOTCH = 120; // 같은 상황에서 휠 노치를 무시하는 시간(ms): 전환이 끝난 뒤의 노치는 거의 의도한 입력이라 짧게
+
+  if (screens.length) {
+    const vh = () => window.innerHeight;
+    const maxY = () => Math.max(0, html.scrollHeight - vh());
+    const tops = () => screens.map((s) => Math.round(s.getBoundingClientRect().top + window.scrollY));
+
+    /** 멈출 수 있는 스크롤 위치 목록: 각 화면의 상단 + 긴 화면의 중간 지점 + 문서 끝 */
+    const stops = () => {
+      const t = tops(), h = vh(), end = html.scrollHeight, out: number[] = [];
+      t.forEach((top, k) => {
+        const bottom = k + 1 < t.length ? t[k + 1] : end;
+        out.push(top);
+        if (bottom - top > h + TOL) {
+          for (let s = top + h; s < bottom - h - TOL; s += h) out.push(s);
+          out.push(bottom - h);
+        }
+      });
+      out.push(maxY());
+      const sorted = out.map((v) => Math.min(maxY(), Math.max(0, v))).sort((a, b) => a - b);
+      const dedup: number[] = [];
+      for (const v of sorted) { if (dedup.length && v - dedup[dedup.length - 1] <= TOL) dedup[dedup.length - 1] = v; else dedup.push(v); }
+      return dedup;
+    };
+    const nearest = (st: number[], y: number) => st.reduce((a, b) => (Math.abs(b - y) < Math.abs(a - y) ? b : a), st[0]);
+    const nextOf = (st: number[], y: number) => st.find((s) => s > y + 1) ?? st[st.length - 1];
+    const prevOf = (st: number[], y: number) => { for (let i = st.length - 1; i >= 0; i--) if (st[i] < y - 1) return st[i]; return st[0]; };
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+    const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    // --- 상태: idle(엔진 꺼짐) → follow(입력을 따라감) → glide(경계로 미끄러짐) → idle
+    type Mode = 'idle' | 'follow' | 'glide';
+    let mode: Mode = 'idle';
+    let pos = window.scrollY, target = pos, written = -1;
+    let acc = 0, lo = 0, hi = 0, origin = 0; // 이번 제스처의 누적 입력, 갈 수 있는 범위, 시작 정지점
+    let lastInput = -1e9, lastFrame = 0, raf = 0, lastDir = 0, settledAt = -1e9;
+    let glide = { from: 0, to: 0, t0: 0, dur: 1, ease: easeOut };
+
+    const write = (y: number) => { written = Math.round(Math.min(maxY(), Math.max(0, y))); window.scrollTo(0, written); };
+    const settle = () => { mode = 'idle'; lastInput = -1e9; settledAt = performance.now(); html.style.scrollBehavior = ''; delete html.dataset.scrolling; };
+    const moving = () => { html.dataset.scrolling = '1'; }; // 전환 중 표시: 3D 장면이 렌더를 쉬어 스크롤 프레임을 확보한다
+    const frame = (now: number) => {
+      raf = 0;
+      const dt = Math.min(0.05, Math.max(0.001, (now - lastFrame) / 1000)); lastFrame = now;
+      if (mode === 'follow') {
+        pos += (target - pos) * (1 - Math.exp(-dt * 16));
+        write(pos);
+        if (now - lastInput > WAIT) { lastDir = Math.sign(acc) || lastDir; startGlide(acc > COMMIT ? hi : acc < -COMMIT ? lo : origin, 'out'); }
+      } else if (mode === 'glide') {
+        const t = Math.min(1, (now - glide.t0) / glide.dur);
+        pos = glide.from + (glide.to - glide.from) * glide.ease(t);
+        write(pos);
+        if (t >= 1) settle();
+      }
+      if (mode !== 'idle') raf = requestAnimationFrame(frame);
+    };
+    const run = () => { if (!raf) { lastFrame = performance.now(); raf = requestAnimationFrame(frame); } };
+    const startGlide = (to: number, kind: 'out' | 'inout') => {
+      to = Math.min(maxY(), Math.max(0, to));
+      const dist = Math.abs(to - pos);
+      if (dist < 0.5) { write(to); settle(); return; }
+      html.style.scrollBehavior = 'auto'; // CSS smooth와 겹치지 않게 프레임 단위로 직접 이동
+      mode = 'glide'; moving();
+      glide = { from: pos, to, t0: performance.now(), dur: kind === 'out' ? Math.min(900, 380 + (dist / vh()) * 460) : Math.min(900, 420 + (dist / vh()) * 300), ease: kind === 'out' ? easeOut : easeInOut };
+      run();
+    };
+    const beginGesture = () => {
+      const st = stops();
+      pos = window.scrollY; target = pos; acc = 0;
+      origin = nearest(st, pos); lo = prevOf(st, pos); hi = nextOf(st, pos);
+      html.style.scrollBehavior = 'auto';
+      mode = 'follow'; moving();
+    };
+    const jump = (to: number) => { pos = window.scrollY; lastDir = Math.sign(to - pos) || lastDir; startGlide(to, 'inout'); };
+    const step = (dir: number) => { const st = stops(), y = window.scrollY; jump(dir > 0 ? nextOf(st, y) : prevOf(st, y)); }; // 진행 방향의 다음 정지점으로 한 번에
+
+    // --- 휠 / 트랙패드: 입력을 따라가다가 멈추면 경계로 ---
+    const deltas: number[] = [];
+    let lastWheel = 0;
+    const mean = (a: number[]) => a.reduce((x, y) => x + y, 0) / a.length;
+    const decelerating = () => { if (deltas.length < 2) return false; const n = Math.min(3, Math.floor(deltas.length / 2)); return mean(deltas.slice(-n)) < mean(deltas.slice(-2 * n, -n)); };
+    window.addEventListener('wheel', (e) => {
+      if (!desktop() || e.ctrlKey) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (e.target instanceof Element && e.target.closest('dialog, [data-free-scroll]')) return;
+      e.preventDefault();
+      const now = performance.now();
+      const d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? vh() : 1);
+      const dir = Math.sign(d);
+      const notch = e.deltaMode !== 0 || Math.abs(d) >= NOTCH; // 마우스 휠 노치 vs 트랙패드의 잘게 이어지는 입력
+      if (now - lastWheel > 300) deltas.length = 0; // 300ms 넘게 조용하면 새 제스처
+      lastWheel = now;
+      deltas.push(Math.abs(d)); if (deltas.length > 24) deltas.shift();
+      if (mode === 'glide') {
+        if (Math.abs(d) < 4 || dir === Math.sign(glide.to - glide.from)) return; // 가는 방향과 같으면 그대로 미끄러진다(노치가 여러 개 와도 한 화면)
+        if (notch) { step(dir); return; } // 반대 방향 노치: 바로 되돌아간다
+        beginGesture(); // 반대 방향 트랙패드 입력: 현재 위치에서 되돌리는 새 제스처
+      } else if (mode === 'idle') {
+        if (Math.abs(d) < 2) return;
+        if (dir === lastDir && now - settledAt < (notch ? QUIET_NOTCH : QUIET)) return; // 방금 끝난 글라이드의 꼬리 입력은 무시
+        if (notch) { step(dir); return; } // 마우스 휠: 노치 하나에 한 화면을 한 번에 미끄러진다(따라가기 단계 없음)
+        if (decelerating()) return; // 트랙패드 관성 꼬리로는 시작하지 않는다
+        beginGesture();
+      }
+      acc += d;
+      target = Math.min(hi, Math.max(lo, target + d));
+      lastInput = now;
+      run();
+    }, { passive: false });
+
+    // --- 키보드 ---
+    window.addEventListener('keydown', (e) => {
+      if (!desktop() || e.altKey || e.ctrlKey || e.metaKey) return;
+      const t = e.target instanceof HTMLElement ? e.target : null;
+      if (t && (t.matches('input, textarea, select, [contenteditable]') || t.closest('dialog'))) return;
+      const space = e.key === ' ' && !(t && t.matches('button, a, summary'));
+      const down = e.key === 'ArrowDown' || e.key === 'PageDown' || (space && !e.shiftKey);
+      const up = e.key === 'ArrowUp' || e.key === 'PageUp' || (space && e.shiftKey);
+      if (!down && !up && e.key !== 'Home' && e.key !== 'End') return;
+      e.preventDefault();
+      if (mode === 'glide' && (down || up)) return;
+      const st = stops(), y = window.scrollY;
+      jump(e.key === 'Home' ? 0 : e.key === 'End' ? maxY() : down ? nextOf(st, y) : prevOf(st, y));
+    });
+
+    // --- 터치: 히어로 ↔ About 경계만 스냅 ---
+    const heroBottom = () => tops()[1] ?? vh();
+    const inHero = () => window.scrollY < heroBottom() - 2;
+    const atBoundary = () => Math.abs(window.scrollY - heroBottom()) < 4;
+    let ty = 0, tx = 0, owning = false, decided = false;
+    window.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; tx = e.touches[0].clientX; owning = false; decided = false; }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      const dy = ty - e.touches[0].clientY, dx = Math.abs(tx - e.touches[0].clientX);
+      if (!decided) {
+        if (Math.abs(dy) < 3 && dx < 3) return;
+        decided = true;
+        if (dx > Math.abs(dy)) return;
+        owning = (dy > 0 && inHero()) || (dy < 0 && atBoundary());
+      }
+      if (!owning) return;
+      e.preventDefault();
+      if (Math.abs(dy) < 28 || mode === 'glide') return;
+      owning = false;
+      if (dy > 0 && inHero()) jump(heroBottom()); else if (dy < 0 && atBoundary()) jump(0);
+    }, { passive: false });
+
+    // --- 외부 스크롤(스크롤바 드래그, 앵커 이동 등)이면 엔진을 멈추고 위치를 따라간다 ---
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (mode === 'idle') { pos = target = y; }
+      else if (Math.abs(y - written) > 2) { settle(); pos = target = y; }
+    }, { passive: true });
+
+    // --- 푸터 높이 → Join 화면 높이 보정, 리사이즈 시 가장 가까운 정지점으로 재정렬 ---
+    const docTop = (el: HTMLElement) => { let y = 0; let n: HTMLElement | null = el; while (n && n !== document.body) { y += n.offsetTop; n = n.offsetParent as HTMLElement | null; } return y; };
+    const setFooter = () => {
+      if (footer) html.style.setProperty('--footer-h', footer.offsetHeight + 'px');
+      // Join 화면의 내용 시작 높이는 바로 앞 Activity 화면의 제목 시작 높이와 같게 (transform 영향이 없는 offsetTop으로 측정)
+      const prev = document.querySelector<HTMLElement>('[data-screen="Activity"]'); const head = prev?.querySelector<HTMLElement>('.section-head');
+      const join = document.querySelector<HTMLElement>('section.join'); const inner = join?.querySelector<HTMLElement>('.join-in');
+      if (prev && head && join && inner && footer) {
+        const minTop = (parseFloat(getComputedStyle(html).getPropertyValue('--header-h')) || 76) + 24;
+        const fit = window.innerHeight - footer.offsetHeight - 36 - inner.offsetHeight; // 이 값보다 크면 Join + 푸터가 한 화면을 넘는다
+        html.style.setProperty('--join-top', Math.round(Math.max(minTop, Math.min(docTop(head) - docTop(prev), fit))) + 'px');
+      }
+    };
+    setFooter(); document.fonts?.ready.then(setFooter);
+    let rt = 0;
+    window.addEventListener('resize', () => {
+      setFooter();
+      clearTimeout(rt);
+      rt = window.setTimeout(() => {
+        if (!desktop() || mode !== 'idle') return;
+        const st = stops(), y = window.scrollY, n = nearest(st, y);
+        if (Math.abs(n - y) > 2) { html.style.scrollBehavior = 'auto'; window.scrollTo(0, n); html.style.scrollBehavior = ''; pos = target = n; }
+      }, 160);
+    });
+  }
+</script>

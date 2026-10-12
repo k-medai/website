@@ -1,0 +1,26 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS / editors
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# 원본 사진(대용량)은 저장소에 올리지 않음
+assets/
+dist-preview/

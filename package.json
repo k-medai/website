@@ -1,0 +1,27 @@
+{
+  "name": "pnu-mail-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Medical AI Lab (PNU MAIL), Pusan National University — lab website built with Astro",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "photos": "node scripts/photos.mjs",
+    "pdb": "node scripts/pdb2json.mjs",
+    "fonts": "node scripts/fonts.mjs",
+    "slides": "node scripts/slides.mjs",
+    "slides:pages": "node scripts/slide-pages.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.7",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5",
+    "subset-font": "^2.4.0"
+  }
+}

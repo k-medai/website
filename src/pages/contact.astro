@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+const c = site.contact;
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapQuery)}`;
+---
+<Base title="Contact" description="부산대 Medical AI Lab 연락처와 찾아오는 길: 양산캠퍼스 경암공학관 517호">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Contact</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid">
+      <div class="info reveal">
+        <div class="block">
+          <p class="eyebrow">Mailing address</p>
+          <p class="big">Professor {c.professor} <span class="muted">({c.professorKo})</span></p>
+          <p>{c.room}<br />49 Busandaehak-ro, Mulgeum-eup, Yangsan-si,<br />Gyeongsangnam-do, 50612, Korea</p>
+          <p class="muted">{c.addressKo}</p>
+        </div>
+        <div class="block">
+          <p class="eyebrow">E-mail</p>
+          <p class="big">{c.email}</p>
+        </div>
+        <div class="block">
+          <p class="eyebrow">Phone</p>
+          <p>{c.phoneProfessor} (Professor)<br />{c.phoneLab} (Lab)</p>
+        </div>
+        <div class="block">
+          <p class="eyebrow">Directions</p>
+          <p>How to get to PNU (Yangsan campus): <a href={c.directionsEn} target="_blank" rel="noopener">English</a>, <a href={c.directionsKo} target="_blank" rel="noopener">Korean</a></p>
+          <p><a href={mapLink} target="_blank" rel="noopener">Google Maps에서 열기 ↗</a></p>
+        </div>
+      </div>
+      <a class="map reveal" style="transition-delay:100ms" href={mapLink} target="_blank" rel="noopener" aria-label="Google 지도에서 부산대학교 양산캠퍼스 경암공학관 보기">
+        <img src="/img/map-yangsan.jpg" alt="부산대학교 양산캠퍼스 경암공학관 위치 지도" width="1200" height="900" loading="lazy" decoding="async" />
+        <span class="map-open">Google Maps에서 열기 <span aria-hidden="true">↗</span></span>
+        <span class="map-attr">© OpenStreetMap contributors</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="band join">
+    <div class="wrap join-in">
+      <div>
+        <p class="eyebrow">Join</p>
+        <h2>{site.recruiting.heading}</h2>
+        <p class="muted">{site.recruiting.pitchKo[3]}</p>
+      </div>
+      <a class="btn btn-light-fill" href="/join/">모집 안내 보기 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 72px; align-items: start; }
+  .info { display: grid; }
+  .block { display: grid; gap: 6px; padding: 22px 0; border-top: 1px solid var(--rule); }
+  .block:first-child { border-top: 0; padding-top: 0; }
+  .block p { margin: 0; }
+  .big { font-size: 20px; }
+  .map { position: relative; aspect-ratio: 4 / 3; display: block; overflow: hidden; background: var(--paper-2); border: 1px solid var(--rule); color: inherit; text-decoration: none; }
+  .map img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
+  .map:hover img { transform: scale(1.02); }
+  .map-open { position: absolute; left: 14px; bottom: 14px; padding: 8px 12px; background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--rule); font-size: 14px; }
+  .map-attr { position: absolute; right: 8px; bottom: 6px; font-size: 10.5px; color: var(--muted); opacity: 0.8; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .join { padding-block: clamp(48px, 7vw, 80px); }
+  .join-in { display: flex; justify-content: space-between; align-items: center; gap: 24px 48px; flex-wrap: wrap; }
+  .join h2 { margin: 8px 0 10px; color: #fff; font-size: clamp(26px, 3vw, 38px); }
+  .join p { margin: 0; }
+</style>
+

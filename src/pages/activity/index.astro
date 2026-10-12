@@ -1,0 +1,323 @@
+---
+import Base from '../../layouts/Base.astro';
+import awards from '../../data/awards.json';
+import grants from '../../data/grants.json';
+import seminars from '../../data/seminars.json';
+import lablife from '../../data/lablife.json';
+import conferences from '../../data/conferences.json';
+import pubs from '../../data/publications.json';
+import { photosIn, photoSize } from '../../lib/photos';
+const dims = (p: string) => photoSize(p) ?? { width: 1200, height: 900 }; // 실제 비율을 width/height에 넣어 사진 로드 전후로 레이아웃이 흔들리지 않게(앵커 이동이 정확해진다)
+
+type Lab = { date: string; title: string; note?: string; photos?: string[] };
+type Slides = { drive?: string; file?: string; name?: string; ext?: string };
+type Seminar = { date: string; title: string; presenter?: string | null; slides?: Slides; thumb?: string; pages?: number };
+const labs = (lablife as Lab[]).map((l) => ({ ...l, photos: l.photos && l.photos.length ? l.photos : [] }));
+const confs = conferences.map((c) => ({ ...c, photos: photosIn(`conferences/${c.slug}`), papers: c.papers.map((id) => pubs.find((p) => p.id === id)).filter(Boolean) }));
+const sems = seminars as Seminar[];
+const awardYears = [...new Set(awards.map((a) => a.year))].sort((a, b) => b - a);
+const semYears = [...new Set(sems.map((s) => s.date.slice(0, 4)))].sort((a, b) => Number(b) - Number(a));
+/** 페이지 이미지가 만들어진 덱(npm run slides:pages)은 사이트 안 뷰어로 전체 슬라이드를 넘겨 본다 */
+/** PREVIEW_DECKS=N 으로 빌드하면 최근 N개 덱만 사이트 안 뷰어를 쓴다(파일 수 제한이 있는 미리보기 게시용). 보통 빌드에서는 전부 */
+const previewDecks = Number(process.env.PREVIEW_DECKS || 0);
+const hasPages = (s: Seminar) => !!s.slides?.drive && !!s.pages && (!previewDecks || sems.indexOf(s) < previewDecks);
+const pagesDir = (s: Seminar) => `/img/seminars/${s.slides!.drive}/`;
+/** 페이지 이미지가 없는 파일(pptx 등)은 Drive에서 새 탭으로 연다 */
+const viewUrl = (s: Slides) => (s.drive ? `https://drive.google.com/file/d/${s.drive}/view` : s.file!);
+const extLabel = (s?: Slides) => (s?.ext ?? (s?.file ? s.file.split('.').pop() : '') ?? '').toUpperCase();
+---
+<Base title="Activity" description="부산대 Medical AI Lab 활동: 수상 소식, 해외 학회 참가, 연구과제, 랩 세미나 슬라이드, 피지컬 랩">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Activity</h1>
+      <nav class="toc" aria-label="활동 목차">
+        <a href="#news">News <span class="tnum muted">{awards.length}</span></a>
+        <a href="#conferences">Conferences <span class="tnum muted">{confs.length}</span></a>
+        <a href="#grants">Research Grants <span class="tnum muted">{grants.length}</span></a>
+        <a href="#seminar">Seminar <span class="tnum muted">{sems.length}</span></a>
+        <a href="#physical-lab">Physical Lab <span class="tnum muted">{labs.length}</span></a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section" id="news">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">News</p><h2>Awards</h2></div></div>
+      <div class="timeline rule-top">
+        {awardYears.map((y) => (
+          <div class="yrow reveal">
+            <h3 class="yr tnum">{y}</h3>
+            <ul class="alist">
+              {awards.filter((a) => a.year === y).map((a) => (
+                <li>
+                  <span class="aw">{a.award}</span>
+                  <span class="ev">{a.event}</span>
+                  <span class="who muted">{a.people.join(' · ')}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="conferences">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">Conferences</p><h2>International Conferences</h2></div></div>
+      <div class="confs rule-top">
+        {confs.map((c) => (
+          <article class="conf reveal">
+            <header class="conf-head">
+              <span class="tnum muted">{c.dates}</span>
+              <h3>{c.name}</h3>
+              <p class="conf-full muted">{c.fullName}</p>
+              <p class="conf-loc">{c.location}</p>
+              {c.note && <p class="muted small">{c.note}</p>}
+              {c.papers.length > 0 && (
+                <ul class="conf-papers">
+                  {c.papers.map((p) => p && (
+                    <li>
+                      <span class="eyebrow">Presented</span>
+                      <a href={`/publications/#${p.id}`}>{p.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </header>
+            {c.photos.length > 0 ? (
+              <div class:list={['photos', `n${Math.min(c.photos.length, 4)}`]}>
+                {c.photos.slice(0, 9).map((p, k) => <img src={p} alt={`${c.name} ${c.location} 사진 ${k + 1}`} loading="lazy" decoding="async" width={dims(p).width} height={dims(p).height} style={k === 0 && c.photos.length >= 3 ? `aspect-ratio: ${dims(p).width} / ${dims(p).height}` : undefined} />)}
+              </div>
+            ) : (
+              import.meta.env.DEV && <p class="dev-note">사진 폴더 <code>public/img/conferences/{c.slug}/</code> 에 사진을 넣으면 여기에 표시됩니다 (개발 모드에서만 보이는 안내).</p>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="grants">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">Research Grants</p><h2>연구과제</h2></div></div>
+      <ul class="grants rule-top">
+        {grants.map((g) => (
+          <li class="reveal">
+            <span class="period tnum">{g.period}</span>
+            <span class="g-body"><span class="g-title">{g.title}</span><span class="muted"> · {g.funder}{'note' in g && g.note ? ` · ${g.note}` : ''}</span></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="seminar">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">Seminar</p><h2>Lab Seminar</h2></div></div>
+      {semYears.map((y) => (
+        <div class="sem-year reveal">
+          <h3 class="yr tnum">{y}</h3>
+          <ul class="sems">
+            {sems.filter((s) => s.date.startsWith(y)).map((s) => (
+              <li class="sem">
+                {hasPages(s) ? (
+                  <button class="sem-thumb" type="button" data-deck={pagesDir(s)} data-pages={s.pages} data-title={s.title} data-meta={`${s.date}${s.presenter ? ' · ' + s.presenter : ''}`} aria-label={`${s.title} 슬라이드 ${s.pages}장 보기`}>
+                    {s.thumb ? <img src={s.thumb} alt="" width="640" height="360" loading="lazy" decoding="async" /> : <span class="sem-ph">{extLabel(s.slides)}</span>}
+                    <span class="play" aria-hidden="true">{s.pages} slides</span>
+                  </button>
+                ) : s.slides?.drive ? (
+                  <a class="sem-thumb" href={viewUrl(s.slides)} target="_blank" rel="noopener" aria-label={`${s.title} 슬라이드 열기`}>
+                    {s.thumb ? <img src={s.thumb} alt="" width="640" height="360" loading="lazy" decoding="async" /> : <span class="sem-ph">{extLabel(s.slides)}</span>}
+                    <span class="play" aria-hidden="true">Open ↗</span>
+                  </a>
+                ) : (
+                  <div class="sem-thumb static">{s.thumb ? <img src={s.thumb} alt="" width="640" height="360" loading="lazy" decoding="async" /> : <span class="sem-ph">{s.slides ? extLabel(s.slides) : '—'}</span>}</div>
+                )}
+                <div class="sem-body">
+                  <span class="s-date tnum">{s.date}</span>
+                  <span class="s-title">{s.title}</span>
+                  {s.presenter && <span class="s-who muted">{s.presenter}</span>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" id="physical-lab">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">Physical Lab</p><h2>Physical Lab</h2></div></div>
+      <div class="labs">
+        {labs.map((l, i) => (
+          <article class="lab reveal">
+            <header>
+              <span class="tnum muted">{l.date}</span>
+              <h3>{l.title}</h3>
+              {l.note && <p class="muted small">{l.note}</p>}
+            </header>
+            {l.photos.length > 0 && (
+              <div class:list={['photos', `n${Math.min(l.photos.length, 4)}`]}>
+                {l.photos.slice(0, 6).map((p, k) => (
+                  <img src={p} alt={`${l.title} 사진 ${k + 1}`} loading={i < 2 && k < 2 ? 'eager' : 'lazy'} decoding="async" width={dims(p).width} height={dims(p).height} style={k === 0 && l.photos.length >= 3 ? `aspect-ratio: ${dims(p).width} / ${dims(p).height}` : undefined} />
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 슬라이드 뷰어: 페이지 이미지를 한 장씩 넘겨 본다 (←/→, 클릭, 스와이프) -->
+  <dialog class="viewer" data-viewer aria-label="세미나 슬라이드">
+    <div class="viewer-bar">
+      <span class="viewer-title"><b data-viewer-title></b><span class="viewer-meta muted" data-viewer-meta></span></span>
+      <span class="viewer-actions">
+        <span class="viewer-count tnum" data-viewer-count></span>
+        <button type="button" class="viewer-close" data-viewer-close aria-label="닫기">Close ✕</button>
+      </span>
+      <i class="viewer-progress" data-viewer-progress aria-hidden="true"></i>
+    </div>
+    <div class="viewer-stage" data-viewer-stage>
+      <img class="viewer-page" data-viewer-page alt="" decoding="async" />
+      <button type="button" class="viewer-nav prev" data-viewer-prev aria-label="이전 슬라이드">‹</button>
+      <button type="button" class="viewer-nav next" data-viewer-next aria-label="다음 슬라이드">›</button>
+    </div>
+  </dialog>
+</Base>
+
+<style>
+  .yrow { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 10px 48px; padding-block: 28px; border-bottom: 1px solid var(--rule); }
+  .yr { font-size: clamp(30px, 3.6vw, 44px); font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+  .alist { list-style: none; margin: 0; padding: 0; display: grid; }
+  .alist li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr) minmax(0, 1.3fr); gap: 4px 24px; padding: 12px 0; border-top: 1px solid var(--rule); font-size: 16px; align-items: baseline; }
+  .alist li:first-child { border-top: 0; padding-top: 4px; }
+  .aw { font-weight: 500; }
+  .who { font-size: 14.5px; }
+  @media (max-width: 760px) { .yrow { grid-template-columns: 1fr; } .alist li { grid-template-columns: 1fr; gap: 2px; } }
+
+  /* Conferences */
+  .confs { display: grid; }
+  .conf { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px 48px; padding-block: clamp(28px, 4vw, 44px); border-bottom: 1px solid var(--rule); align-items: start; }
+  .conf-head { display: grid; gap: 6px; position: sticky; top: 100px; }
+  .conf-head h3 { font-size: 30px; line-height: 1.1; }
+  .conf-full { margin: 0; font-size: 14.5px; }
+  .conf-loc { margin: 2px 0 0; font-size: 17px; }
+  .conf-papers { list-style: none; margin: 14px 0 0; padding: 14px 0 0; border-top: 1px solid var(--rule); display: grid; gap: 10px; }
+  .conf-papers li { display: grid; gap: 3px; font-size: 15px; line-height: 1.5; }
+  .conf-papers a { color: var(--text); }
+  .dev-note { margin: 0; padding: 22px; border: 1px dashed var(--rule-2); color: var(--muted); font-size: 14px; align-self: start; }
+  .dev-note code { font-size: 13px; }
+  @media (max-width: 860px) { .conf { grid-template-columns: 1fr; } .conf-head { position: static; } }
+
+  .grants { list-style: none; margin: 0; padding: 0; display: grid; }
+  .grants li { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 4px 48px; padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 16.5px; }
+  .period { color: var(--muted); font-size: 15px; letter-spacing: 0.03em; }
+  .g-title { font-weight: 500; }
+  @media (max-width: 760px) { .grants li { grid-template-columns: 1fr; } }
+
+  /* Seminar cards */
+  .sem-year { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 10px 48px; padding-block: 32px; border-top: 1px solid var(--rule); }
+  .sem-year:first-of-type { border-top: 1px solid var(--rule-strong); }
+  .sem-year .yr { position: sticky; top: 100px; align-self: start; }
+  .sems { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 24px; }
+  .sem { display: grid; gap: 12px; align-content: start; }
+  .sem-thumb { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2); border: 1px solid var(--rule); padding: 0; cursor: pointer; }
+  .sem-thumb.static { cursor: default; }
+  .sem-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.6s var(--ease); }
+  .sem-thumb:not(.static):hover img { transform: scale(1.03); }
+  .sem-ph { display: grid; place-items: center; width: 100%; height: 100%; color: var(--muted); font-size: 14px; letter-spacing: 0.14em; }
+  .play { position: absolute; left: 10px; bottom: 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; background: rgba(10, 19, 36, 0.72); padding: 5px 9px; opacity: 0; transition: opacity 0.25s; }
+  .sem-thumb:not(.static):hover .play, .sem-thumb:not(.static):focus-visible .play { opacity: 1; }
+  .sem-body { display: grid; gap: 3px; font-size: 15.5px; line-height: 1.5; }
+  .s-date { font-size: 13.5px; color: var(--muted); letter-spacing: 0.03em; }
+  .s-title { font-weight: 500; text-wrap: pretty; }
+  .s-who { font-size: 14px; }
+  @media (max-width: 1100px) { .sems { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 760px) { .sem-year { grid-template-columns: 1fr; } .sem-year .yr { position: static; } .sems { grid-template-columns: 1fr 1fr; gap: 22px 16px; } }
+  @media (max-width: 520px) { .sems { grid-template-columns: 1fr; } }
+
+  /* Slides viewer */
+  .viewer { width: min(1480px, 96vw); height: min(92vh, 920px); padding: 0; border: 0; background: var(--ink); color: var(--on-ink); box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.7); }
+  .viewer::backdrop { background: rgba(7, 15, 31, 0.82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .viewer-bar { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 18px; border-bottom: 1px solid var(--on-ink-rule); font-size: 15px; }
+  .viewer-title { display: flex; gap: 12px; align-items: baseline; min-width: 0; }
+  .viewer-title b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .viewer-meta { font-size: 13px; white-space: nowrap; color: var(--on-ink-muted); }
+  .viewer-actions { display: flex; gap: 22px; align-items: center; white-space: nowrap; }
+  .viewer-count { font-size: 14px; letter-spacing: 0.06em; color: var(--on-ink-muted); }
+  .viewer-close { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-ink); background: none; border: 0; cursor: pointer; }
+  .viewer-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--grad); transition: width 0.3s var(--ease); }
+  .viewer-stage { position: absolute; inset: 49px 0 0; display: grid; place-items: center; padding: 18px 72px; }
+  .viewer-page { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.8); cursor: pointer; user-select: none; }
+  .viewer-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 999px; border: 1px solid var(--on-ink-rule); background: rgba(255, 255, 255, 0.06); color: var(--on-ink); font-size: 30px; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background-color 0.2s, opacity 0.2s; }
+  .viewer-nav:hover { background: rgba(255, 255, 255, 0.14); }
+  .viewer-nav:disabled { opacity: 0.25; cursor: default; }
+  .viewer-nav.prev { left: 14px; } .viewer-nav.next { right: 14px; }
+  @media (max-width: 760px) { .viewer { width: 100vw; height: 100dvh; max-width: none; max-height: none; } .viewer-stage { padding: 12px 8px 64px; } .viewer-nav { top: auto; bottom: 12px; transform: none; } .viewer-nav.prev { left: 14px; } .viewer-nav.next { right: 14px; } .viewer-meta { display: none; } }
+
+  /* Physical lab */
+  .labs { display: grid; gap: clamp(36px, 5vw, 64px); border-top: 1px solid var(--rule-strong); padding-top: 36px; }
+  .lab { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px 48px; align-items: start; }
+  .lab header { display: grid; gap: 6px; position: sticky; top: 100px; }
+  .lab h3 { font-size: 24px; }
+  .lab header p { margin: 0; }
+  .photos { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 10px; }
+  .photos img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--paper-2); filter: saturate(0.95); }
+  .photos img:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; } /* 큰 사진의 실제 비율은 인라인 style로 명시(로드 전에도 같은 높이 → 앵커 이동이 어긋나지 않는다) */
+  .photos.n1 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .photos.n1 img:first-child { grid-row: auto; aspect-ratio: 3 / 2; }
+  .photos.n2 { grid-template-columns: 1fr 1fr; }
+  .photos.n2 img:first-child { grid-column: auto; grid-row: auto; aspect-ratio: 4 / 3; }
+  @media (max-width: 860px) {
+    .lab { grid-template-columns: 1fr; } .lab header { position: static; }
+    .photos, .photos.n1, .photos.n2 { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
+    .photos img:first-child, .photos.n1 img:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 3 / 2; }
+    .photos.n2 img:first-child { grid-column: auto; aspect-ratio: 4 / 3; }
+  }
+</style>
+
+<script>
+  // 사이트 안 슬라이드 뷰어: 덱의 페이지 이미지(/img/seminars/<id>/NN.webp)를 한 장씩 넘겨 본다.
+  const dlg = document.querySelector<HTMLDialogElement>('[data-viewer]');
+  if (dlg) {
+    const q = <T extends Element>(sel: string) => dlg.querySelector<T>(sel)!;
+    const page = q<HTMLImageElement>('[data-viewer-page]'), title = q<HTMLElement>('[data-viewer-title]'), meta = q<HTMLElement>('[data-viewer-meta]');
+    const count = q<HTMLElement>('[data-viewer-count]'), progress = q<HTMLElement>('[data-viewer-progress]');
+    const prev = q<HTMLButtonElement>('[data-viewer-prev]'), next = q<HTMLButtonElement>('[data-viewer-next]');
+    let base = '', pages = 0, cur = 1;
+    const url = (n: number) => `${base}${String(n).padStart(2, '0')}.webp`;
+    const preload = (n: number) => { if (n >= 1 && n <= pages) { const im = new Image(); im.src = url(n); } };
+    const show = (n: number) => {
+      cur = Math.min(pages, Math.max(1, n));
+      page.src = url(cur); page.alt = `${title.textContent} — ${cur} / ${pages}`;
+      count.textContent = `${cur} / ${pages}`; progress.style.width = `${(cur / pages) * 100}%`;
+      prev.disabled = cur <= 1; next.disabled = cur >= pages;
+      preload(cur + 1); preload(cur + 2); preload(cur - 1);
+    };
+    const open = (el: HTMLElement) => {
+      base = el.dataset.deck || ''; pages = Number(el.dataset.pages) || 0; if (!base || !pages) return;
+      title.textContent = el.dataset.title || ''; meta.textContent = el.dataset.meta || '';
+      show(1);
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else window.open(url(1), '_blank', 'noopener');
+    };
+    document.querySelectorAll<HTMLElement>('[data-deck]').forEach((el) => el.addEventListener('click', () => open(el)));
+    prev.addEventListener('click', () => show(cur - 1));
+    next.addEventListener('click', () => show(cur + 1));
+    page.addEventListener('click', (e) => { const r = page.getBoundingClientRect(); show(e.clientX - r.left < r.width * 0.3 ? cur - 1 : cur + 1); });
+    dlg.addEventListener('keydown', (e) => {
+      const fwd = e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ';
+      const back = e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp';
+      if (fwd || back || e.key === 'Home' || e.key === 'End') { e.preventDefault(); show(e.key === 'Home' ? 1 : e.key === 'End' ? pages : fwd ? cur + 1 : cur - 1); }
+    });
+    let tx = 0, ty = 0;
+    dlg.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? cur + 1 : cur - 1); });
+    q('[data-viewer-close]').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', () => { page.removeAttribute('src'); });
+  }
+</script>

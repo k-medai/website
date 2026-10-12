@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** 홈처럼 헤더가 어두운 히어로 위에 투명하게 올라가는 페이지 */
+  dark?: boolean;
+  ogImage?: string;
+}
+const { title, description = site.description, dark = false, ogImage = '/img/og.jpg' } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.universityEn}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const og = new URL(ogImage, site.url).href;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content={dark ? '#0a1324' : '#f6f7f9'} />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/img/icon-512.png" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href="/fonts/noto-sans-kr/NotoSansKR-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/tinos/tinos.css" />
+    <link rel="stylesheet" href="/fonts/noto-sans-kr/noto-sans-kr.css" />
+  </head>
+  <body class:list={[{ 'has-dark-hero': dark }]}>
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+    <Header dark={dark} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // #앵커로 들어온 경우: 부드러운 스크롤 애니메이션은 도중에 레이아웃이 자라면(사진·글꼴 로드) 목표에 못 미친 채 멈추므로
+      // 처음 진입 때는 즉시 점프하고, 로드·글꼴 준비가 끝난 뒤 한 번 더 정확한 위치로 맞춘다(사용자가 그 사이 스크롤했으면 건드리지 않는다)
+      if (location.hash) {
+        const html = document.documentElement;
+        html.style.scrollBehavior = 'auto';
+        let touched = false;
+        const mark = () => { touched = true; };
+        for (const ev of ['wheel', 'touchstart', 'keydown', 'pointerdown']) addEventListener(ev, mark, { passive: true, once: true });
+        const go = () => { if (touched) return; const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView({ block: 'start', behavior: 'auto' }); };
+        const done = () => { go(); requestAnimationFrame(() => { go(); html.style.scrollBehavior = ''; }); };
+        addEventListener('load', () => { document.fonts.ready.then(done, done); }, { once: true });
+      }
+      // Reveal-on-scroll for elements marked .reveal
+      const els = document.querySelectorAll<HTMLElement>('.reveal');
+      if (els.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            // 화면보다 훨씬 큰 블록(폰에서 세미나 한 해 묶음 등)은 8%가 보일 수 없으므로 걸리자마자 보인다
+            const tall = e.boundingClientRect.height > (e.rootBounds?.height ?? window.innerHeight) * 0.6;
+            if (tall || e.intersectionRatio >= 0.08) { e.target.classList.add('in'); io.unobserve(e.target); }
+          }
+        }, { rootMargin: '0px 0px -8% 0px', threshold: [0, 0.08] });
+        els.forEach((el) => io.observe(el));
+      } else els.forEach((el) => el.classList.add('in'));
+    </script>
+  </body>
+</html>

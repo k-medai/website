@@ -1,0 +1,67 @@
+{
+  "professor": {
+    "slug": "sunyoung-kwon",
+    "name": "Sunyoung Kwon",
+    "nameKo": "권선영",
+    "title": "Associate Professor",
+    "titleKo": "부교수",
+    "affiliation": "School of Biomedical Convergence Engineering, College of Information and Biomedical Engineering, Pusan National University (2020. 09 ~ Present)",
+    "email": "sy.kwon (at) pusan.ac.kr",
+    "photo": "/img/people/sunyoung-kwon.jpg",
+    "education": [
+      "Ph.D. in Department of Electrical and Computer Engineering, Seoul National University, Sep 2014 - Aug 2018",
+      "M.S. in Bioinformatics, Seoul National University, Sep 2012 - Aug 2014",
+      "B.S. in Department of Computer Science, Pusan National University, Mar 1997 - Feb 2001"
+    ],
+    "experience": [
+      "NAVER Corp. AI Researcher, Clova AI, Gyeonggi-do, Korea, Sep 2018 - Aug 2020",
+      "Korea Communication Agency (KCA), Seoul, Korea, Jun 2007 - Sep 2012",
+      "LG Electronics Inc., Seoul, Korea, Dec 2000 - Apr 2006"
+    ]
+  },
+  "groups": [
+    {
+      "key": "phd",
+      "label": "Ph.D. Students",
+      "labelKo": "박사과정",
+      "members": [
+        { "slug": "dasom-noh", "name": "Dasom Noh", "nameKo": "노다솜", "role": "Lab Leader", "photo": "/img/people/dasom-noh.jpg", "interests": ["Graph Neural Network", "Graph Structure Learning", "Medical Data Analysis", "Molecule Property Prediction"] },
+        { "slug": "gyoungyoung-heo", "name": "Gyoungyoung Heo", "nameKo": "허경영", "photo": "/img/people/gyoungyoung-heo.jpg", "interests": ["Graph Neural Network", "Self Supervised Learning", "Automated Radiology Report Generation"] },
+        { "slug": "gyoungjin-park", "name": "GyoungJin Park", "nameKo": "박경진", "photo": "/img/people/gyoungjin-park.jpg", "github": "https://github.com/eda-ginger", "interests": ["Graph Neural Network", "Drug Discovery", "Drug-Drug Interaction", "Drug-Target Interaction"] },
+        { "slug": "saerom-lee", "name": "Saerom Lee", "photo": "/img/people/saerom-lee.jpg", "interests": ["Medical AI"] }
+      ]
+    },
+    {
+      "key": "ms",
+      "label": "M.S. Students",
+      "labelKo": "석사과정",
+      "members": [
+        { "slug": "jaekang-lee", "name": "Jaekang Lee", "nameKo": "이재강", "photo": "/img/people/jaekang-lee.jpg", "interests": ["Natural Language Processing", "Automated Radiology Report Generation", "Sparse Auto-Encoders"] },
+        { "slug": "minjy-suh", "name": "Minjy Suh", "nameKo": "서민지", "photo": "/img/people/minjy-suh.jpg", "interests": ["Time Series Analysis", "ECG Task", "Natural Language Processing"] },
+        { "slug": "suyeon-min", "name": "Suyeon Min", "nameKo": "민수연", "photo": "/img/people/suyeon-min.jpg", "github": "https://github.com/MSY-99", "interests": ["Mixture-of-Experts", "Automated Radiology Report Generation", "Graph Neural Network", "Sparse Auto-Encoders"] },
+        { "slug": "jiseok-oh", "name": "Jiseok Oh", "nameKo": "오지석", "photo": "/img/people/jiseok-oh.jpg", "interests": ["Molecule Property Prediction", "Large Language Model"] }
+      ]
+    },
+    {
+      "key": "undergrad",
+      "label": "Undergraduate Researchers",
+      "labelKo": "학부연구생",
+      "members": [
+        { "slug": "jinyoung-yoo", "name": "Jinyoung Yoo", "nameKo": "유진영", "photo": "/img/people/jinyoung-yoo.jpg", "interests": ["Data Science"] },
+        { "slug": "haein-lee", "name": "Haein Lee", "nameKo": "이해인", "photo": "/img/people/haein-lee.jpg", "interests": ["Time Series Analysis", "ECG Task"] }
+      ]
+    }
+  ],
+  "alumni": [
+    { "name": "Kisung Moon", "nameKo": "문기성", "now": "포스코홀딩스 (미래기술연구원)" },
+    { "name": "Youngsuk Jung", "nameKo": "정영석", "now": "베스핀글로벌(주)" },
+    { "name": "Hyun-Jin Im", "nameKo": "임현진", "now": "HUINNO" },
+    { "name": "Youngmin Seo", "nameKo": "서영민", "now": "(주)브레인데크" },
+    { "name": "Yewon Shin", "nameKo": "신예원", "now": "GIST (Research)" },
+    { "name": "Jaemin Kang", "nameKo": "강재민", "now": "PNU" },
+    { "name": "Bonyou Koo", "nameKo": "구본유", "now": "KONKUK University" },
+    { "name": "Yeongyeong Son", "nameKo": "손연경", "now": "(주)인이지" },
+    { "name": "Chan Lee", "nameKo": "이찬", "now": "(재)씨젠의료재단" },
+    { "name": "Youngbin Jo", "nameKo": "조영빈", "now": "" }
+  ]
+}

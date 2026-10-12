@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import research from '../data/research.json';
+const kindLabel: Record<string, string> = { paper: 'Paper', patent: 'Patent', service: 'Service' };
+---
+<Base title="Research" description="부산대 Medical AI Lab의 연구 분야와 진행 과제: 신약 개발, 유방암 재발·전이 예측, EHR 분석, 전립선암, 생체 신호 처리, 마이크로바이옴, AI 기반 센서">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Research</h1>
+      <p class="lede">{site.intro[3]}</p>
+      <nav class="toc" aria-label="연구 과제 목차">
+        {research.projects.map((p) => <a href={`#${p.id}`}>{p.area}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <div class="wrap projects">
+    {research.projects.map((p, i) => (
+      <article class="project reveal" id={p.id}>
+        <aside class="side">
+          <p class="eyebrow">{p.area}</p>
+          {p.funding && <p class="funding">{p.funding}</p>}
+          {p.sections.some((s) => 'partners' in s && s.partners) && (
+            <div class="side-block">
+              <span class="side-label">협력기관</span>
+              <ul>
+                {p.sections.filter((s) => 'partners' in s && s.partners).map((s) => <li>{(s as { partners: string }).partners}</li>)}
+              </ul>
+            </div>
+          )}
+        </aside>
+        <div class="body">
+          <h2>{p.title}</h2>
+          {p.sections.map((s) => (
+            <section class="sub">
+              {'heading' in s && s.heading && <h3>{s.heading}</h3>}
+              <p>{s.text}</p>
+            </section>
+          ))}
+          {p.related.length > 0 && (
+            <div class="related">
+              <span class="side-label">Related</span>
+              <ul>
+                {p.related.map((r) => (
+                  <li>
+                    <span class="tag">{kindLabel[r.kind] ?? r.kind}</span>
+                    <a href={r.href} target="_blank" rel="noopener">{r.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .projects { padding-block: 10px 80px; }
+  .project { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 20px 72px; padding-block: clamp(44px, 6vw, 72px); border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; }
+  .project:last-child { border-bottom: 0; }
+  .side { display: grid; gap: 16px; align-content: start; position: sticky; top: 100px; }
+  .funding { margin: 0; font-size: 15px; color: var(--muted); }
+  .side-label { display: block; font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .side-block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14.5px; line-height: 1.6; }
+  .body { display: grid; gap: 26px; }
+  .body h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.2; max-width: 30ch; }
+  .sub { display: grid; gap: 8px; max-width: 70ch; }
+  .sub h3 { font-size: 20px; }
+  .sub p { margin: 0; color: var(--muted); }
+  .related { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .related ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .related li { display: flex; gap: 12px; align-items: baseline; font-size: 15.5px; line-height: 1.5; }
+  .related a { color: var(--text); }
+  @media (max-width: 860px) { .project { grid-template-columns: 1fr; } .side { position: static; } }
+</style>

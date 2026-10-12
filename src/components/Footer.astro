@@ -1,0 +1,52 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div class="col brand-col">
+        <img class="logo" src="/img/logo.png" alt="Medical AI Lab (MAIL)" width="490" height="400" loading="lazy" decoding="async" />
+        <p class="org"><b>Medical AI Lab</b><br />{site.university} {site.collegeEn ? site.college : ''} {site.department}<br /><span class="muted">{site.departmentEn}, {site.universityEn}</span></p>
+      </div>
+      <div class="col">
+        <p class="eyebrow">Address</p>
+        <p>{site.contact.addressKo}</p>
+        <p class="muted small">{site.contact.addressEn}</p>
+      </div>
+      <div class="col">
+        <p class="eyebrow">Contact</p>
+        <p>Professor {site.contact.professor} ({site.contact.professorKo})<br />{site.contact.email}</p>
+        <p class="muted small">Tel {site.contact.phoneProfessor} (Professor)<br />Lab {site.contact.phoneLab}</p>
+      </div>
+      <div class="col">
+        <p class="eyebrow">Links</p>
+        <ul class="links">
+          <li><a href="https://www.pusan.ac.kr" target="_blank" rel="noopener">부산대학교</a></li>
+          {site.recruiting.affiliations.map((a) => <li><a href={a.href} target="_blank" rel="noopener">{a.label}</a></li>)}
+          <li><a href={site.service.href} target="_blank" rel="noopener">K-Medai AI Service</a></li>
+          <li><a href="/join/">대학원생 모집 안내</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <span>© {year} Medical AI Lab, {site.universityEn}</span>
+      <span class="muted">Yangsan Campus · Kyungam Engineering Hall 517</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { border-top: 1px solid var(--rule-strong); background: var(--paper); padding-block: clamp(40px, 5vw, 56px) 24px; font-size: 15px; line-height: 1.7; }
+  .ftr-top { display: grid; grid-template-columns: 1.3fr 1fr 1fr 0.8fr; gap: 32px 48px; }
+  .col { display: grid; gap: 10px; align-content: start; }
+  .col p { margin: 0; }
+  .logo { height: 54px; width: auto; margin-bottom: 6px; }
+  .org b { font-weight: 500; font-size: 19px; }
+  .links { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .links a { color: var(--text); }
+  .ftr-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 13.5px; letter-spacing: 0.02em; }
+  @media (min-width: 861px) and (max-height: 999px) { .ftr { padding-block: 32px 18px; } .ftr-bottom { margin-top: 22px; padding-top: 14px; } }
+  @media (max-width: 960px) { .ftr-top { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .ftr-top { grid-template-columns: 1fr; } }
+</style>
