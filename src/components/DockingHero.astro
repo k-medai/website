@@ -1,15 +1,18 @@
 ---
 /**
  * 단백질–리간드 결합(도킹) 3D 모션 그래픽.
- * RCSB PDB 결정구조(1IEP, 3ERT, 2ITY)의 실제 좌표를 Three.js로 렌더링한다.
- * 리간드가 결합 포켓으로 들어와 결합하고 수소결합이 나타난 뒤 다음 복합체로 넘어간다.
- * WebGL이 없으면 정지 포스터를 보여 준다. (OS의 동작 줄이기 설정은 따르지 않는다: 연구실 요청으로 항상 움직인다. ?still=1은 포스터 캡처용)
+ * RCSB PDB 결정구조(1IEP, 3ERT, 2ITY, 2EUF, 5DS3)의 실제 좌표를 Three.js로 렌더링한다.
+ * 복합체마다: 단백질이 천천히 돌고 있는 앞에서 후보 분자 세 개가 차례로 나타나 천천히 돈다. 분자 둘레에 흰 점선 원이 그려지다가
+ * 앞의 둘은 중간에 빨갛게 변하며 멈추고 사라지고, 셋째(실제 리간드)는 원이 끝까지 그려진 뒤 파란 점선 원으로 바뀌고, 원이 사라지면
+ * 결합 포켓으로 들어가 결합하고 수소결합이 나타난 뒤 다음 복합체로 넘어간다.
+ * WebGL이 없으면 정지 포스터를 보여 준다. (OS의 동작 줄이기 설정은 따르지 않는다: 연구실 요청으로 항상 움직인다. ?still=1은 포스터 캡처용, &t=초 로 특정 시점 고정)
  */
 ---
 <div class="dock" data-dock>
   <img class="dock-poster" src="/img/hero-poster.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high" data-dock-poster />
   <canvas class="dock-canvas" aria-hidden="true" data-dock-canvas></canvas>
   <div class="dock-shade" aria-hidden="true"></div>
+  <div class="dock-label" data-dock-label aria-hidden="true"></div>
 </div>
 
 <style>
@@ -20,7 +23,12 @@
   .dock-shade { position: absolute; inset: 0; pointer-events: none; background:
     linear-gradient(90deg, rgba(7, 15, 31, 0.78) 0%, rgba(7, 15, 31, 0.42) 38%, rgba(7, 15, 31, 0) 62%),
     linear-gradient(180deg, rgba(7, 15, 31, 0.35) 0%, rgba(7, 15, 31, 0) 28%, rgba(7, 15, 31, 0) 70%, rgba(7, 15, 31, 0.6) 100%); }
+  /* 심사 결과 라벨: 점선 원 위에 "Predicted Low/High" */
+  .dock-label { position: absolute; left: 0; top: 0; pointer-events: none; font-family: var(--font); font-size: 15px; letter-spacing: 0.05em; white-space: nowrap; opacity: 0; color: #fff; filter: blur(0.55px); text-shadow: 0 0 6px currentColor, 0 0 16px currentColor; will-change: transform, opacity; } /* 점선 원처럼 살짝 번지게 */
+  .dock-label.low { color: #ff8585; }
+  .dock-label.high { color: #7cbcff; }
   @media (max-width: 860px) {
+    .dock-label { font-size: 12px; }
     .dock-shade { background: linear-gradient(180deg, rgba(7, 15, 31, 0.55) 0%, rgba(7, 15, 31, 0.25) 40%, rgba(7, 15, 31, 0.7) 100%); }
   }
 </style>
@@ -32,6 +40,12 @@
   import c3 from '../data/complexes/2ity.json';
   import c4 from '../data/complexes/2euf.json';
   import c5 from '../data/complexes/5ds3.json';
+  import dasatinib from '../data/molecules/dasatinib.json';
+  import sorafenib from '../data/molecules/sorafenib.json';
+  import imatinib from '../data/molecules/imatinib.json';
+  import tamoxifen from '../data/molecules/tamoxifen.json';
+  import olaparib from '../data/molecules/olaparib.json';
+  import palbociclib from '../data/molecules/palbociclib.json';
 
   type Atom = [string, number, number, number, number?];
   type Complex = {
@@ -42,6 +56,7 @@
     backbone: number[][][];
     extent: number;
   };
+  type Mol = { name: string; atoms: Atom[]; bonds: number[][] };
   const COMPLEXES: { data: Complex; ligand: string; target: string; pdb: string }[] = [
     { data: c1 as Complex, ligand: 'Imatinib', target: 'ABL1 tyrosine kinase', pdb: '1IEP' },
     { data: c2 as Complex, ligand: '4-Hydroxytamoxifen', target: 'Estrogen receptor α', pdb: '3ERT' },
@@ -49,25 +64,34 @@
     { data: c4 as Complex, ligand: 'Palbociclib', target: 'CDK6 kinase', pdb: '2EUF' },
     { data: c5 as Complex, ligand: 'Olaparib', target: 'PARP1 catalytic domain', pdb: '5DS3' },
   ];
-  /** 복합체마다 다른 연출: 리간드가 들어오는 방향(side: right·up 성분)과 회전축·각도, 카메라 기본 방위각(az), 머무는 시간 차이(hold, 초).
-   *  같은 동작을 반복 재생하는 것처럼 보이지 않게 한다. */
+  /** 탈락 후보로 쓰는 다른 약물들(PubChem 3D 좌표). 그 회차의 실제 리간드와 같은 약물은 뺀다. */
+  const LIBRARY: Mol[] = [dasatinib, sorafenib, imatinib, tamoxifen, olaparib, palbociclib] as unknown as Mol[];
+  /** 복합체마다 다른 연출: 후보가 서는 자리(side: right·up 성분)와 리간드 회전축·각도, 카메라 기본 방위각(az), 머무는 시간 차이(hold, 초),
+   *  탈락 후보 선택·멈춤 위치 시드(seed). 같은 동작을 반복 재생하는 것처럼 보이지 않게 한다. */
   const VARIANTS = [
-    { side: [5, 3], axis: [0.3, 1, 0.2], angle: 1.6, az: 0, hold: 0 },
-    { side: [-6, 2], axis: [1, 0.2, -0.3], angle: -1.3, az: 0.45, hold: 0.8 },
-    { side: [2, -5], axis: [-0.2, 0.6, 1], angle: 2.0, az: -0.4, hold: -0.6 },
-    { side: [-4, -3], axis: [0.5, -1, 0.3], angle: 1.2, az: 0.8, hold: 1.2 },
-    { side: [6, 1], axis: [0, 0.3, 1], angle: -1.8, az: -0.75, hold: 0.4 },
+    { side: [5, 3], axis: [0.3, 1, 0.2], angle: 1.6, az: 0, hold: 0, seed: 11 },
+    { side: [-6, 2], axis: [1, 0.2, -0.3], angle: -1.3, az: 0.45, hold: 0.8, seed: 23 },
+    { side: [2, -5], axis: [-0.2, 0.6, 1], angle: 2.0, az: -0.4, hold: -0.6, seed: 37 },
+    { side: [-4, -3], axis: [0.5, -1, 0.3], angle: 1.2, az: 0.8, hold: 1.2, seed: 41 },
+    { side: [6, 1], axis: [0, 0.3, 1], angle: -1.8, az: -0.75, hold: 0.4, seed: 53 },
   ];
 
   const root = document.querySelector<HTMLElement>('[data-dock]');
   const canvas = document.querySelector<HTMLCanvasElement>('[data-dock-canvas]');
   const poster = document.querySelector<HTMLImageElement>('[data-dock-poster]');
+  const label = document.querySelector<HTMLElement>('[data-dock-label]');
   const params = new URLSearchParams(location.search);
   const still = params.has('still'); // 정지 포즈 (포스터 생성용)
+  const stillT = params.has('t') ? Number(params.get('t')) : null; // 정지 시점(초) — 디자인 확인용
   const startIndex = Number(params.get('i') || 0) % COMPLEXES.length;
 
   function webglOk(): boolean {
     try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
+  }
+  /** 결정적 난수(mulberry32): 복합체마다 같은 연출이 재현되게. */
+  function rng(seed: number) {
+    let s = seed >>> 0;
+    return () => { s = (s + 0x6d2b79f5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
   }
 
   if (root && canvas && webglOk()) {
@@ -79,6 +103,15 @@
     const POCKET_COLOR: Record<string, number> = { C: 0x7f8fa8, N: 0x4f8fd0, O: 0xd67878, S: 0xc9ad55 };
     const ATOM_R: Record<string, number> = { C: 0.42, N: 0.44, O: 0.44, S: 0.52, F: 0.4, Cl: 0.52, Br: 0.56, P: 0.52 };
     const FOG = 0x0b1730;
+    const RING_WHITE = new THREE.Color(0xffffff), RING_RED = new THREE.Color(0xff4b4b), RING_BLUE = new THREE.Color(0x2b8ff0);
+    const RING_N = 64; // 점선 원의 점 개수
+    const OVERLAY = 1; // 심사 중인 분자는 이 레이어에 두고 깊이 버퍼를 비운 뒤 따로 그려 단백질보다 항상 앞에 보이게 한다
+    /** 후보가 서는 자리는 카메라 기준으로 잡는다(카메라 앞 d만큼, 오른쪽 ox·위 oy): 카메라가 돌아도 늘 단백질 앞에 떠 있어 겹치지 않는다. */
+    const isWide = () => w / h > 1.1;
+    const candScale = () => (isWide() ? 0.42 : 0.2); // 후보가 서 있을 때의 크기(결합하러 들어가며 1이 된다)
+    let stageOx = 3, stageOy = 0, startFrozen = false;
+    const stageW = new THREE.Vector3(), camFwd = new THREE.Vector3();
+    const RING_T = 1.47, IN_T = 0.5, HOLD_RED = 0.9, OUT_T = 0.4, GAP = 0.3; // 원 한 바퀴 1.47초(처음 2.2초의 1.5배 속도); 빨간 원·글자 유지 0.9초, 퇴장 0.4초 = 3번(파란 원)과 동일 // 원을 한 바퀴 그리는 시간, 등장, 빨간 채 멈춤, 퇴장, 간격(초)
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas!, antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setClearColor(0x000000, 0);
@@ -90,11 +123,16 @@
     scene.fog = new THREE.Fog(FOG, 30, 95);
     const camera = new THREE.PerspectiveCamera(30, 1, 0.5, 400);
 
-    scene.add(new THREE.HemisphereLight(0xdbe8ff, 0x0b1730, 0.9));
+    const hemi = new THREE.HemisphereLight(0xdbe8ff, 0x0b1730, 0.9); scene.add(hemi);
     const key = new THREE.DirectionalLight(0xffffff, 1.7); key.position.set(28, 40, 48); scene.add(key);
     const rim = new THREE.DirectionalLight(0x12b5c4, 1.4); rim.position.set(-40, -12, -36); scene.add(rim);
     const fill = new THREE.DirectionalLight(0x2495f2, 0.5); fill.position.set(-20, 30, 20); scene.add(fill);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+    const amb = new THREE.AmbientLight(0xffffff, 0.22); scene.add(amb);
+    for (const l of [hemi, key, rim, fill, amb]) l.layers.enable(OVERLAY);
+    // 심사 중인 분자는 카메라 쪽에서 비추는 조명을 하나 더 받아 어느 각도에서도 그늘지지 않는다(앞 레이어에만 적용)
+    const camLight = new THREE.DirectionalLight(0xffffff, 1.1); camLight.layers.set(OVERLAY); scene.add(camLight); scene.add(camLight.target);
+    const camFillLight = new THREE.AmbientLight(0xdfe9ff, 0.35); camFillLight.layers.set(OVERLAY); scene.add(camFillLight);
+    renderer.autoClear = false;
 
     // halo sprite texture
     const haloTex = (() => {
@@ -111,22 +149,35 @@
     const cylGeoLo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true);
     const up = new THREE.Vector3(0, 1, 0);
     const dummy = new THREE.Object3D();
-    const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpD = new THREE.Vector3();
+    const tmpA = new THREE.Vector3(), tmpD = new THREE.Vector3();
+    const tmpQ = new THREE.Quaternion(), identityQ = new THREE.Quaternion();
+    const camRight = new THREE.Vector3(), camUp = new THREE.Vector3();
 
     type Fadeable = { mat: THREE.Material & { opacity: number }; base: number };
+    type Pts = { pts: THREE.Points; pos: Float32Array; col: Float32Array; mat: THREE.PointsMaterial; n: number };
+    /** 탈락 후보(실제 리간드가 아닌 다른 약물) 하나 */
+    type Decoy = { group: THREE.Group; mat: THREE.Material & { opacity: number }; radius: number; atoms: THREE.Vector3[]; spinAxis: THREE.Vector3; spinSpeed: number; phase: number; stop: number; in0: number; ring0: number; stopAt: number; redEnd: number; out1: number };
     const world = new THREE.Group(); scene.add(world);
     let fades: Fadeable[] = [];
+    let proteinMats: Fadeable[] = []; let tubeMatRef: THREE.MeshPhysicalMaterial | null = null; const TUBE_COLOR = new THREE.Color(0x3a5a9a);
+    let extraMats: THREE.Material[] = [];
     let ligandGroup = new THREE.Group();
     let hbGroup = new THREE.Group();
     let pulse: THREE.Sprite | null = null;
     let pocketMat: THREE.MeshStandardMaterial | null = null;
     let haloMat: THREE.SpriteMaterial | null = null;
-    let ligandSpheres: THREE.InstancedMesh | null = null;
+    let ligMatRef: (THREE.Material & { opacity: number }) | null = null;
+    let ligRadius = 6; let ligAtoms: THREE.Vector3[] = []; let ringR = 5; let ligandOverlay = true; let w = 1, h = 1;
+    let decoys: Decoy[] = [];
+    let ring: Pts | null = null;
     let basis = { fwd: new THREE.Vector3(0, 0, 1), right: new THREE.Vector3(1, 0, 0), up: new THREE.Vector3(0, 1, 0) };
     let startPos = new THREE.Vector3();
     let startQuat = new THREE.Quaternion();
-    let tEnd = 12.6, azOff = 0;
+    let winnerSpin = new THREE.Vector3(0, 1, 0), winnerPhase = 0;
+    let tEnd = 20, azOff = 0;
     let nHb = 0;
+    /** 타임라인(초): 후보 1·2(탈락) → 후보 3(실제 리간드: 흰 원 완성 → 파란 원 → 원 사라짐) → 접근·결합 → 머무름 → 사라짐 */
+    const T = { wIn0: 0, wRing0: 0, wRing1: 0, blue1: 0, ringGone: 0, app0: 0, app1: 0, holdEnd: 0 };
 
     const lowPower = Math.min(window.innerWidth, window.innerHeight) < 760;
 
@@ -141,20 +192,57 @@
     }
     function v(a: Atom) { return new THREE.Vector3(a[1], a[2], a[3]); }
 
+    /** 공-막대 분자 메시(구·결합 인스턴스). center면 원자 중심을 원점으로 옮긴다. */
+    function molMeshes(atoms: Atom[], bonds: number[][], mat: THREE.Material, sg: THREE.BufferGeometry, cg: THREE.BufferGeometry, center: boolean) {
+      const pts = atoms.map(v);
+      if (center) { const c = new THREE.Vector3(); for (const p of pts) c.add(p); c.divideScalar(Math.max(1, pts.length)); for (const p of pts) p.sub(c); }
+      const spheres = new THREE.InstancedMesh(sg, mat, pts.length);
+      atoms.forEach((a, i) => { sphereAt(spheres, i, pts[i], ATOM_R[a[0]] ?? 0.42); spheres.setColorAt(i, new THREE.Color(ATOM_COLOR[a[0]] ?? 0xdfe5ee)); });
+      const bmesh = new THREE.InstancedMesh(cg, mat, Math.max(1, bonds.length * 2));
+      bonds.forEach(([i, j], k) => {
+        tmpA.addVectors(pts[i], pts[j]).multiplyScalar(0.5);
+        cylinderAt(bmesh, 2 * k, pts[i], tmpA.clone(), 0.17); bmesh.setColorAt(2 * k, new THREE.Color(ATOM_COLOR[atoms[i][0]] ?? 0xdfe5ee));
+        cylinderAt(bmesh, 2 * k + 1, tmpA.clone(), pts[j], 0.17); bmesh.setColorAt(2 * k + 1, new THREE.Color(ATOM_COLOR[atoms[j][0]] ?? 0xdfe5ee));
+      });
+      bmesh.count = bonds.length * 2;
+      // 반지름은 원자 중심 기준(원점 기준이 아니라): 점선 원 크기에 쓴다
+      const cen = new THREE.Vector3(); for (const p of pts) cen.add(p); cen.divideScalar(Math.max(1, pts.length));
+      let radius = 0; for (const p of pts) radius = Math.max(radius, p.distanceTo(cen));
+      return { pts, spheres, bonds: bmesh, radius };
+    }
+    /** 점 스프라이트 묶음(점선 원). 가산 혼합이라 검은색은 보이지 않는다. 쓰기 전에는 화면 밖 멀리 둔다. */
+    function makePoints(n: number, size: number): Pts {
+      const geo = new THREE.BufferGeometry();
+      const pos = new Float32Array(n * 3), col = new Float32Array(n * 3);
+      for (let i = 0; i < pos.length; i += 3) pos[i + 2] = 1e4;
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+      const mat = new THREE.PointsMaterial({ size, map: haloTex, vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });
+      const pts = new THREE.Points(geo, mat); pts.frustumCulled = false; extraMats.push(mat);
+      return { pts, pos, col, mat, n };
+    }
+    function park(p: Pts, k: number) { p.pos[k * 3 + 2] = 1e4; p.col[k * 3] = p.col[k * 3 + 1] = p.col[k * 3 + 2] = 0; }
+    function place(p: Pts, k: number, at: THREE.Vector3, c: THREE.Color) {
+      p.pos[k * 3] = at.x; p.pos[k * 3 + 1] = at.y; p.pos[k * 3 + 2] = at.z; p.col[k * 3] = c.r; p.col[k * 3 + 1] = c.g; p.col[k * 3 + 2] = c.b;
+    }
+    function touch(p: Pts) { p.pts.geometry.attributes.position.needsUpdate = true; p.pts.geometry.attributes.color.needsUpdate = true; }
+
     function clearWorld() {
       world.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry && m.geometry !== sphereGeo && m.geometry !== sphereGeoLo && m.geometry !== cylGeo && m.geometry !== cylGeoLo) m.geometry.dispose(); });
       for (const f of fades) f.mat.dispose();
-      world.clear(); fades = []; pulse = null; pocketMat = null; haloMat = null; ligandSpheres = null;
+      for (const m of extraMats) m.dispose();
+      world.clear(); fades = []; proteinMats = []; tubeMatRef = null; extraMats = []; decoys = []; ring = null; pulse = null; pocketMat = null; haloMat = null; ligMatRef = null;
     }
 
     function build(idx: number) {
       clearWorld();
       const C = COMPLEXES[idx].data;
       const sg = lowPower ? sphereGeoLo : sphereGeo, cg = lowPower ? cylGeoLo : cylGeo;
+      const vr = VARIANTS[idx % VARIANTS.length];
+      const rand = rng(vr.seed * 1000 + idx);
 
       // --- protein backbone tube
       const tubeMat = new THREE.MeshPhysicalMaterial({ color: 0x3a5a9a, roughness: 0.55, metalness: 0.05, transparent: true, opacity: 0.0, clearcoat: 0.3, side: THREE.DoubleSide });
-      fades.push({ mat: tubeMat, base: 0.55 });
+      proteinMats.push({ mat: tubeMat, base: 0.55 }); tubeMatRef = tubeMat;
       const centroid = new THREE.Vector3(); let nC = 0;
       for (const seg of C.backbone) {
         const pts = seg.map((p) => new THREE.Vector3(p[0], p[1], p[2]));
@@ -167,7 +255,7 @@
 
       // --- pocket residues: thin sticks + small spheres
       pocketMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, metalness: 0.05, transparent: true, opacity: 0, emissive: 0x12b5c4, emissiveIntensity: 0 });
-      fades.push({ mat: pocketMat, base: 0.95 });
+      proteinMats.push({ mat: pocketMat, base: 0.95 });
       const pa = C.pocket.atoms.map(v);
       const pSph = new THREE.InstancedMesh(sg, pocketMat, pa.length);
       C.pocket.atoms.forEach((a, i) => { sphereAt(pSph, i, pa[i], 0.15); pSph.setColorAt(i, new THREE.Color(POCKET_COLOR[a[0]] ?? 0x7f8fa8)); });
@@ -181,24 +269,17 @@
       world.add(pBond);
 
       // --- ligand: ball and stick (in its own group so it can fly in)
-      ligandGroup = new THREE.Group(); world.add(ligandGroup);
+      ligandGroup = new THREE.Group(); world.add(ligandGroup); ligandOverlay = true;
       const ligMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.3, metalness: 0.0, clearcoat: 0.7, clearcoatRoughness: 0.25, transparent: true, opacity: 0 });
-      fades.push({ mat: ligMat, base: 1 });
-      const la = C.ligand.atoms.map(v);
-      ligandSpheres = new THREE.InstancedMesh(sg, ligMat, la.length);
-      C.ligand.atoms.forEach((a, i) => { sphereAt(ligandSpheres!, i, la[i], ATOM_R[a[0]] ?? 0.42); ligandSpheres!.setColorAt(i, new THREE.Color(ATOM_COLOR[a[0]] ?? 0xdfe5ee)); });
-      ligandGroup.add(ligandSpheres);
-      const lBond = new THREE.InstancedMesh(cg, ligMat, C.ligand.bonds.length * 2);
-      C.ligand.bonds.forEach(([i, j], k) => {
-        tmpA.addVectors(la[i], la[j]).multiplyScalar(0.5);
-        cylinderAt(lBond, 2 * k, la[i], tmpA.clone(), 0.17); lBond.setColorAt(2 * k, new THREE.Color(ATOM_COLOR[C.ligand.atoms[i][0]] ?? 0xdfe5ee));
-        cylinderAt(lBond, 2 * k + 1, tmpA.clone(), la[j], 0.17); lBond.setColorAt(2 * k + 1, new THREE.Color(ATOM_COLOR[C.ligand.atoms[j][0]] ?? 0xdfe5ee));
-      });
-      ligandGroup.add(lBond);
+      fades.push({ mat: ligMat, base: 1 }); ligMatRef = ligMat;
+      const lig = molMeshes(C.ligand.atoms, C.ligand.bonds, ligMat, sg, cg, false);
+      const la = lig.pts; ligRadius = lig.radius; ligAtoms = la;
+      ligandGroup.add(lig.spheres); ligandGroup.add(lig.bonds);
       // halos behind ligand atoms (additive)
       haloMat = new THREE.SpriteMaterial({ map: haloTex, color: 0x9fd8ff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
       fades.push({ mat: haloMat, base: 0.16 });
       for (let i = 0; i < la.length; i++) { const s = new THREE.Sprite(haloMat); s.position.copy(la[i]); s.scale.setScalar(2.4); ligandGroup.add(s); }
+      ligandGroup.traverse((o) => o.layers.set(OVERLAY));
       // pulse sprite at ligand centre
       const pulseMat = new THREE.SpriteMaterial({ map: haloTex, color: 0x12b5c4, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
       pulse = new THREE.Sprite(pulseMat); pulse.scale.setScalar(6); world.add(pulse);
@@ -225,15 +306,37 @@
       const right = new THREE.Vector3().crossVectors(upRef, fwd).normalize();
       const upv = new THREE.Vector3().crossVectors(fwd, right).normalize();
       basis = { fwd, right, up: upv };
-      const vr = VARIANTS[idx % VARIANTS.length];
-      startPos = fwd.clone().multiplyScalar(17).add(right.clone().multiplyScalar(vr.side[0])).add(upv.clone().multiplyScalar(vr.side[1]));
+      // 후보가 서는 자리(카메라 기준 오프셋): 글이 있는 왼쪽을 피해 늘 오른쪽, 높이는 복합체마다 다르게. 접근 시작점은 app0 순간의 자리로 고정한다.
+      stageOx = 1.0 + Math.abs(vr.side[0]) * 0.25; stageOy = vr.side[1] * 0.2 - 0.4; startFrozen = false;
       startQuat = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(vr.axis[0], vr.axis[1], vr.axis[2]).normalize(), vr.angle);
-      tEnd = 12.6 + vr.hold; azOff = vr.az;
+      azOff = vr.az;
 
+      // --- 탈락 후보 둘: 라이브러리에서 결정적으로 고른 다른 약물
+      const name = COMPLEXES[idx].ligand.toLowerCase();
+      const pool = LIBRARY.filter((m) => !name.includes(m.name.toLowerCase()));
+      for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+      const randAxis = () => new THREE.Vector3(rand() - 0.5, rand() - 0.5, rand() - 0.5).normalize();
+      let t0 = 0.6;
+      const stops = [0.38 + rand() * 0.17, 0.55 + rand() * 0.2]; // 빨갛게 변하며 멈추는 지점(원의 비율)
+      pool.slice(0, 2).forEach((m, k) => {
+        const g = new THREE.Group(); world.add(g);
+        const mat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.3, metalness: 0.0, clearcoat: 0.7, clearcoatRoughness: 0.25, transparent: true, opacity: 0 });
+        extraMats.push(mat);
+        const mm = molMeshes(m.atoms, m.bonds, mat, sg, cg, true);
+        g.add(mm.spheres); g.add(mm.bonds); g.traverse((o) => o.layers.set(OVERLAY));
+        const in0 = t0, ring0 = in0 + IN_T, stopAt = ring0 + RING_T * stops[k], redEnd = stopAt + HOLD_RED, out1 = redEnd + OUT_T;
+        decoys.push({ group: g, mat, radius: mm.radius, atoms: mm.pts, spinAxis: randAxis(), spinSpeed: 0.22 + rand() * 0.18, phase: rand() * Math.PI * 2, stop: stops[k], in0, ring0, stopAt, redEnd, out1 });
+        t0 = out1 + GAP;
+      });
+      winnerSpin = randAxis(); winnerPhase = rand() * Math.PI * 2;
+      // 셋째(실제 리간드): 흰 원 완성 → 파란 원(0.9초) → 원 사라짐(0.4초) → 접근
+      T.wIn0 = t0; T.wRing0 = T.wIn0 + IN_T; T.wRing1 = T.wRing0 + RING_T; T.blue1 = T.wRing1 + 0.9; T.ringGone = T.blue1 + 0.4;
+      T.app0 = T.ringGone + 0.1; T.app1 = T.app0 + 3.8; T.holdEnd = T.app1 + 5.0;
+      tEnd = T.holdEnd + 1.0 + vr.hold;
+      ring = makePoints(RING_N, 1.9); ring.mat.depthTest = false; ring.pts.renderOrder = 5; ring.pts.layers.set(OVERLAY); world.add(ring.pts); ringR = 5; // 점선 원은 단백질에 가려지지 않게 맨 위에
     }
 
     // --- sizing
-    let w = 1, h = 1;
     function resize() {
       const r = root!.getBoundingClientRect();
       w = Math.max(1, Math.round(r.width)); h = Math.max(1, Math.round(r.height));
@@ -252,12 +355,11 @@
     window.addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return; tx = (e.clientX / window.innerWidth - 0.5) * 2; ty = (e.clientY / window.innerHeight - 0.5) * 2; }, { passive: true });
 
     // --- timeline
-    const T_APPROACH0 = 0.5, T_APPROACH1 = 4.6, T_HOLD_END = 11.6, T_END = 12.6;
     const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
     const smooth = (t: number) => t * t * (3 - 2 * t);
     const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
     let idx = startIndex; build(idx);
-    let t0 = performance.now() / 1000; let elapsed = 0;
+    let elapsed = 0;
     let visible = true, hidden = false, firstFrame = false, clock = 0; // clock: 실제로 렌더한 시간만 쌓는다(전환 중 쉰 뒤에도 카메라가 튀지 않게)
     const io = new IntersectionObserver((es) => { visible = es[0]?.isIntersecting ?? true; }, { threshold: 0.02 });
     io.observe(root!);
@@ -271,7 +373,7 @@
       requestAnimationFrame(frame);
       const sec = now / 1000; const dt = Math.min(0.1, sec - lastNow); lastNow = sec;
       if (!visible || hidden || document.documentElement.dataset.scrolling) return; // 화면 전환 중에는 렌더를 쉬어 스크롤이 매끄럽게
-      if (still) elapsed = 7.5; else elapsed += dt;
+      if (still) elapsed = stillT ?? T.app1 + 2.9; else elapsed += dt;
       clock += dt;
 
       if (elapsed >= tEnd) { idx = (idx + 1) % COMPLEXES.length; build(idx); elapsed = 0; }
@@ -279,28 +381,110 @@
       // fade in/out
       const fade = Math.min(smooth(clamp01(t / 0.9)), smooth(clamp01((tEnd - t) / 0.9)));
       for (const f of fades) f.mat.opacity = f.base * fade;
-      // ligand approach
-      const s = ease(clamp01((t - T_APPROACH0) / (T_APPROACH1 - T_APPROACH0)));
-      ligandGroup.position.copy(startPos).multiplyScalar(1 - s);
-      q.copy(startQuat).slerp(new THREE.Quaternion(), s); ligandGroup.quaternion.copy(q);
-      const bound = s >= 1;
-      // hydrogen bonds grow in after binding
-      const hbT = clamp01((t - T_APPROACH1) / 0.7);
-      const hbMat = (hbGroup as any).mat as THREE.MeshBasicMaterial | undefined;
-      if (hbMat) hbMat.opacity = (0.55 + 0.35 * Math.sin(t * 2.2)) * smooth(hbT) * fade;
-      // pocket flash and pulse ring on docking
-      if (pocketMat) pocketMat.emissiveIntensity = 0.9 * Math.exp(-Math.max(0, t - T_APPROACH1) * 1.6) * (t > T_APPROACH1 ? 1 : 0);
-      if (pulse) { const pt = Math.max(0, t - T_APPROACH1); pulse.scale.setScalar(6 + pt * 11); (pulse.material as THREE.SpriteMaterial).opacity = 0.45 * Math.exp(-pt * 1.4) * (t > T_APPROACH1 ? 1 : 0) * fade; }
-      if (haloMat) haloMat.opacity = (0.12 + 0.08 * (bound ? 0.5 + 0.5 * Math.sin(t * 1.5) : 0)) * fade;
+      // 선별 중에는 단백질을 어둡게(불투명도 절반, 색도 어둡게) 두었다가, 파란 원이 사라질 무렵부터 원래 밝기로 돌아온다
+      const dim = 1 - smooth(clamp01((t - T.blue1) / 1.2));
+      for (const f of proteinMats) f.mat.opacity = f.base * fade * (1 - 0.5 * dim);
+      if (tubeMatRef) tubeMatRef.color.copy(TUBE_COLOR).multiplyScalar(1 - 0.35 * dim);
       // camera: 마우스가 없어도 스스로 움직인다 — 포켓 주위를 ±45°쯤 크게 돌며(두 주기를 섞어 멈추는 순간이 없게),
-      // 위아래로도 기울고, 거리도 숨 쉬듯 변한다. 포인터가 있으면 시차가 더해진다.
+      // 위아래로도 기울고, 거리도 숨 쉬듯 변한다. 후보를 고르는 동안은 조금 멀리서 본다. 포인터가 있으면 시차가 더해진다.
+      const s = ease(clamp01((t - T.app0) / (T.app1 - T.app0)));
       px += (tx - px) * Math.min(1, dt * 2.5); py += (ty - py) * Math.min(1, dt * 2.5);
       const az = (still ? 0.25 : Math.sin(clock * 0.29) * 0.55 + Math.sin(clock * 0.13) * 0.25) + azOff + px * 0.22;
       const el = 0.22 + (still ? 0 : Math.sin(clock * 0.19) * 0.12 + Math.sin(clock * 0.07) * 0.05) + py * -0.14;
-      const dist = 44 + (bound ? 0 : 4 * (1 - s)) + (still ? 0 : Math.sin(clock * 0.23) * 2.5);
+      const dist = 44 + 9 * (1 - s) + (still ? 0 : Math.sin(clock * 0.23) * 2.5);
       camPos.copy(basis.fwd).multiplyScalar(Math.cos(az) * Math.cos(el)).addScaledVector(basis.right, Math.sin(az) * Math.cos(el)).addScaledVector(basis.up, Math.sin(el)).multiplyScalar(dist);
       camera.position.copy(camPos); camera.up.copy(basis.up); camera.lookAt(0, 0, 0);
-      renderer.render(scene, camera);
+      camera.updateMatrixWorld();
+      camRight.setFromMatrixColumn(camera.matrixWorld, 0); camUp.setFromMatrixColumn(camera.matrixWorld, 1); camFwd.setFromMatrixColumn(camera.matrixWorld, 2).negate();
+      // 후보 자리(카메라 앞): 넓은 화면은 오른쪽, 좁은 화면은 글 위쪽 가운데
+      const cs = candScale();
+      if (isWide()) stageW.copy(camera.position).addScaledVector(camFwd, 28).addScaledVector(camRight, stageOx).addScaledVector(camUp, stageOy);
+      else stageW.copy(camera.position).addScaledVector(camFwd, 40).addScaledVector(camUp, 7.1); // 폰: 메뉴 아래·글 위 띠
+      if (!startFrozen && t >= T.app0) { startFrozen = true; startPos.copy(stageW); } // 접근은 그 순간의 자리에서 시작
+      camLight.position.copy(camera.position).addScaledVector(camUp, 14).addScaledVector(camRight, -6); camLight.target.position.copy(stageW); camLight.target.updateMatrixWorld();
+      // 선택된 분자가 포켓으로 들어가기 시작하면 카메라 쪽 조명을 서서히 끈다(접근 35% 지점까지) — 보통 조명으로 넘어가며 그늘이 천천히 생기게
+      const frontLit = 1 - smooth(clamp01((t - T.app0) / (0.35 * (T.app1 - T.app0))));
+      camLight.intensity = 1.1 * frontLit; camFillLight.intensity = 0.35 * frontLit;
+      // --- 후보 1·2(탈락): 자리에서 천천히 돌다가 빨간 원과 함께 사라진다
+      let subject: THREE.Group | null = null, subjectAtoms: THREE.Vector3[] = [], progress = 0, ringColor = RING_WHITE, ringAlpha = 0;
+      let labelText = '', labelAlpha = 0;
+      for (const d of decoys) {
+        const vis = smooth(clamp01((t - d.in0) / IN_T)) * (1 - smooth(clamp01((t - d.redEnd) / OUT_T)));
+        d.group.position.copy(stageW).addScaledVector(camUp, Math.sin(clock * 0.8 + d.phase) * 0.2);
+        d.group.quaternion.setFromAxisAngle(d.spinAxis, clock * d.spinSpeed + d.phase);
+        d.group.scale.setScalar(cs * (0.92 + 0.08 * vis));
+        d.mat.opacity = 0.95 * fade * vis;
+        d.group.visible = vis > 0.001; // 차례가 아닌(투명한) 분자는 아예 그리지 않는다 — 같은 자리의 다른 분자를 깊이 버퍼로 가리지 않게
+        if (t >= d.in0 && t < d.out1) {
+          subject = d.group; subjectAtoms = d.atoms;
+          progress = Math.min(d.stop, clamp01((t - d.ring0) / RING_T));
+          ringColor = t >= d.stopAt ? RING_RED : RING_WHITE; ringAlpha = vis;
+          if (t >= d.stopAt) { labelText = 'Predicted Low'; labelAlpha = smooth(clamp01((t - d.stopAt) / 0.25)) * vis; }
+        }
+      }
+      // --- 후보 3(실제 리간드): 흰 원이 끝까지 → 파란 원 → 원이 사라지면 포켓으로 접근
+      const wVis = smooth(clamp01((t - T.wIn0) / IN_T));
+      const bob = Math.sin(clock * 0.8 + winnerPhase) * 0.2 * (1 - s);
+      if (t < T.app0) ligandGroup.position.copy(stageW).addScaledVector(camUp, bob);
+      else ligandGroup.position.copy(startPos).multiplyScalar(1 - s).addScaledVector(camUp, bob);
+      q.copy(startQuat); if (t < T.app0) q.multiply(tmpQ.setFromAxisAngle(winnerSpin, (T.app0 - t) * 0.3)); q.slerp(identityQ, s);
+      ligandGroup.quaternion.copy(q);
+      ligandGroup.scale.setScalar((0.92 + 0.08 * wVis) * (cs + (1 - cs) * s));
+      if (ligMatRef) ligMatRef.opacity = fade * wVis;
+      ligandGroup.visible = wVis > 0.001;
+      if (t >= T.wIn0 && t < T.ringGone) {
+        subject = ligandGroup; subjectAtoms = ligAtoms;
+        progress = clamp01((t - T.wRing0) / RING_T);
+        ringColor = t >= T.wRing1 ? RING_BLUE : RING_WHITE;
+        ringAlpha = wVis * (1 - smooth(clamp01((t - T.blue1) / 0.4)));
+        if (t >= T.wRing1) { labelText = 'Predicted High'; labelAlpha = smooth(clamp01((t - T.wRing1) / 0.25)) * ringAlpha; }
+      }
+      if (ligandOverlay && t >= T.app0 + 0.35 * (T.app1 - T.app0)) { ligandOverlay = false; ligandGroup.traverse((o) => o.layers.set(0)); }
+      const bound = s >= 1;
+      // hydrogen bonds grow in after binding
+      const hbT = clamp01((t - T.app1) / 0.7);
+      const hbMat = (hbGroup as any).mat as THREE.MeshBasicMaterial | undefined;
+      if (hbMat) hbMat.opacity = (0.55 + 0.35 * Math.sin(t * 2.2)) * smooth(hbT) * fade;
+      // pocket flash and pulse ring on docking
+      if (pocketMat) pocketMat.emissiveIntensity = 0.9 * Math.exp(-Math.max(0, t - T.app1) * 1.6) * (t > T.app1 ? 1 : 0);
+      if (pulse) { const pt = Math.max(0, t - T.app1); pulse.scale.setScalar(6 + pt * 11); (pulse.material as THREE.SpriteMaterial).opacity = 0.45 * Math.exp(-pt * 1.4) * (t > T.app1 ? 1 : 0) * fade; }
+      if (haloMat) haloMat.opacity = (0.12 + 0.08 * (bound ? 0.5 + 0.5 * Math.sin(t * 1.5) : 0)) * fade * wVis;
+      // 점선 원: 지금 심사 중인 분자 둘레에 카메라를 향한 원을 위에서부터 시계 방향으로 그린다
+      if (ring) {
+        if (subject && ringAlpha > 0.001) {
+          // 반지름: 지금 보이는 실루엣(원자들을 카메라 평면에 투영)의 최대 거리 + 여유. 분자가 돌면 원도 숨 쉬듯 따라간다.
+          subject.updateMatrixWorld();
+          let maxR = 0;
+          for (const a of subjectAtoms) {
+            tmpA.copy(a).applyMatrix4(subject.matrixWorld).sub(subject.position);
+            const rx = tmpA.dot(camRight), ry = tmpA.dot(camUp); maxR = Math.max(maxR, Math.hypot(rx, ry));
+          }
+          ringR += (maxR + (isWide() ? 0.6 : 0.4) - ringR) * Math.min(1, dt * 4);
+          const R = ringR;
+          for (let k = 0; k < RING_N; k++) {
+            if ((k + 0.5) / RING_N <= progress) {
+              const a = Math.PI / 2 - (k / RING_N) * Math.PI * 2;
+              tmpA.copy(subject.position).addScaledVector(camRight, Math.cos(a) * R).addScaledVector(camUp, Math.sin(a) * R);
+              place(ring, k, tmpA, ringColor);
+            } else park(ring, k);
+          }
+        } else for (let k = 0; k < RING_N; k++) park(ring, k);
+        ring.mat.opacity = ringAlpha * fade; touch(ring);
+      }
+      if (label) {
+        if (subject && labelAlpha > 0.001) {
+          tmpA.copy(subject.position).addScaledVector(camUp, ringR + 0.25).project(camera);
+          const sx = (tmpA.x + 1) / 2 * w, sy = (1 - tmpA.y) / 2 * h;
+          if (label.textContent !== labelText) { label.textContent = labelText; label.className = 'dock-label ' + (labelText === 'Predicted High' ? 'high' : 'low'); }
+          label.style.transform = `translate(${sx.toFixed(1)}px, ${(sy - 3).toFixed(1)}px) translate(-50%, -100%)`;
+          label.style.opacity = String(labelAlpha * fade);
+        } else label.style.opacity = '0';
+      }
+      renderer.clear();
+      camera.layers.set(0); renderer.render(scene, camera);
+      renderer.clearDepth();
+      camera.layers.set(OVERLAY); renderer.render(scene, camera);
+      camera.layers.set(0);
       if (!firstFrame) { firstFrame = true; poster?.classList.add('hide'); root!.classList.add('live'); }
     }
     requestAnimationFrame(frame);
