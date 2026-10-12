@@ -113,11 +113,11 @@ const typeShort: Record<string, string> = {
           <li class="reveal" style={`transition-delay:${i * 60}ms`}>
             <div class="pub-side">
               <span class="pub-year tnum">{p.year}</span>
-              <span class="pub-type">{typeShort[p.type] ?? p.type}</span>
+              {p.venue ? <span class="pub-venue">{p.venue}</span> : <span class="pub-type">{typeShort[p.type] ?? p.type}</span>}
             </div>
             <div class="pub-body">
               <h3 class="pub-title">{p.title}</h3>
-              <p class="pub-meta">{p.meta}</p>
+              <p class="pub-meta">{p.authors ?? p.meta}</p>
               <div class="pub-foot">
                 {p.award && <span class="pub-award">{p.award}</span>}
                 {p.links.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label}</a>)}
@@ -286,6 +286,7 @@ const typeShort: Record<string, string> = {
   .pub-side { display: grid; gap: 4px; align-content: start; padding-top: 4px; }
   .pub-year { font-size: 21px; line-height: 1; }
   .pub-type { font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .pub-venue { font-size: 14px; letter-spacing: 0.02em; color: var(--muted); } /* 학회·저널 약어(publications.json의 venue) */
   .pub-title { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.3; font-weight: 400; letter-spacing: -0.005em; text-wrap: pretty; }
   .pub-meta { margin: 6px 0 0; font-size: 14px; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .pub-foot { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 8px; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; }

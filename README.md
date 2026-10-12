@@ -21,7 +21,7 @@ All content lives in `src/data/`. Edit, commit and push to `main`; the site rede
 | --- | --- | --- |
 | Site text (tagline, about, recruiting, contact, partners, menu) | `src/data/site.ts` | `stats.partners` is the only hand-set number |
 | Members | `src/data/people.json` | Photos in `public/img/people/<slug>.jpg` (4:5); initials are shown if missing |
-| Publications and patents | `src/data/publications.json` | `featured: true` shows the item on the home page (newest 4) |
+| Publications and patents | `src/data/publications.json` | `featured: true` shows the item on the home page (newest 4); give those entries `authors` and a short `venue` (e.g. `MICCAI 2026`) |
 | Research areas and projects | `src/data/research.json` | `whatWeDo` = home cards, `projects` = Research page |
 | Awards | `src/data/awards.json` | Newest first |
 | Grants | `src/data/grants.json` | |

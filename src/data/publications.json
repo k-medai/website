@@ -52,7 +52,9 @@
   "award": "early accept, within top 9%",
   "links": [],
   "lang": "en",
-  "featured": true
+  "featured": true,
+  "authors": "Chan Lee, Dasom Noh, Minjy Suh, Hyewon Lee, Sunyoung Kwon*",
+  "venue": "MICCAI"
  },
  {
   "id": "p4",
@@ -322,7 +324,9 @@
    }
   ],
   "lang": "en",
-  "featured": true
+  "featured": true,
+  "authors": "Yeongyeong Son, Dasom Noh, Gyoungyoung Heo, Gyoung Jin Park, Sunyoung Kwon*",
+  "venue": "AAAI"
  },
  {
   "id": "p21",
@@ -499,7 +503,9 @@
    }
   ],
   "lang": "en",
-  "featured": true
+  "featured": true,
+  "authors": "Dong Seung Shin, Janghee Lee, Eunhye Kang, Dasom Noh, Jong-Ho Cheun, Jun-Hee Lee, Yeongyeong Son, Soong Jun Bae, Seok Won Kim, Jeong Eon Lee, Jonghan Yu, Byung-Joo Chae, Sunyoung Kwon, Han-Byoel Lee, Sung Gwe Ahn, Jai Min Ryu*",
+  "venue": "JAMA Netw Open"
  },
  {
   "id": "p34",
@@ -1318,7 +1324,9 @@
    }
   ],
   "lang": "en",
-  "featured": true
+  "featured": true,
+  "authors": "Dasol Hwang, Jinyoung Park, Sunyoung Kwon, Kyung-Min Kim, Jung-Woo Ha, Hyunwoo J Kim",
+  "venue": "NeurIPS"
  },
  {
   "id": "p82",
