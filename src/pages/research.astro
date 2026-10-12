@@ -59,15 +59,15 @@ const kindLabel: Record<string, string> = { paper: 'Paper', patent: 'Patent', se
 
 <style>
   .projects { padding-block: 10px 80px; }
-  .project { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 20px 72px; padding-block: clamp(44px, 6vw, 72px); border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; }
+  .project { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 20px 56px; padding-block: clamp(44px, 6vw, 72px); border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; }
   .project:last-child { border-bottom: 0; }
   .side { display: grid; gap: 16px; align-content: start; position: sticky; top: 100px; }
   .funding { margin: 0; font-size: 15px; color: var(--muted); }
   .side-label { display: block; font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
   .side-block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14.5px; line-height: 1.6; }
   .body { display: grid; gap: 26px; }
-  .body h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.2; max-width: 30ch; }
-  .sub { display: grid; gap: 8px; max-width: 70ch; }
+  .body h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.2; }
+  .sub { display: grid; gap: 8px; }
   .sub h3 { font-size: 20px; }
   .sub p { margin: 0; color: var(--muted); }
   .related { padding-top: 22px; border-top: 1px solid var(--rule); }
