@@ -96,13 +96,14 @@ const total = pubs.length;
   .list { padding-block: 10px 80px; }
   .year { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px 48px; padding-block: 40px; border-bottom: 1px solid var(--rule); }
   .year:last-of-type { border-bottom: 0; }
-  .year-h { font-size: clamp(34px, 4vw, 52px); font-weight: 400; letter-spacing: -0.02em; line-height: 1; position: sticky; top: 150px; align-self: start; }
+  .year-h { font-size: clamp(34px, 4vw, 52px); font-weight: 400; letter-spacing: -0.02em; line-height: 1; position: sticky; top: calc(var(--pub-sticky, 231px) + 20px); align-self: start; } /* 고정 헤더+필터 바 바로 아래에 붙는다 */
   .year-body { display: grid; gap: 30px; }
   .tgroup h3 { margin-bottom: 8px; }
   .items { list-style: none; margin: 0; padding: 0; display: grid; }
   .item { padding: 16px 0; border-top: 1px solid var(--rule); display: grid; gap: 6px; scroll-margin-top: max(0px, calc(var(--pub-sticky, 231px) + 20px - 88px)); } /* 앵커(#p12)로 올 때 고정 헤더+필터 바(--pub-sticky: 스크립트가 실측) 아래 20px에 놓이게. html의 scroll-padding-top 88px은 빼 준다 */
-  .item:target { animation: pub-target 3.2s ease-out both; } /* 학회 Presented 링크 등으로 도착한 논문을 잠시 밝혀 준다 */
-  @keyframes pub-target { 0%, 45% { background: color-mix(in srgb, var(--link) 11%, transparent); box-shadow: 0 0 0 12px color-mix(in srgb, var(--link) 11%, transparent); } 100% { background: transparent; box-shadow: 0 0 0 12px transparent; } }
+  /* 학회 Presented 링크(/publications/#p3)로 도착한 논문은 해시가 남아 있는 동안 계속 밝혀 둔다(애니메이션이 아니라 정적 스타일: OS 동작 줄이기 설정에서도 보인다) */
+  .item:target { background: rgba(21, 101, 192, 0.09); box-shadow: 0 0 0 12px rgba(21, 101, 192, 0.09); border-top-color: transparent; }
+  @supports (color: color-mix(in srgb, red, blue)) { .item:target { background: color-mix(in srgb, var(--link) 9%, transparent); box-shadow: 0 0 0 12px color-mix(in srgb, var(--link) 9%, transparent); } }
   .t { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
   .title { font-size: 18px; line-height: 1.45; text-wrap: pretty; }
   .award { font-size: 14px; color: #0e8a94; white-space: nowrap; }
@@ -152,8 +153,5 @@ const total = pubs.length;
     const setSticky = () => { const sticky = getComputedStyle(root).position === 'sticky'; document.documentElement.style.setProperty('--pub-sticky', sticky ? `${(header?.offsetHeight ?? 0) + root.offsetHeight}px` : '0px'); };
     setSticky(); window.addEventListener('resize', setSticky);
   }
-  // 해시(#p12)로 들어오면 글꼴이 로드돼 레이아웃이 자리 잡은 뒤 한 번 더 맞춰 스크롤한다(앵커가 밀리지 않게)
-  const jumpToHash = () => { const id = decodeURIComponent(location.hash.slice(1)); const el = id ? document.getElementById(id) : null; if (el) el.scrollIntoView({ block: 'start' }); };
-  if (location.hash) document.fonts?.ready.then(() => requestAnimationFrame(jumpToHash));
-  window.addEventListener('hashchange', jumpToHash);
+  // 해시로 들어왔을 때의 재스크롤은 Base.astro가 처리한다(--pub-sticky는 그 전에 설정된다)
 </script>
