@@ -26,7 +26,7 @@ All content lives in `src/data/`. Edit, commit and push to `main`; the site rede
 | Awards | `src/data/awards.json` | Newest first |
 | Grants | `src/data/grants.json` | |
 | Seminars | `src/data/seminars.json` | See below |
-| Conferences | `src/data/conferences.json` | Photos in `public/img/conferences/<slug>/` are picked up automatically |
+| Conferences | `src/data/conferences.json` | Photos in `public/img/conferences/<slug>/` are picked up automatically (first file = lead photo); `papers` links to publication ids; `cover` (e.g. `50% 40%`) picks the visible part of a portrait lead photo |
 | Physical lab | `src/data/lablife.json` | `photos`: paths under `public/img/lablife/` |
 | Courses | `src/data/courses.json` | |
 | Logo and icons | `public/img/logo.png`, `public/favicon.ico`, `public/img/icon-*.png`, `public/apple-touch-icon.png` | Regenerate icons with `node scripts/icons.mjs` |
@@ -49,7 +49,7 @@ Student e-mail addresses are intentionally not published.
 }
 ```
 
-`type` is one of `International (Journal)`, `International (Conference)`, `Domestic (Journal)`, `Domestic (Conference)`, `Patent`. `year` is a string; use `"~2019"` for older items.
+`type` is one of `International (Journal)`, `International (Conference)`, `Domestic (Journal)`, `Domestic (Conference)`, `Patent`. `year` is a string; use `"~2019"` for older items. Every entry can be linked as `/publications/#<id>`.
 
 ### Photos
 

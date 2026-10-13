@@ -13,7 +13,9 @@ type Lab = { date: string; title: string; note?: string; photos?: string[] };
 type Slides = { drive?: string; file?: string; name?: string; ext?: string };
 type Seminar = { date: string; title: string; presenter?: string | null; slides?: Slides; thumb?: string; pages?: number };
 const labs = (lablife as Lab[]).map((l) => ({ ...l, photos: l.photos && l.photos.length ? l.photos : [] }));
-const confs = conferences.map((c) => ({ ...c, photos: photosIn(`conferences/${c.slug}`), papers: c.papers.map((id) => pubs.find((p) => p.id === id)).filter(Boolean) }));
+const confs = conferences.map((c) => ({ ...c, cover: (c as { cover?: string }).cover, photos: photosIn(`conferences/${c.slug}`), papers: c.papers.map((id) => pubs.find((p) => p.id === id)).filter(Boolean) }));
+// 첫(큰) 사진: 가로 사진은 실제 비율(2×2 칸과 같다), 세로 사진은 4:3로 잘라 보여 주되 conferences.json의 cover(object-position)로 보이는 영역을 정한다. 좁은 화면에서는 세로 사진을 원래 비율(--lead-nat)로 보여 준다.
+const leadStyle = (p: string, cover?: string) => { const d = dims(p); const portrait = d.height > d.width; return `--lead-ar: ${portrait ? '4 / 3' : `${d.width} / ${d.height}`}; --lead-nat: ${d.width} / ${d.height}${cover ? `; object-position: ${cover}` : ''}`; };
 const sems = seminars as Seminar[];
 const awardYears = [...new Set(awards.map((a) => a.year))].sort((a, b) => b - a);
 const semYears = [...new Set(sems.map((s) => s.date.slice(0, 4)))].sort((a, b) => Number(b) - Number(a));
@@ -87,7 +89,7 @@ const extLabel = (s?: Slides) => (s?.ext ?? (s?.file ? s.file.split('.').pop() :
             </header>
             {c.photos.length > 0 ? (
               <div class:list={['photos', `n${Math.min(c.photos.length, 4)}`]}>
-                {c.photos.slice(0, 9).map((p, k) => <img src={p} alt={`${c.name} ${c.location} 사진 ${k + 1}`} loading="lazy" decoding="async" width={dims(p).width} height={dims(p).height} style={k === 0 && c.photos.length >= 3 ? `aspect-ratio: ${dims(p).width} / ${dims(p).height}` : undefined} />)}
+                {c.photos.slice(0, 9).map((p, k) => <img src={p} alt={`${c.name} ${c.location} 사진 ${k + 1}`} loading="lazy" decoding="async" width={dims(p).width} height={dims(p).height} style={k === 0 && c.photos.length >= 3 ? leadStyle(p, c.cover) : undefined} />)}
               </div>
             ) : (
               import.meta.env.DEV && <p class="dev-note">사진 폴더 <code>public/img/conferences/{c.slug}/</code> 에 사진을 넣으면 여기에 표시됩니다 (개발 모드에서만 보이는 안내).</p>
@@ -267,7 +269,7 @@ const extLabel = (s?: Slides) => (s?.ext ?? (s?.file ? s.file.split('.').pop() :
   .lab header p { margin: 0; }
   .photos { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 10px; }
   .photos img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--paper-2); filter: saturate(0.95); }
-  .photos img:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; } /* 큰 사진의 실제 비율은 인라인 style로 명시(로드 전에도 같은 높이 → 앵커 이동이 어긋나지 않는다) */
+  .photos img:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: var(--lead-ar, auto); } /* 큰 사진의 비율은 인라인 --lead-ar(가로 사진은 실제 비율, 세로 사진은 4:3)로 명시(로드 전에도 같은 높이 → 앵커 이동이 어긋나지 않는다) */
   .photos.n1 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
   .photos.n1 img:first-child { grid-row: auto; aspect-ratio: 3 / 2; }
   .photos.n2 { grid-template-columns: 1fr 1fr; }
@@ -275,7 +277,7 @@ const extLabel = (s?: Slides) => (s?.ext ?? (s?.file ? s.file.split('.').pop() :
   @media (max-width: 860px) {
     .lab { grid-template-columns: 1fr; } .lab header { position: static; }
     .photos, .photos.n1, .photos.n2 { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
-    .photos img:first-child, .photos.n1 img:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 3 / 2; }
+    .photos img:first-child, .photos.n1 img:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: var(--lead-nat, 3 / 2); object-position: 50% 50%; }
     .photos.n2 img:first-child { grid-column: auto; aspect-ratio: 4 / 3; }
   }
 </style>

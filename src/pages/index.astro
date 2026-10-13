@@ -17,7 +17,7 @@ const patents = pubs.filter((p) => p.type === 'Patent');
 const featured = pubs.filter((p) => p.featured).sort((a, b) => Number(b.year) - Number(a.year)).slice(0, 4); // 홈에는 분야 최상위 학회·저널 4편만
 const latestAwards = awards.slice(0, 4);
 const latestSeminars = seminars.slice(0, 4);
-const confs = conferences.map((c) => ({ ...c, photos: photosIn(`conferences/${c.slug}`) }));
+const confs = conferences.map((c) => ({ ...c, cover: (c as { cover?: string }).cover, photos: photosIn(`conferences/${c.slug}`) })); // cover: 세로 사진을 4:3로 자를 때의 초점(object-position)
 const byDateDesc = (a: string, b: string) => b.slice(0, 10).localeCompare(a.slice(0, 10)); // 'YYYY.MM.DD'로 시작하는 날짜 문자열 기준 최신순
 const latestConfs = confs.filter((c) => c.photos.length).sort((a, b) => byDateDesc(a.dates, b.dates)).slice(0, 2); // 홈에는 사진이 있는 최신 학회 2건, 사진 1장씩
 type Lab = { date: string; title: string; photos?: string[] };
@@ -162,7 +162,7 @@ const typeShort: Record<string, string> = {
             <div class="lab-cards">
               {latestConfs.map((c) => (
                 <a class="lab-card" href="/activity/#conferences">
-                  <img src={c.photos[0]} alt={`${c.name}, ${c.location}`} width="800" height="600" loading="lazy" decoding="async" />
+                  <img src={c.photos[0]} alt={`${c.name}, ${c.location}`} width="800" height="600" loading="lazy" decoding="async" style={c.cover ? `object-position: ${c.cover}` : undefined} />
                   <span class="lab-cap"><span class="tnum muted">{c.dates}</span><b>{c.name} · {c.location}</b></span>
                 </a>
               ))}

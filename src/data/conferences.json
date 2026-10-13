@@ -6,6 +6,7 @@
     "location": "Strasbourg, France",
     "dates": "2026.09.27 – 10.01",
     "papers": ["p3"],
+    "cover": "50% 72%",
     "note": ""
   },
   {
@@ -15,6 +16,7 @@
     "location": "Lyon, France",
     "dates": "2026.08.17 – 08.21",
     "papers": ["p4"],
+    "cover": "50% 40%",
     "note": ""
   },
   {
