@@ -203,6 +203,17 @@
   "featured": false
  },
  {
+  "id": "p105",
+  "year": "2026",
+  "type": "Domestic (Conference)",
+  "title": "Early Sepsis Diagnosis via a Machine Learning-Enabled Fluorescent Nanosensor Array",
+  "meta": "박유니, 이재강, 권선영*, 정상화*, 2026년도 한국화학공학회 봄 총회 및 학술대회, April 2026",
+  "award": null,
+  "links": [],
+  "lang": "en",
+  "featured": false
+ },
+ {
   "id": "p14",
   "year": "2026",
   "type": "Patent",
@@ -299,6 +310,22 @@
    {
     "label": "link",
     "href": "https://ieeexplore.ieee.org/document/10844080"
+   }
+  ],
+  "lang": "en",
+  "featured": false
+ },
+ {
+  "id": "p104",
+  "year": "2025",
+  "type": "International (Conference)",
+  "title": "Early Sepsis Diagnosis via a Machine Learning-Enabled Fluorescent Nanosensor Array",
+  "meta": "Yuni Park, Jaekang Lee, Sunyoung Kwon*, Sanghwa Jeong*, The 69th Fullerenes-Nanotubes-Graphene General Symposium (FNTG69), Taipei, Taiwan, September 2025",
+  "award": null,
+  "links": [
+   {
+    "label": "link",
+    "href": "https://fntg.jp/symp/fntg69/program_e.php"
    }
   ],
   "lang": "en",
