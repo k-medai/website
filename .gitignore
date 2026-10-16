@@ -24,3 +24,7 @@ yarn-error.log*
 # 원본 사진(대용량)은 저장소에 올리지 않음
 assets/
 dist-preview/
+
+# Claude Code personal files
+.claude/settings.local.json
+CLAUDE.local.md

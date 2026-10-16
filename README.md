@@ -15,7 +15,7 @@ Requires Node 22 or later.
 
 ## Editing content
 
-All content lives in `src/data/`. Edit, commit and push to `main`; the site redeploys automatically.
+All content lives in `src/data/`. Edit, commit and push to `main`; the site redeploys automatically. If you use Claude Code, it follows the rules in `CLAUDE.md`.
 
 | Content | File | Notes |
 | --- | --- | --- |
