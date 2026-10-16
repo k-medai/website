@@ -11,7 +11,7 @@ npm run build     # writes dist/
 npm run preview
 ```
 
-Requires Node 22 or later. Install commands for a new computer are in `CLAUDE.md`.
+Requires Git and Node 22 or later on the PC; install commands are in `CLAUDE.md`.
 
 ## Editing content
 

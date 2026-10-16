@@ -12,13 +12,13 @@ This is the website of the Medical AI Lab (PNU MAIL), https://www.k-medai.com. I
 - Commit messages: one short English line, e.g. `Add KSC 2026 papers` or `Update Dasom Noh photo`. No trailers, no `Co-Authored-By` lines, no mention of Claude or AI.
 - Push to `main` only. Do not create branches, pull requests or tags, and never force-push. Do not touch the GitHub Pages settings or DNS.
 
-## Setup on a new computer
+## Setup: Git and Node 22 or later on the PC
 
-Check first: `git --version`, `node --version` (must be 22 or newer) and `npm --version`. Install whatever is missing, then open a new terminal so that PATH is updated.
+The PC needs Git and Node.js 22 or later. Check with `git --version`, `node --version` and `npm --version`; install whatever is missing, then open a new terminal so that PATH is updated.
 
 - Windows (PowerShell): `winget install --id Git.Git -e` and `winget install --id OpenJS.NodeJS.LTS -e`. Accept the permission prompt if Windows shows one.
 - macOS: `brew install git node` (install Homebrew from https://brew.sh if `brew` is missing), or download the installers from https://git-scm.com and https://nodejs.org (LTS).
-- Set the Git identity once, with the name and the e-mail of the GitHub account that was invited to this repository: `git config --global user.name "Name"` and `git config --global user.email "email"`.
+- Set the Git identity once, with the name and e-mail of your GitHub account: `git config --global user.name "Name"` and `git config --global user.email "email"`.
 - Get the site: `git clone https://github.com/k-medai/website.git`, then `cd website` and `npm install`.
 - The first `git push` opens a browser window to sign in to GitHub (Git Credential Manager is included in Git for Windows; on macOS run `brew install --cask git-credential-manager` first, or use a personal access token as the password). Never store tokens or passwords in this repository.
 - `npm run dev` shows the site at http://localhost:4321 for checking before pushing.
