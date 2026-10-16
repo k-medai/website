@@ -39,7 +39,8 @@ The PC needs Git and Node.js 22 or later. Check with `git --version`, `node --ve
 
 ## Checklist for every change
 
-1. Edit the data file(s) and any generated images.
-2. `npm run build` passes.
-3. `git add` the changed files, commit with a short English message, `git push origin main`.
-4. Tell the user which page to check (e.g. https://www.k-medai.com/publications/) and that it goes live in about a minute.
+1. `git pull origin main` first, so you start from the latest version (someone else may have pushed).
+2. Edit the data file(s) and any generated images.
+3. `npm run build` passes.
+4. `git add` the changed files, commit with a short English message, `git push origin main`.
+5. Tell the user which page to check (e.g. https://www.k-medai.com/publications/) and that it goes live in about a minute.
